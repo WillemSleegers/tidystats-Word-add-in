@@ -32,7 +32,7 @@ If you later change the output contained within the JSON file, you can update th
 
 ## Testing
 
-As mentioned before, the add-in is still under development. This means I can use your help to identify bugs and feedback the add-in before I publish the add-in for all to use. 
+As mentioned before, the add-in is still under development. This means I can use your help with identifying bugs and feedbacking the add-in before I publish the add-in for all to use. 
 
 You can help by performing the following three steps:
 1. Install the add-in
