@@ -16,6 +16,10 @@
      padding: 0;
  }
  
+#fail-msg {
+    display: none;
+}
+
  .ms-welcome__header {
     padding: 20px;
     display: -webkit-flex;

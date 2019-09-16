@@ -1,87 +1,83 @@
-/*
- * Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the 
- # MIT license. See LICENSE in the project root for license information.
- */
 
 // Global variables ------------------------------------------------------------
 var data;
 
 // Word functions --------------------------------------------------------------
 
-
-  Office.onReady(function(info) {
-
+Office.onReady(function(info) {
+  // Check if a Word application is running; if not, show that tidystats failed 
+  // to load
   if (info.host === Office.HostType.Word) {
-    console.log("Word host found.")
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
 
     document.getElementById("fileInput").onchange = readFile;
     document.getElementById("update_button").onclick = updateStatistics;
     document.getElementById("search").onkeyup = collapse;
+  } else {
+    document.getElementById("sideload-msg").style.display = "none";
+    document.getElementById("fail-msg").style.display = "block";
   }
 });
 
 function insertStatistics() {
-
-  console.log(this);
+  // Save the identifier of the element that this function was attached to;
+  // this defines the specific output
   var id = this.id;
-  console.log(id);
-
+  
   Word.run(function (context) {
+    // Determine output
+    var output = retrieveStatistics(data, id);
+    
+    // Create a context control
+    var doc = context.document;
+    var selection = doc.getSelection();
+    var selection_font = selection.font;
+    //selection_font.load("name");
+    //selection_font.load("size");
 
-      // Determine output
-      var output = retrieveStatistics(data, id);
-      
-      // Create a context control
-      var doc = context.document;
-      var selection = doc.getSelection();
-      var content_control = selection.insertContentControl();
-      
-      // Set analysis specific information
-      content_control.tag = id;
-      content_control.title = id;
-      content_control.insertHtml(output, "Replace");
-      
-      return context.sync();
+    var content_control = selection.insertContentControl();
+
+    // Set analysis specific information
+    content_control.tag = id;
+    content_control.title = id;
+    content_control.insertHtml(output, "Replace");
+    
+    return context.sync();
   })
   .catch(function (error) {
-      console.log("Error: " + error);
-      if (error instanceof OfficeExtension.Error) {
-          console.log("Debug info: " + JSON.stringify(error.debugInfo));
-      }
+    console.log("Error: " + error);
+    if (error instanceof OfficeExtension.Error) {
+        console.log("Debug info: " + JSON.stringify(error.debugInfo));
+    }
   });
 }
 
-
 function updateStatistics() {
   return Word.run( function(context) {
-    console.log("updating statistics");
-
     // Get all the content controls
     var content_controls = context.document.contentControls;
     
     // Sync context and loop over all content controls
     context.load(content_controls, "items");
       return context.sync().then(function () {
-          var items = content_controls.items;
+        var items = content_controls.items;
 
-          for (var item in items) {
-            
-            var content_control = content_controls.items[item];
-            var tag = content_control.tag;
+        for (var item in items) {
+          // Extract the tag from the content control
+          var content_control = content_controls.items[item];
+          var tag = content_control.tag;
 
-            // Use the tag to identify the reported analysis
-            var id = tag;
-            var output = retrieveStatistics(data, id);
-            content_control.insertHtml(output, "Replace");
-          }
+          // Use the tag to identify the reported analysis
+          var id = tag;
+          var output = retrieveStatistics(data, id);
+
+          // Set the new output
+          content_control.insertHtml(output, "Replace");
+        }
       });
   });
 }
-
-
-
 
 // Read .json file function ----------------------------------------------------
 
@@ -129,9 +125,9 @@ function collapse() {
 
 // Statistics retrieval/formatting functions -----------------------------------
 
-
 function formatNumber(x, type) {
 
+  // Set type to 'standard' if no type is provided
   type = type || 'standard';
 
   var number;

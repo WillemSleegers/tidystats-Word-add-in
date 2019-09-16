@@ -1,14 +1,10 @@
-<!-- Copyright (c) Microsoft Corporation. All rights reserved. Licensed under the MIT License. -->
-<!-- This file shows how to design a first-run page that provides a welcome screen to the user about the features of the add-in. -->
-
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Contoso Task Pane Add-in</title>
+    <title>tidystats Word Add-in</title>
 
     <!-- Office JavaScript API -->
     <script type="text/javascript" src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
@@ -16,20 +12,28 @@
     <!-- For more information on Office UI Fabric, visit https://developer.microsoft.com/fabric. -->
     <link rel="stylesheet" href="https://static2.sharepointonline.com/files/fabric/office-ui-fabric-core/9.6.1/css/fabric.min.css"/>
 
-    <!-- Taskpane styles -->
+    <!-- Template styles -->
     <link href="taskpane.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body class="ms-font-m ms-welcome ms-Fabric">
+    
     <header class="ms-welcome__header ms-bgColor-neutralLighter">
-        <img width="150" height="150" src="../../assets/logo-filled.png" alt="Contoso" title="Contoso" />
+        <img width="150" height="201" src="assets/tidystats-main-logo.png" alt="tidystats-hex" title="tidystats-hex" />
     </header>
+    
     <section id="sideload-msg" class="ms-welcome__main">
         <h2 class="ms-font-xl">Loading...</h2>
     </section>
+
+    <section id="fail-msg" class="ms-welcome__main">
+        <h2 class="ms-font-xl">tidystats failed to load.</h2>
+    </section>
+    
     <main id="app-body" class="ms-welcome__main" style="display: none;">
 
         <input type="file" id="fileInput" accept="application/json,.json">
+        
         <div id="main">
             <h4>Analyses:</h4>
             <input type="text" id="search" placeholder="Search for analyses..." title="Type in a name">
@@ -37,9 +41,9 @@
             <h4>Actions:</h4>
             <span>Update reported statistics: </span><button type="button" id="update_button">Update</button>
         </div>
-
     </main>
-    <!-- Taskpane JavaScript -->
+
+    <!-- Office Taskpane JS -->
     <script type="text/javascript" src="taskpane.js"></script>
 </body>
 </html>
