@@ -12,6 +12,7 @@ Office.onReady(function(info) {
     document.getElementById("app-body").style.display = "flex";
 
     document.getElementById("fileInput").onchange = readFile;
+    
     document.getElementById("update_button").onclick = updateStatistics;
     document.getElementById("search").onkeyup = collapse;
   } else {
@@ -82,6 +83,8 @@ function updateStatistics() {
 // Read .json file function ----------------------------------------------------
 
 function readFile() {
+  console.log("Reading file");
+  console.log(this);
   // Read .json file
   var fileInput = document.getElementById('fileInput');
   var files = fileInput.files;
@@ -134,6 +137,8 @@ function formatNumber(x, type) {
 
   if (x == "Inf") {
     number = "&infin;";
+  } else if (x == "-Inf") {
+    number = "-&infin;"; // Would be nice to solve this issue with .includes and .replace at some point
   } else {
     number = parseFloat(x);
 

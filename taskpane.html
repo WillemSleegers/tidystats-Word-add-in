@@ -32,7 +32,8 @@
     
     <main id="app-body" class="ms-welcome__main" style="display: none;">
 
-        <input type="file" id="fileInput" accept="application/json,.json">
+        <!-- Create file input button; add onclick event to reset the file in case the user selects a file with the same name as the already loaded in file -->
+        <input type="file" id="fileInput" accept="application/json,.json" onclick="this.value=null;">
         
         <div id="main">
             <h4>Analyses:</h4>
