@@ -80,4 +80,4 @@ Once you have inserted some statistics, also try out the 'Update' button. Change
 
 ### Step 3
 
-Found a bug or got an idea about how to improve the add-in? Create an issue here on Github! If you need some help figuring out how this works, see this support [video](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on Twitter via @willemsleegers.
+Found a bug or got an idea about how to improve the add-in? Create an issue here on Github! If you need some help figuring out how this works, see this support [page](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on Twitter via @willemsleegers.
