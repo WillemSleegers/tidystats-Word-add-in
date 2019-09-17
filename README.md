@@ -35,6 +35,14 @@ If you later change the output contained within the JSON file, you can update th
 The following statistical tests are supported in R:
 
 Package: **stats**
+- `t.test()`
+- `cor.test()`
+- `chisq.test()`
+- `wilcox.test()`
+- `fisher.test()`
+- `oneway.test()`
+- `aov()`
+- `lm()`
 
 
 ## Testing
@@ -56,7 +64,7 @@ To install the add-in in Mac, see the 'Sideload an add-in in Office on Mac' sect
 
 > /Users/\<username\>/Library/Containers/com.microsoft.Word/Data/Documents/wef
 
-If the 'wef' folder does not exist yet, simply create it and put the manifest file inside. After doing that, you can access the add-in via the Insert ribbon > Add-ins > My Add-ins (click on the dropdown arrow; only then will you see the Developer add-ins). You should see the tidystats add-in in the list. Simply click on it and the add-in will open.
+If the 'wef' folder does not exist yet, simply create it and put the manifest file inside. After doing that, you can access the add-in via Insert ribbon > Add-ins > My Add-ins (click on the dropdown arrow; only then will you see the Developer add-ins). You should see the tidystats add-in in the list. Simply click on it and the add-in will open.
 
 That's it for Mac <3. 
 
@@ -68,7 +76,7 @@ To install the add-in in Windows, see [this](https://docs.microsoft.com/en-us/of
 
 Click on the 'Insert Statistics' button located in the Insert ribbon of the Word document. After opening the add-in, click on 'Choose File' and select the JSON file you created with the tidystats R package. If that succesfully loads, you should see a list of analyses and you can start playing with inserting statistics. If you hover over certain elements in the tables containing statistics, you will see that some elements are clickable (an underline appears). Click on these elements to insert statistics.
 
-Once you have inserted some statistics, also try out the 'Update' button. Change the analyses you ran previously, create a new JSON file, and update the statistics after loading in the new file.
+Once you have inserted some statistics, also try out the 'Update' button. Change the analyses you ran previously, create a new JSON file, and update the statistics after loading in the new file. For this to work, make sure that the identifiers for each analysis remain the same across both files.
 
 ### Step 3
 
