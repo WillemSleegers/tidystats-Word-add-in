@@ -26,9 +26,16 @@ The tidystats Word add-in is designed to accept a .JSON file created with the ti
 - [tidystats' Github page](https://github.com/WillemSleegers/tidystats)
 - [www.willemsleegers.com/tidystats](https://www.willemsleegers.com/tidystats.html)
 
-Once you have created a JSON file containing the output of statistical tests, you can use the add-in to insert the statistics in a Word document. The add-in can be found in the Insert pane in Word. Click on the 'Insert Statistics' button, which will open a taskpane on the right side of the document. Next, click on the 'Choose File' button and select the JSON file. You will now see a list of statistical analyses, represented by their identifiers. Click on an identifier to look at the statistics of the analysis and click on either a specific statistic or on the bold text to insert an entire APA line of statistics. 
+Once you have created a JSON file containing the output of statistical tests, you can use the add-in to insert the statistics in a Word document. The add-in can be found in the Insert ribbon in Word. Click on the 'Insert Statistics' button, which will open a taskpane on the right side of the document. Next, click on the 'Choose File' button and select the JSON file. You will now see a list of statistical analyses, represented by their identifiers. Click on an identifier to look at the statistics of the analysis and click on either a specific statistic or on the bold text to insert an entire APA line of statistics. 
 
 If you later change the output contained within the JSON file, you can update the numbers in the document by reading in the new file and clicking on the 'Update' button in the Actions section below the list of analyses.
+
+## Supported statistical tests
+
+The following statistical tests are supported in R:
+
+Package: **stats**
+
 
 ## Testing
 
@@ -45,11 +52,11 @@ First, download the manifest.xml file here from Github. This is the file that ne
 
 #### Mac
 
-To install the add-in in Mac, see the 'Sideload an add-in in Office on Mac' section [here](Sideload an add-in in Office on Mac). Briefly put, you need to put the manifest file in the following folder:
+To install the add-in in Mac, see the 'Sideload an add-in in Office on Mac' section [here](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/sideload-an-office-add-in-on-ipad-and-mac#sideload-an-add-in-in-office-on-mac). Briefly put, you need to put the manifest file in the following folder:
 
-> /Users/<username>/Library/Containers/com.microsoft.Word/Data/Documents/wef
+> /Users/\<username\>/Library/Containers/com.microsoft.Word/Data/Documents/wef
 
-If the 'wef' folder does not exist yet, simply create it and put the manifest file inside. After doing that, you can access the add-in via Insert > Add-ins > My Add-ins (click on the dropdown arrow). You should see the tidystats add-in in the list. Simply click on it and the add-in will open.
+If the 'wef' folder does not exist yet, simply create it and put the manifest file inside. After doing that, you can access the add-in via the Insert ribbon > Add-ins > My Add-ins (click on the dropdown arrow; only then will you see the Developer add-ins). You should see the tidystats add-in in the list. Simply click on it and the add-in will open.
 
 That's it for Mac <3. 
 
@@ -59,7 +66,7 @@ To install the add-in in Windows, see [this](https://docs.microsoft.com/en-us/of
 
 ### Step 2
 
-Click on the 'Insert Statistics' button located in the Insert pane of the Word document. After opening the add-in, click on 'Choose File' and select the JSON file you created with the `tidystats` R package. If that succesfully loads, you should see a list of analyses and you can start playing with inserting statistics. If you hover over certain elements in the tables containing statistics, you will see that some elements are clickable (an underline appears). Click on these elements to insert statistics.
+Click on the 'Insert Statistics' button located in the Insert ribbon of the Word document. After opening the add-in, click on 'Choose File' and select the JSON file you created with the tidystats R package. If that succesfully loads, you should see a list of analyses and you can start playing with inserting statistics. If you hover over certain elements in the tables containing statistics, you will see that some elements are clickable (an underline appears). Click on these elements to insert statistics.
 
 Once you have inserted some statistics, also try out the 'Update' button. Change the analyses you ran previously, create a new JSON file, and update the statistics after loading in the new file.
 
