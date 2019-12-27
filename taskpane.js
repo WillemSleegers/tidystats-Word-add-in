@@ -1,5 +1,19 @@
 
+// Debugging
+var instantly_load_data = false;
+
+function instantlyLoadData() {
+  console.log("Instantly loading data");
+  
+  var text = '{"m":{"method":"Linear mixed model","REML_criterion_at_convergence":1743.6283,"convergence_code":0,"random_effects":{"N":180,"groups":[{"name":"Subject","N":18,"variances":[{"name":"(Intercept)","statistics":{"var":611.8976,"SD":24.7366}},{"name":"Days","statistics":{"var":35.0811,"SD":5.9229}}],"correlations":[{"names":["(Intercept)","Days"],"statistics":{"r":0.0656}}]},{"name":"Residual","variances":[{"statistics":{"var":654.9408,"SD":25.5918}}]}]},"fixed_effects":{"coefficients":[{"name":"(Intercept)","statistics":{"estimate":251.4051,"SE":6.8238,"df":17.0052,"statistic":{"name":"t","value":36.8425},"p":1.1582E-17}},{"name":"Days","statistics":{"estimate":10.4673,"SE":1.546,"df":16.9953,"statistic":{"name":"t","value":6.7707},"p":3.273E-6}}],"correlations":[{"names":["(Intercept)","Days"],"statistics":{"r":-0.1375}}]},"package":{"name":"lme4","version":"1.1-21"}},"fm":{"method":"Linear mixed model","REML_criterion_at_convergence":2705.5037,"convergence_code":0,"random_effects":{"N":648,"groups":[{"name":"Consumer:Product","N":324,"variances":[{"name":"(Intercept)","statistics":{"var":3.1622,"SD":1.7783}}]},{"name":"Consumer","N":81,"variances":[{"name":"(Intercept)","statistics":{"var":0.3756,"SD":0.6129}}]},{"name":"Residual","variances":[{"statistics":{"var":1.6675,"SD":1.2913}}]}]},"fixed_effects":{"coefficients":[{"name":"(Intercept)","statistics":{"estimate":5.849,"SE":0.2843,"df":322.3361,"statistic":{"name":"t","value":20.5742},"p":1.1733E-60}},{"name":"Gender2","statistics":{"estimate":-0.2443,"SE":0.2606,"df":79,"statistic":{"name":"t","value":-0.9375},"p":0.3514}},{"name":"Information2","statistics":{"estimate":0.1605,"SE":0.2029,"df":320.0004,"statistic":{"name":"t","value":0.791},"p":0.4296}},{"name":"Product2","statistics":{"estimate":-0.8272,"SE":0.3453,"df":339.5108,"statistic":{"name":"t","value":-2.3953},"p":0.0171}},{"name":"Product3","statistics":{"estimate":0.1481,"SE":0.3453,"df":339.5108,"statistic":{"name":"t","value":0.429},"p":0.6682}},{"name":"Product4","statistics":{"estimate":0.2963,"SE":0.3453,"df":339.5108,"statistic":{"name":"t","value":0.858},"p":0.3915}},{"name":"Information2:Product2","statistics":{"estimate":0.2469,"SE":0.287,"df":320.0004,"statistic":{"name":"t","value":0.8605},"p":0.3902}},{"name":"Information2:Product3","statistics":{"estimate":0.2716,"SE":0.287,"df":320.0004,"statistic":{"name":"t","value":0.9465},"p":0.3446}},{"name":"Information2:Product4","statistics":{"estimate":-0.358,"SE":0.287,"df":320.0004,"statistic":{"name":"t","value":-1.2477},"p":0.2131}}],"correlations":[{"names":["(Intercept)","Gender2"],"statistics":{"r":-0.4526}},{"names":["(Intercept)","Information2"],"statistics":{"r":-0.3569}},{"names":["(Intercept)","Product2"],"statistics":{"r":-0.6074}},{"names":["(Intercept)","Product3"],"statistics":{"r":-0.6074}},{"names":["(Intercept)","Product4"],"statistics":{"r":-0.6074}},{"names":["(Intercept)","Information2:Product2"],"statistics":{"r":0.2523}},{"names":["(Intercept)","Information2:Product3"],"statistics":{"r":0.2523}},{"names":["(Intercept)","Information2:Product4"],"statistics":{"r":0.2523}},{"names":["Gender2","Information2"],"statistics":{"r":-1.1265E-16}},{"names":["Gender2","Product2"],"statistics":{"r":1.3608E-14}},{"names":["Gender2","Product3"],"statistics":{"r":1.3608E-14}},{"names":["Gender2","Product4"],"statistics":{"r":1.3608E-14}},{"names":["Gender2","Information2:Product2"],"statistics":{"r":7.9653E-17}},{"names":["Gender2","Information2:Product3"],"statistics":{"r":7.9653E-17}},{"names":["Gender2","Information2:Product4"],"statistics":{"r":7.9653E-17}},{"names":["Information2","Product2"],"statistics":{"r":0.2938}},{"names":["Information2","Product3"],"statistics":{"r":0.2938}},{"names":["Information2","Product4"],"statistics":{"r":0.2938}},{"names":["Information2","Information2:Product2"],"statistics":{"r":-0.7071}},{"names":["Information2","Information2:Product3"],"statistics":{"r":-0.7071}},{"names":["Information2","Information2:Product4"],"statistics":{"r":-0.7071}},{"names":["Product2","Product3"],"statistics":{"r":0.5}},{"names":["Product2","Product4"],"statistics":{"r":0.5}},{"names":["Product2","Information2:Product2"],"statistics":{"r":-0.4155}},{"names":["Product2","Information2:Product3"],"statistics":{"r":-0.2077}},{"names":["Product2","Information2:Product4"],"statistics":{"r":-0.2077}},{"names":["Product3","Product4"],"statistics":{"r":0.5}},{"names":["Product3","Information2:Product2"],"statistics":{"r":-0.2077}},{"names":["Product3","Information2:Product3"],"statistics":{"r":-0.4155}},{"names":["Product3","Information2:Product4"],"statistics":{"r":-0.2077}},{"names":["Product4","Information2:Product2"],"statistics":{"r":-0.2077}},{"names":["Product4","Information2:Product3"],"statistics":{"r":-0.2077}},{"names":["Product4","Information2:Product4"],"statistics":{"r":-0.4155}},{"names":["Information2:Product2","Information2:Product3"],"statistics":{"r":0.5}},{"names":["Information2:Product2","Information2:Product4"],"statistics":{"r":0.5}},{"names":["Information2:Product3","Information2:Product4"],"statistics":{"r":0.5}}]},"package":{"name":"lme4","version":"1.1-21"}}}';
+
+  data = JSON.parse(text);
+
+  createAnalysesList(data);  
+}
+
 // Global variables ------------------------------------------------------------
+
 var data;
 
 // Word functions --------------------------------------------------------------
@@ -11,10 +25,24 @@ Office.onReady(function(info) {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
 
-    document.getElementById("fileInput").onchange = readFile;
+    document.getElementById("file").onchange = readFile;
+    document.getElementById("file").onclick = resetFile;
     
     document.getElementById("update_button").onclick = updateStatistics;
     document.getElementById("search").onkeyup = collapse;
+
+    document.getElementById("cite_1").onclick = insertInTextCitation;
+    document.getElementById("cite_2").onclick = insertFullCitation;
+
+    // Check settings to see whether a file was already opened
+    console.log("Loaded add-in");
+    var file = Office.context.document.settings.get('file_name');
+    var saved_data = Office.context.document.settings.get('data');
+
+    if (instantly_load_data) {
+      instantlyLoadData();
+    }
+
   } else {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("fail-msg").style.display = "block";
@@ -34,8 +62,8 @@ function insertStatistics() {
     var doc = context.document;
     var selection = doc.getSelection();
     var selection_font = selection.font;
-    //selection_font.load("name");
-    //selection_font.load("size");
+    selection_font.load("name");
+    selection_font.load("size");
 
     var content_control = selection.insertContentControl();
 
@@ -44,7 +72,12 @@ function insertStatistics() {
     content_control.title = id;
     content_control.insertHtml(output, "Replace");
     
-    return context.sync();
+    return context.sync()
+      .then(function () {
+        // Match the font and font size to the selection
+        content_control.font.name = selection_font.name;
+        content_control.font.size = selection_font.size;
+      });
   })
   .catch(function (error) {
     console.log("Error: " + error);
@@ -55,6 +88,7 @@ function insertStatistics() {
 }
 
 function updateStatistics() {
+
   return Word.run( function(context) {
     // Get all the content controls
     var content_controls = context.document.contentControls;
@@ -80,27 +114,223 @@ function updateStatistics() {
   });
 }
 
+function insertStatisticsTable() {
+  var id = this.id;
+  
+  // Split the id by $, which should give us the necessary information to figure
+  // out which statistic or statistics to retrieve
+  id_components = id.split("$");
+
+  // Get the identifier, which should be the second component
+  identifier = id_components[1];
+
+  // Retrieve the analysis and its method
+  var analysis = data[identifier]
+  var method = analysis.method;
+
+	return Word.run(function (context) {
+
+    var body = context.document.body;
+    var table;
+
+    // Determine table statistics
+    if (/t-test/.test(method)) {
+      table = createTTestWordTable(body, identifier, analysis);
+    } else if (/Linear regression/.test(method)) {
+      table = createRegressionWordTable(body, identifier, analysis);
+    }
+
+    return context.sync();
+  }).catch(function (e) {
+      console.log(e.message);
+  })
+}
+
+ 
+function createTTestWordTable (body, identifier, analysis) {
+  var statistics = analysis.statistics;
+  var data = [
+    ["", "t", "df", "p", "95% CI"],
+    ["name", "t-value", "df", "p-value", "CIs"]
+  ];
+
+  var table = body.insertTable(2, 5, Word.InsertLocation.end, data);
+
+  // Format cell spacing
+  table.verticalAlignment = "Center";
+  table.setCellPadding("Top", 4);
+  table.setCellPadding("Bottom", 4);
+  
+  // Format borders
+  table.getBorder("Top").width = 1;
+  table.getBorder("Bottom").width = 2;
+  table.getBorder("InsideVertical").type = "None";
+  table.getBorder("Left").type = "None";
+  table.getBorder("Right").type = "None";
+  
+  // Format cell content
+  table.getCell(0, 1).body.font.italic = true;
+  table.getCell(0, 2).body.font.italic = true;
+  table.getCell(0, 3).body.font.italic = true;
+
+  var cell_name = table.getCell(1, 0);
+  cell_name.value = analysis.data_name;
+
+  var cell_t = table.getCell(1, 1);
+  var cell_df = table.getCell(1, 2);
+  var cell_p = table.getCell(1, 3);
+  var cell_CI = table.getCell(1, 4);
+  
+  var content_control_t = cell_t.body.insertContentControl();
+  var content_control_df = cell_df.body.insertContentControl();
+  var content_control_p = cell_p.body.insertContentControl();
+  var content_control_CI = cell_CI.body.insertContentControl();
+  
+  content_control_t.tag = identifier + "$t";
+  content_control_t.title = identifier + "$t";
+  content_control_t.insertHtml(formatNumber(statistics.statistic.value), "Replace");
+
+  content_control_df.tag = identifier + "$df";
+  content_control_df.title = identifier + "$df";
+  content_control_df.insertHtml(formatNumber(statistics.df, "df"), "Replace");
+
+  content_control_p.tag = identifier + "$p";
+  content_control_p.title = identifier + "$p";
+  content_control_p.insertHtml(formatNumber(statistics.p, "p"), "Replace");
+
+  content_control_CI.tag = identifier + "$CI";
+  content_control_CI.title = identifier + "$CI";
+  content_control_CI.insertHtml(formatCIs(statistics.CI), "Replace");
+
+  return(table)
+}
+
+function createRegressionWordTable(body, identifier, analysis) {
+  var statistics = analysis.statistics;
+  var data = [["", "b", "SE", "t", "df", "p"]];
+
+  var coefficients = analysis.coefficients;
+
+  for (i in coefficients) {
+    data.push(["coefficient", "b-value", "SE-value", "t-value", "df-value", "p-value"]);
+  }
+
+  var table = body.insertTable(data.length, data[0].length, Word.InsertLocation.end, data);
+
+  // Format cell spacing
+  table.verticalAlignment = "Center";
+  table.setCellPadding("Top", 4);
+  table.setCellPadding("Bottom", 4);
+  
+  // Format borders
+  table.getBorder("Top").width = 1;
+  table.getBorder("Bottom").width = 2;
+  table.getBorder("InsideVertical").type = "None";
+  table.getBorder("InsideHorizontal").type = "None";
+  table.getBorder("Left").type = "None";
+  table.getBorder("Right").type = "None";
+
+  var top_row_bottom_border = table.rows.getFirst().getBorder("Bottom");
+  top_row_bottom_border.type = "Single";
+  top_row_bottom_border.width = 1;
+
+  // Format top row cells
+  table.getCell(0, 1).body.font.italic = true;
+  table.getCell(0, 2).body.font.italic = true;
+  table.getCell(0, 3).body.font.italic = true;
+  table.getCell(0, 4).body.font.italic = true;
+  table.getCell(0, 5).body.font.italic = true;
+
+  // Create a variable j to select the row of cells (using i throws an error)
+  var j = 0;
+
+  // Add content controls
+  for (i in coefficients) {
+    j++; 
+
+    var coefficient = coefficients[i];
+    var statistics = coefficient.statistics;
+
+    var cell_name = table.getCell(j, 0);
+    var cell_b = table.getCell(j, 1);
+    var cell_SE = table.getCell(j, 2);
+    var cell_t = table.getCell(j, 3);
+    var cell_df = table.getCell(j, 4);
+    var cell_p = table.getCell(j, 5);
+    
+    var name = coefficient["name"];
+    cell_name.value = name;
+
+    var content_control_b = cell_b.body.insertContentControl();
+    var content_control_SE = cell_SE.body.insertContentControl();
+    var content_control_t = cell_t.body.insertContentControl();
+    var content_control_df = cell_df.body.insertContentControl();
+    var content_control_p = cell_p.body.insertContentControl();
+    
+    content_control_b.tag = identifier + "$" + name + "$b";
+    content_control_b.title = identifier + "$" + name + "$b";
+    content_control_b.insertHtml(formatNumber(statistics.estimate), "Replace");
+
+    content_control_SE.tag = identifier + "$" + name + "$SE";
+    content_control_SE.title = identifier + "$" + name + "$SE";
+    content_control_SE.insertHtml(formatNumber(statistics.SE), "Replace");
+
+    content_control_t.tag = identifier + "$" + name + "$t";
+    content_control_t.title = identifier + "$" + name + "$t";
+    content_control_t.insertHtml(formatNumber(statistics.statistic.value), "Replace");
+
+    content_control_df.tag = identifier + "$" + name + "$df";
+    content_control_df.title = identifier + "$" + name + "$df";
+    content_control_df.insertHtml(formatNumber(statistics.df, "df"), "Replace");
+
+    content_control_p.tag = identifier + "$" + name + "$p";
+    content_control_p.title = identifier + "$" + name + "$p";
+    content_control_p.insertHtml(formatNumber(statistics.p, "p"), "Replace");
+  }
+
+  return(table)
+}
+
 // Read .json file function ----------------------------------------------------
 
 function readFile() {
-  console.log("Reading file");
-  console.log(this);
   // Read .json file
-  var fileInput = document.getElementById('fileInput');
+  var fileInput = document.getElementById('file');
   var files = fileInput.files;
   var file = fileInput.files[0];
   
+  // Update label
+  var label = document.getElementById("file_label");
+  label.innerHTML = 'File: ' + file.name;
+
   var reader = new FileReader();
   
   reader.onload = function(e) {
     var text = reader.result;
     data = JSON.parse(text);
-            
-    console.log(data);
+        
+    saveData(file.name, data);
     createAnalysesList(data);
   }
 
   reader.readAsText(file); 
+}
+
+function resetFile() {
+  this.value = null;
+}
+
+function saveData(file_name, statistics) {
+  Office.context.document.settings.set('file_name', file_name);
+  Office.context.document.settings.set('data', statistics);
+
+  Office.context.document.settings.saveAsync(function (asyncResult) {
+    if (asyncResult.status == Office.AsyncResultStatus.Failed) {
+        console.log('Settings save failed. Error: ' + asyncResult.error.message);
+    } else {
+        console.log('Settings saved.');
+    }
+  });
 }
 
 // Search related functions ----------------------------------------------------
@@ -182,6 +412,11 @@ function formatNumber(x, type) {
   return(number)
 }
 
+function formatCIs(CIs) {
+  var text = "[" + formatNumber(CIs.lower) + ", " + formatNumber(CIs.upper) + "]";
+  return(text)
+}
+
 function retrieveStatistic(statistics, statistic) {
 
 	var output;
@@ -189,7 +424,13 @@ function retrieveStatistic(statistics, statistic) {
 	if (statistic == "b") {
 		output = formatNumber(statistics.estimate);
 	} else if (statistic == "r") {
-		output = formatNumber(statistics.estimate);
+
+    if ("estimate" in statistics) {
+      output = formatNumber(statistics.estimate, statistic);  
+    } else {
+      output = formatNumber(statistics.r, statistic);  
+    }
+
 	} else if (statistic == "tau") {
 		output = formatNumber(statistics.estimate);
 	} else if (statistic == "rho") {
@@ -218,6 +459,8 @@ function retrieveStatistic(statistics, statistic) {
 		output = formatNumber(statistics.dfs.denominator_df, "df");
 	} else if (statistic == "p") {
 		output = formatNumber(statistics.p, "p");
+  } else if (statistic == "CI") {
+    output = formatCIs(statistics.CI);
 	} else if (statistic == "CI_lower") {
 		output = formatNumber(statistics.CI.lower);
 	} else if (statistic == "CI_upper") {
@@ -428,11 +671,11 @@ function retrieveStatistics(data, id) {
         var coefficient_name = id_components[1];
 
         // Retrieve the statistics
-		var i = 0;
-		while (coefficient_name != analysis.coefficients[i].name) {
-			i++;
-		}
-		var statistics = analysis.coefficients[i].statistics;
+    		var i = 0;
+    		while (coefficient_name != analysis.coefficients[i].name) {
+    			i++;
+    		}
+    		var statistics = analysis.coefficients[i].statistics;
 
         // Determine whether a single statistic or line of statistics should be
       	// created
@@ -444,6 +687,40 @@ function retrieveStatistics(data, id) {
         	output = createLinearModelCoefficientLine(statistics);
       	}
       }
+    } else if (/Linear mixed model/.test(method)) {
+
+      console.log(id_components);
+
+      // Check whether the user click on a fixed effect name
+      if (id_components[1] == "FE" & id_components.length == 4) {
+        
+        // Produce a line of output
+        var statistics = analysis.fixed_effects.coefficients[id_components[2]].statistics;
+        
+        output = createLinearMixedModelFixedEffectLine(statistics);
+      } else {
+        // Produce a single statistic output
+        statistic = id_components[id_components.length - 1];
+
+        if (id_components[1] == "RE") {
+          var group = analysis.random_effects.groups[id_components[2]];
+
+          if (statistic == "r") {
+            var statistics = group.correlations[id_components[4]].statistics;
+          } else {
+            var statistics = group.variances[id_components[4]].statistics;
+          }
+        } else {
+          if (statistic == "r") {
+            var statistics = analysis.fixed_effects.correlations[id_components[2]].statistics;
+          } else {
+            var statistics = analysis.fixed_effects.coefficients[id_components[2]].statistics;
+          }
+        }
+
+        output = retrieveStatistic(statistics, statistic);
+      }
+      
     } else if (/Descriptives/.test(method)) {
       
       // Check whether the descriptives are from a group or not
@@ -582,7 +859,23 @@ function createAnalysesList(data) {
           tables = createLinearModelTables(identifier, analysis);
           
           content.appendChild(tables[0]);
+
+          // Add insert table button
+          var insert_table_button = document.createElement("button");
+          insert_table_button.onclick = insertStatisticsTable;
+          insert_table_button.innerHTML = "Insert table";
+          insert_table_button.className = "insert_table_button";
+          insert_table_button.id = "table$" + identifier;
+          content.appendChild(insert_table_button);
+
           content.appendChild(tables[1]);
+      } else if (/Linear mixed model/.test(method)) {
+          // Create linear regression tables (coefficient and model table)
+          tables = createLinearMixedModelTables(identifier, analysis);
+          
+          for (var i in tables) {
+            content.appendChild(tables[i]);  
+          }
       } else if (/Descriptives/.test(method)) {
           
           // Create multiple tables; one for each variable
@@ -591,7 +884,9 @@ function createAnalysesList(data) {
 
       } else {
           console.log("not supported")
-      } 
+      }
+
+
 
       // Add collapse button and content
       div_analysis.appendChild(button);
@@ -628,6 +923,33 @@ function createStatisticsTable() {
   return(table)
 }
 
+function createGroupRow(name) {
+  // Create elements
+  var row = document.createElement("tr");
+  var cell = document.createElement("th");
+  var span_group = document.createElement("span");
+  var span_group_name = document.createElement("span");
+
+  // Set classes for CSS purposes
+  row.className = "row_group";
+
+  // Set column span to 2 since it needs to cover the statistics name and value cells
+  cell.colSpan = "2";
+
+  // Set spans
+  span_group.innerHTML = "Group: ";
+  span_group_name.innerHTML = name;
+
+  // Set cell content
+  cell.appendChild(span_group);
+  cell.appendChild(span_group_name);
+
+  // Add cell to row
+  row.appendChild(cell);
+
+  return(row)
+}
+
 function createNameRow(id, name) {
   // Create elements
   var row_name = document.createElement("tr");
@@ -641,26 +963,40 @@ function createNameRow(id, name) {
   // Set column span to 2 since it needs to cover the statistics name and value cells
   cell_name.colSpan = "2";
 
-  // Check if this is not a Residuals row (e.g., from an ANOVA)
-  if (name != "Residuals") {
-  	// Set the id we use to figure out what was clicked on
-    insert_link.id = id;
+  // Set the id we use to figure out what was clicked on
+  insert_link.id = id;
 
-    // Set the displayed text
-    insert_link.innerHTML = name;
+  // Set the displayed text
+  insert_link.innerHTML = name;
 
-    // Disable the link
-    insert_link.href = "javascript:void(0);";
+  // Disable the link
+  insert_link.href = "javascript:void(0);";
 
-    // Set the function to insert statistics
-    insert_link.onclick = insertStatistics;
+  // Set the function to insert statistics
+  insert_link.onclick = insertStatistics;
 
-    // Append children
-    cell_name.appendChild(insert_link);
-  } else {
-    cell_name.innerHTML = "Residuals";
-  }
+  // Append children
+  cell_name.appendChild(insert_link);
+  row_name.appendChild(cell_name);
 
+  return(row_name)
+}
+
+function createNameRowWithoutLink(name) {
+  // Create elements
+  var row_name = document.createElement("tr");
+  var cell_name = document.createElement("th");
+  
+  // Set classes for CSS purposes
+  row_name.className = "statistics_row_name";
+
+  // Set column span to 2 since it needs to cover the statistics name and value cells
+  cell_name.colSpan = "2";
+
+  // Set cell content
+  cell_name.innerHTML = name;
+
+  // Add cell to row
   row_name.appendChild(cell_name);
 
   return(row_name)
@@ -975,8 +1311,12 @@ function createANOVATable(identifier, analysis, group) {
     }
 
     // Create name row
-    var row_name = createNameRow(identifier_coefficient, coefficient.name);
-
+    if (coefficient.name != "Residuals") {
+      var row_name = createNameRow(identifier_coefficient, coefficient.name);
+    } else {
+      var row_name = createNameRowWithoutLink(coefficient.name);
+    }
+    
     // Add statistics rows
     // SS, df, MS
     var row_SS = createStatisticsRow(identifier_coefficient, "SS", coefficient.statistics.SS);
@@ -1031,7 +1371,7 @@ function createLinearModelTables(identifier, analysis) {
 
     // Add a caption
     var caption_coefficients = document.createElement("caption");
-    caption_coefficients.innerHTML = "Table: Coefficients";
+    caption_coefficients.innerHTML = "<span>Table:</span> Coefficients";
     caption_coefficients.style.textAlign = "left";
     table_coefficients.appendChild(caption_coefficients);
 
@@ -1044,14 +1384,14 @@ function createLinearModelTables(identifier, analysis) {
         var identifier_coefficient = identifier + "$" + coefficient.name;
 
         // Create name row
-  		var row_name = createNameRow(identifier_coefficient, coefficient.name);
+  		  var row_name = createNameRow(identifier_coefficient, coefficient.name);
 
         // Estimate row
         var row_estimate = createStatisticsRow(identifier_coefficient, "b", coefficient.statistics.estimate);
         var row_SE = createStatisticsRow(identifier_coefficient, "SE", coefficient.statistics.SE);
         var row_test_statistic = createStatisticsRow(identifier_coefficient, "t", coefficient.statistics.statistic.value);
         var row_df = createStatisticsRow(identifier_coefficient, "df", coefficient.statistics.df);
-     	var row_p = createStatisticsRow(identifier_coefficient, "p", coefficient.statistics.p);
+     	  var row_p = createStatisticsRow(identifier_coefficient, "p", coefficient.statistics.p);
 
         // Add rows to the coefficient table
         table_coefficients.appendChild(row_name);
@@ -1067,7 +1407,7 @@ function createLinearModelTables(identifier, analysis) {
 
     // Add a caption
     var caption_model = document.createElement("caption");
-    caption_model.innerHTML = "Table: Model fit";
+    caption_model.innerHTML = "<span>Table:</span> Model fit";
     caption_model.style.textAlign = "left";
     table_model.appendChild(caption_model);
 
@@ -1098,6 +1438,200 @@ function createLinearModelTables(identifier, analysis) {
     var tables = [];
     tables[0] = table_coefficients;
     tables[1] = table_model
+
+    return(tables)
+}
+
+function createLinearMixedModelTables(identifier, analysis) {
+    
+    // Create the random effects variances table
+    var table_random_effects_variances = createStatisticsTable()
+
+    // Add a caption
+    var caption_random_effects_variances = document.createElement("caption");
+    caption_random_effects_variances.innerHTML = "<span>Table: </span>Random Effects Variances";
+    caption_random_effects_variances.style.textAlign = "left";
+    table_random_effects_variances.appendChild(caption_random_effects_variances);
+
+    // Get the random effects groups
+    var groups = analysis.random_effects.groups;
+
+    // Loop over each group to get the variances
+    for (var i in groups) {
+      // Get the group statistics
+      var group = groups[i]
+
+      var row_group_name = createGroupRow(group.name);
+      table_random_effects_variances.appendChild(row_group_name);
+
+      // Get the variances of the terms
+      var variances = group.variances;
+
+      for (var j in variances) {
+        // Get the term
+        var term = variances[j];
+
+        // Set the identifier
+        var identifier_term = identifier + "$RE$" + i + "$" + group.name + "$" + j + "$" + term.name;
+
+        // Create name row
+        if (group.name != "Residual") {
+          var row_name = createNameRowWithoutLink(term.name);
+          table_random_effects_variances.appendChild(row_name);
+        }
+
+        // Create coefficient statistics rows
+        var row_variance = createStatisticsRow(identifier_term, "var", term.statistics.var);
+        var row_SD = createStatisticsRow(identifier_term, "SD", term.statistics.SD);
+        
+        // Add rows
+        table_random_effects_variances.appendChild(row_variance);
+        table_random_effects_variances.appendChild(row_SD);
+      }
+    }
+
+    // Create the random effects correlations table, if there are any
+    var random_correlations_found = false;
+    var table_random_effects_correlations = createStatisticsTable()
+
+    // Add a caption
+    var caption_random_effects_correlations = document.createElement("caption");
+    caption_random_effects_correlations.innerHTML = "<span>Table: </span>Random Effects Correlations";
+    caption_random_effects_correlations.style.textAlign = "left";
+    table_random_effects_correlations.appendChild(caption_random_effects_correlations);
+
+    // Get the random effects groups
+    var groups = analysis.random_effects.groups;
+
+    // Loop over each group to get the correlations, if there are any
+    for (var i in groups) {
+      // Get the group statistics
+      var group = groups[i]
+
+      if ("correlations" in group) {
+        var random_correlations_found = true;
+
+        var row_group_name = createNameRowWithoutLink(group.name);
+        table_random_effects_correlations.appendChild(row_group_name);
+
+        // Get the correlations of the terms
+        var random_correlations = group.correlations;
+
+        for (var j in random_correlations) {
+          // Get the correlation pair
+          var pair = random_correlations[j];
+
+          // Create a name for the pair
+          var pair_name = pair.names[0] + " - " + pair.names[1]
+
+          // Set the identifier
+          var identifier_term = identifier + "$RE$" + i + "$" + group.name + "$" + j + "$" + pair_name;
+
+          // Create name row
+          var row_name = createNameRowWithoutLink(pair_name);
+          table_random_effects_correlations.appendChild(row_name);
+
+          // Create coefficient statistics rows
+          var row_r = createStatisticsRow(identifier_term, "r", pair.statistics.r);
+          
+          // Add row
+          table_random_effects_correlations.appendChild(row_r);
+        }
+      }
+    }
+
+    // Create the fixed effects coefficients table
+    var table_fixed_effects_coefficients = createStatisticsTable()
+
+    // Add a caption
+    var caption_fixed_effects_coefficients = document.createElement("caption");
+    caption_fixed_effects_coefficients.innerHTML = "<span>Table: </span>Fixed Effects Coefficients";
+    caption_fixed_effects_coefficients.style.textAlign = "left";
+    table_fixed_effects_coefficients.appendChild(caption_fixed_effects_coefficients);
+
+    // Get the coefficient statistics
+    var coefficients = analysis.fixed_effects.coefficients;
+
+    // Create coefficient rows
+    for (var i in coefficients) {
+
+        var coefficient = coefficients[i];
+
+        // Set the identifier
+        var identifier_coefficient = identifier + "$FE$" + i + "$" + coefficient.name;
+
+        // Create name row
+        var row_name = createNameRow(identifier_coefficient, coefficient.name);
+
+        // Create coefficient statistics rows
+        var row_estimate = createStatisticsRow(identifier_coefficient, "b", coefficient.statistics.estimate);
+        var row_SE = createStatisticsRow(identifier_coefficient, "SE", coefficient.statistics.SE);
+        var row_test_statistic = createStatisticsRow(identifier_coefficient, "t", coefficient.statistics.statistic.value);
+        
+        // Add row
+        table_fixed_effects_coefficients.appendChild(row_name);
+        table_fixed_effects_coefficients.appendChild(row_estimate);
+        table_fixed_effects_coefficients.appendChild(row_SE);
+        table_fixed_effects_coefficients.appendChild(row_test_statistic);
+
+        // Optionally, add a df and p-value row
+        if ("df" in coefficient.statistics) {
+          var row_df = createStatisticsRow(identifier_coefficient, "df", coefficient.statistics.df);  
+          table_fixed_effects_coefficients.appendChild(row_df);
+        }
+        
+        if ("p" in coefficient.statistics) {
+          var row_p = createStatisticsRow(identifier_coefficient, "p", coefficient.statistics.p);  
+          table_fixed_effects_coefficients.appendChild(row_p); 
+        }
+    }
+
+    // Create the fixed effects correlations table, if there are any
+    var fixed_correlations_found = false;
+    var table_fixed_effects_correlations = createStatisticsTable()
+
+    // Add a caption
+    var caption_fixed_effects_correlations = document.createElement("caption");
+    caption_fixed_effects_correlations.innerHTML = "<span>Table: </span>Fixed Effects Correlations";
+    caption_fixed_effects_correlations.style.textAlign = "left";
+    table_fixed_effects_correlations.appendChild(caption_fixed_effects_correlations);
+
+    // Get the coefficient correlations
+    if ("correlations" in analysis.fixed_effects) {
+      var fixed_correlations_found = true;
+      var fixed_correlations = analysis.fixed_effects.correlations;
+
+      // Loop over each correlation
+      for (var i in fixed_correlations) {
+        // Get the term
+        var pair = fixed_correlations[i];
+        var pair_name = pair.names[0] + " - " + pair.names[1]
+        
+        // Set the identifier
+        var identifier_term = identifier + "$FE$" + i + "$" + pair_name;
+
+        // Create name row
+        var row_name = createNameRowWithoutLink(pair_name);
+        table_fixed_effects_correlations.appendChild(row_name);
+
+        // Create coefficient statistics rows
+        var row_r = createStatisticsRow(identifier_term, "r", pair.statistics.r);
+        
+        // Add row
+        table_fixed_effects_correlations.appendChild(row_r);
+      }
+    }
+
+    // Combine tables
+    var tables = [];
+    tables.push(table_random_effects_variances);
+    if (random_correlations_found) {
+      tables.push(table_random_effects_correlations);
+    }
+    tables.push(table_fixed_effects_coefficients);
+    if (fixed_correlations_found) {
+      tables.push(table_fixed_effects_correlations);
+    }
 
     return(tables)
 }
@@ -1375,6 +1909,35 @@ function createLinearModelModelFitLine(statistics) {
   return(output) 
 }
 
+function createLinearMixedModelFixedEffectLine(statistics) {
+  var b, SE, t, df, p, output;
+
+  estimate = formatNumber(statistics.estimate);
+  SE = formatNumber(statistics.SE);
+  statistic = formatNumber(statistics.statistic.value);
+  
+  if ("df" in statistics) {
+    df = formatNumber(statistics.df, "df");
+    p = formatNumber(statistics.p, "p");
+
+    if (p == "< .001") {
+      output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + ", <i>t</i>(" + 
+        df + ") = " + statistic + ", <i>p</i> " + p;
+    } else {
+      output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + ", <i>t</i>(" + 
+        df + ") = " + statistic + ", <i>p</i> = " + p;
+    }
+  } else {
+    if (p == "< .001") {
+      output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + ", <i>t</i> = " + statistic;
+    } else {
+      output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + ", <i>t</i> = " + statistic;
+    }
+  }
+  
+  return(output) 
+}
+
 function createDescriptivesLine(statistics) {
   var M, SD, output;
  
@@ -1384,4 +1947,70 @@ function createDescriptivesLine(statistics) {
   output = "(<i>M</i> = " + M + ", <i>SD</i> = " + SD + ")";
 
   return(output)
+}
+
+function insertInTextCitation() {
+  
+  Word.run(function (context) {
+    
+    var doc = context.document;
+    var originalRange = doc.getSelection();
+    originalRange.insertText("(Sleegers, 2020)", "End");
+
+    return context.sync();
+
+    // Create a context control
+    //var doc = context.document;
+    //var selection = doc.getSelection();
+    //var selection_font = selection.font;
+    //selection_font.load("name");
+    //selection_font.load("size");
+
+    
+    //return context.sync()
+    //  .then(function () {
+    //    // Match the font and font size to the selection
+    //   content_control.font.name = selection_font.name;
+    //    content_control.font.size = selection_font.size;
+    //  });
+  })
+  .catch(function (error) {
+    console.log("Error: " + error);
+    if (error instanceof OfficeExtension.Error) {
+        console.log("Debug info: " + JSON.stringify(error.debugInfo));
+    }
+  });
+}
+
+function insertFullCitation() {
+  
+  Word.run(function (context) {
+    
+    var doc = context.document;
+    var originalRange = doc.getSelection();
+    originalRange.insertText("Sleegers, W.W.A. (2020) tidystats: Combine output of statistical tests. R package version 0.4. https://CRAN.R-project.org/package=tidystats", "End");
+
+    return context.sync();
+
+    // Create a context control
+    //var doc = context.document;
+    //var selection = doc.getSelection();
+    //var selection_font = selection.font;
+    //selection_font.load("name");
+    //selection_font.load("size");
+
+    
+    //return context.sync()
+    //  .then(function () {
+    //    // Match the font and font size to the selection
+    //   content_control.font.name = selection_font.name;
+    //    content_control.font.size = selection_font.size;
+    //  });
+  })
+  .catch(function (error) {
+    console.log("Error: " + error);
+    if (error instanceof OfficeExtension.Error) {
+        console.log("Debug info: " + JSON.stringify(error.debugInfo));
+    }
+  });
 }
