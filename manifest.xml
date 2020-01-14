@@ -8,7 +8,7 @@
   <Description DefaultValue="Reproducibly report statistics."/>
   <IconUrl DefaultValue="https://www.bayesiansungod.com/assets/icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://www.bayesiansungod.com/assets/icon-80.png"/>
-  <SupportUrl DefaultValue="https://www.willemsleegers.com"/>
+  <SupportUrl DefaultValue="https://willemsleegers.github.io/tidystats-Word-add-in/"/>
   <AppDomains>
     <AppDomain>willemsleegers.com</AppDomain>
   </AppDomains>
@@ -33,9 +33,12 @@
               <Group id="Group">
                 <Label resid="Group.Label" />
                 <Icon>
-                  <bt:Image size="16" resid="Icon.16x16" />
-                  <bt:Image size="32" resid="Icon.32x32" />
-                  <bt:Image size="80" resid="Icon.80x80" />
+                  <bt:Image size="16" resid="icon-16x16" />
+                  <bt:Image size="32" resid="icon-32x32" />
+                  <bt:Image size="40" resid="icon-40x40" />
+                  <bt:Image size="48" resid="icon-48x48" />
+                  <bt:Image size="64" resid="icon-64x64" />
+                  <bt:Image size="80" resid="icon-80x80" />
                 </Icon>
                 <Control xsi:type="Button" id="TaskpaneButton">
                   <Label resid="TaskpaneButton.Label" />
@@ -44,13 +47,15 @@
                     <Description resid="TaskpaneButton.Tooltip" />
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="icon-statistics-16x16" />
-                    <bt:Image size="32" resid="icon-statistics-32x32" />
-                    <bt:Image size="64" resid="icon-statistics-64x64" />
-                    <bt:Image size="80" resid="icon-statistics-80x80" />
+                    <bt:Image size="16" resid="icon-16x16" />
+                    <bt:Image size="32" resid="icon-32x32" />
+                    <bt:Image size="40" resid="icon-40x40" />
+                    <bt:Image size="48" resid="icon-48x48" />
+                    <bt:Image size="64" resid="icon-64x64" />
+                    <bt:Image size="80" resid="icon-80x80" />
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
-                    <TaskpaneId>ButtonId1</TaskpaneId>
+                    <TaskpaneId>ShowTaskpaneButton</TaskpaneId>
                     <SourceLocation resid="Taskpane.Url" />
                   </Action>
                 </Control>
@@ -64,11 +69,10 @@
       <bt:Images>
         <bt:Image id="Icon.16x16" DefaultValue="https://www.bayesiansungod.com/assets/icon-16.png"/>
         <bt:Image id="Icon.32x32" DefaultValue="https://www.bayesiansungod.com/assets/icon-32.png"/>
+        <bt:Image id="Icon.40x40" DefaultValue="https://www.bayesiansungod.com/assets/icon-40.png"/>
+        <bt:Image id="Icon.48x48" DefaultValue="https://www.bayesiansungod.com/assets/icon-48.png"/>
+        <bt:Image id="Icon.64x64" DefaultValue="https://www.bayesiansungod.com/assets/icon-64.png"/>
         <bt:Image id="Icon.80x80" DefaultValue="https://www.bayesiansungod.com/assets/icon-80.png"/>
-        <bt:Image id="icon-statistics-16x16" DefaultValue="https://www.bayesiansungod.com/assets/icon-statistics-16.png"/>
-        <bt:Image id="icon-statistics-32x32" DefaultValue="https://www.bayesiansungod.com/assets/icon-statistics-32.png"/>
-        <bt:Image id="icon-statistics-64x64" DefaultValue="https://www.bayesiansungod.com/assets/icon-statistics-64.png"/>
-        <bt:Image id="icon-statistics-80x80" DefaultValue="https://www.bayesiansungod.com/assets/icon-statistics-80.png"/>
       </bt:Images>
       <bt:Urls>
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://www.willemsleegers.com" />
