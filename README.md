@@ -2,7 +2,7 @@
 
 The tidystats Word add-in is an add-in for Microsoft Word to insert statistics from a file created with the [tidystats](https://github.com/WillemSleegers/tidystats) R package. 
 
-**Please note that the add-in is currently in development**. This means that the information about how to install the add-in is incorrect. If you want to install the add-in, please see the For Developers section below.
+**Please note that the add-in is currently in development**. This means that the information about how to install the add-in is incorrect. If you want to install the add-in, please see the Testing section below.
 
 ## Requirements
 
@@ -57,7 +57,7 @@ Package: **stats**
 
 Please see the following links for more information on how to use `tidystats`.
 
-- [tidystats' Github page](https://github.com/WillemSleegers/tidystats)
+- [tidystats website](https://willemsleegers.github.io/tidystats/)
 - [www.willemsleegers.com/tidystats](https://www.willemsleegers.com/tidystats.html)
 
 ## Testing
