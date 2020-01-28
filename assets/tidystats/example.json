@@ -23,7 +23,7 @@
     },
     "package": {
       "name": "stats",
-      "version": "3.6.1"
+      "version": "3.6.2"
     },
     "type": "primary"
   },
@@ -72,6 +72,10 @@
         "p": 0.249,
         "sigma": 0.6964
       }
+    },
+    "package": {
+      "name": "stats",
+      "version": "3.6.2"
     },
     "preregistered": "no"
   },
@@ -178,6 +182,10 @@
         }
       }
     ],
+    "package": {
+      "name": "stats",
+      "version": "3.6.2"
+    },
     "notes": "An ANOVA example"
   }
 }
