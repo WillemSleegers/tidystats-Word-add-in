@@ -8,10 +8,12 @@ The tidystats Word add-in is an add-in for Microsoft Word to insert statistics f
 
 You need the following to use add-in:
 - An internet connection (the add-in is a web app that runs inside of Word)
-- A compatible version of Microsoft Word, this is either:
-	- (Mac) Microsoft Word version 15.18 or higher
-	- (iPadOS) Microsoft Word for iPad
-	- (Windows) Microsoft Word 2013 (or higher)
+- A compatible version of Microsoft Word:
+	- Word for iPad
+	- Word 2016 for Mac
+	- Word Online
+	- Word 2013 or later
+	- Word 2016 or later
 
 For more information on the requirements, see [here](https://docs.microsoft.com/en-us/office/dev/add-ins/concepts/requirements-for-running-office-add-ins).
 
@@ -27,15 +29,15 @@ If you simply want to try out the add-in, you can also use [this](assets/tidysta
 
 Once you have a file created with `tidystats` and you want to insert the statistics into your document, go to the Insert pane of your Word document and click on 'Insert Statistics'. 
 
-![](assets/screens/start.png)
+![](assets/screens/screen_insert_x2_w_help.png)
 
 Next, click on 'Choose a file' and select the file you created with `tidystats`. 
 
-![](assets/screens/choose_file.png)
+![](assets/screens/screen_start_x2.png)
 
 This should reveal a list of your analyses, each with a name that identifies your analyses. You can use the Search textbox to search for your analyses. Click on one of the analyses to reveal its statistics. You can then click on the name of a statistic or set of statistics to insert them into your document.
 
-![](assets/screens/insert.png)
+![](assets/screens/screen_t_test_x2_w_help.png)
 
 If you want to update the statistics, simply choose a new file and click on the 'Update statistics' button. Note that this does require that your analyses have the same identifier as in the previous file.
 

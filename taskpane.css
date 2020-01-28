@@ -38,6 +38,33 @@ html, body {
   flex: 1 0 0;
   padding: 10px 20px;
 }
+
+/* Help */
+
+#help_button {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+
+#help_button:hover {
+  cursor: pointer;
+}
+
+#help_text {
+  display: none;
+}
+
+#help ol {
+  padding-inline-start: 20px;
+}
  
 /* Buttons */
 

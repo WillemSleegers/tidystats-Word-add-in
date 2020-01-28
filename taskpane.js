@@ -25,6 +25,8 @@ Office.onReady(function(info) {
     document.getElementById("sideload-msg").style.display = "none";
     document.getElementById("app-body").style.display = "flex";
 
+    document.getElementById("help_button").onclick = toggleHelp;
+
     document.getElementById("file").onchange = readFile;
     document.getElementById("file").onclick = resetFile;
     
@@ -292,6 +294,22 @@ function createRegressionWordTable(body, identifier, analysis) {
 }
 
 // Read .json file function ----------------------------------------------------
+
+function toggleHelp(self) {
+  // Get the button and help text div
+  // var button = self.target;
+  var help_div = document.getElementById("help_text");
+
+  console.log(help_div.style.display);
+
+  if (help_div.style.display == "block") {
+    help_div.style.display = "none";    
+    //button.innerHTML = "Hide instructions";
+  } else {
+    help_div.style.display = "block";    
+    //button.innerHTML = "Show instructions";
+  }
+}
 
 function readFile() {
   // Read .json file
@@ -861,12 +879,12 @@ function createAnalysesList(data) {
           content.appendChild(tables[0]);
 
           // Add insert table button
-          var insert_table_button = document.createElement("button");
-          insert_table_button.onclick = insertStatisticsTable;
-          insert_table_button.innerHTML = "Insert table";
-          insert_table_button.className = "insert_table_button";
-          insert_table_button.id = "table$" + identifier;
-          content.appendChild(insert_table_button);
+          // var insert_table_button = document.createElement("button");
+          // insert_table_button.onclick = insertStatisticsTable;
+          // insert_table_button.innerHTML = "Insert table";
+          // insert_table_button.className = "insert_table_button";
+          // insert_table_button.id = "table$" + identifier;
+          // content.appendChild(insert_table_button);
 
           content.appendChild(tables[1]);
       } else if (/Linear mixed model/.test(method)) {
@@ -914,6 +932,9 @@ function createAnalysesList(data) {
   // Make the main div visible
   var main = document.getElementById("main");
   main.style.display = "block";
+
+  // And hide the help div
+  document.getElementById("help").style.display = "none";
 }
 
 function createStatisticsTable() {
