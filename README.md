@@ -62,7 +62,7 @@ Please see the following links for more information on how to use `tidystats` R 
 - [tidystats website](https://willemsleegers.github.io/tidystats/)
 - [www.willemsleegers.com/tidystats](https://www.willemsleegers.com/tidystats.html)
 
-If you have any questions about how to use `tidystats`, or suggestions for improvements, you can contact me on [Twitter](https://twitter.com/willemsleegers) or via [e-mail](tidystats@gmail.com).
+If you have any questions about how to use `tidystats`, or suggestions for improvements, you can contact me on [Twitter](https://twitter.com/willemsleegers) or via [e-mail](mailto:tidystats@gmail.com).
 
 ## Testing
 
@@ -88,4 +88,4 @@ To install the add-in in Windows, see [this](https://docs.microsoft.com/en-us/of
 
 ### Bugs and feature requests
 
-Found a bug or got an idea about how to improve the add-in? Create an issue here on Github! If you need some help figuring out how this works, see this support [page](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on [Twitter](https://twitter.com/willemsleegers) or send me an [e-mail](tidystats@gmail.com).
+Found a bug or got an idea about how to improve the add-in? Create an issue here on Github! If you need some help figuring out how this works, see this support [page](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on [Twitter](https://twitter.com/willemsleegers) or send me an [e-mail](mailto:tidystats@gmail.com).
