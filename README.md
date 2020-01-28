@@ -70,7 +70,7 @@ The current release version of the add-in is 1.0. This means that the add-in is 
 
 ### Installing the development version of tidystats for Word
 
-Download the manifest.xml file here from Github. This is the file that needs to be installed on your computer somewhere in order to run the add-in.
+Download the manifest.xml file from the Github [page](https://github.com/WillemSleegers/tidystats-Word-add-in). This is the file that needs to be installed on your computer somewhere in order to run the add-in.
 
 #### Mac
 
@@ -88,4 +88,4 @@ To install the add-in in Windows, see [this](https://docs.microsoft.com/en-us/of
 
 ### Bugs and feature requests
 
-Found a bug or got an idea about how to improve the add-in? Create an issue here on Github! If you need some help figuring out how this works, see this support [page](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on [Twitter](https://twitter.com/willemsleegers) or send me an [e-mail](mailto:tidystats@gmail.com).
+Found a bug or got an idea about how to improve the add-in? Please create a [Github issue](https://github.com/WillemSleegers/tidystats-Word-add-in/issues). If you need some help figuring out how this works, see this support [page](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on [Twitter](https://twitter.com/willemsleegers) or send me an [e-mail](mailto:tidystats@gmail.com).
