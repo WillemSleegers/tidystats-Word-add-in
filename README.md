@@ -2,8 +2,6 @@
 
 The tidystats Word add-in is an add-in for Microsoft Word to insert statistics from a file created with the [tidystats](https://github.com/WillemSleegers/tidystats) R package. 
 
-**Please note that the add-in is currently in development**. This means that the information about how to install the add-in is incorrect. If you want to install the add-in, please see the Testing section below.
-
 ## Requirements
 
 You need the following to use add-in:
@@ -59,16 +57,16 @@ Package: **stats**
 
 ## More resources
 
-Please see the following links for more information on how to use `tidystats`.
+Please see the following links for more information on how to use `tidystats` R package.
 
 - [tidystats website](https://willemsleegers.github.io/tidystats/)
 - [www.willemsleegers.com/tidystats](https://www.willemsleegers.com/tidystats.html)
 
+If you have any questions about how to use `tidystats`, or suggestions for improvements, you can contact me on [Twitter](https://twitter.com/willemsleegers) or via [e-mail](tidystats@gmail.com).
+
 ## Testing
 
-As mentioned before, the add-in is still under development. This means I can use your help with identifying bugs and feedbacking the add-in before I publish the add-in for all to use. 
-
-You can help by installing the add-in (see below) and posting bugs/feature requests here on Github.
+The current release version of the add-in is 1.0. This means that the add-in is sort of feature complete, but there is still a lot of room for improvements and new features. If you want to help test these newer versions, you can install the development version of the add-in. For instructions on how to do this, see below.
 
 ### Installing the development version of tidystats for Word
 
@@ -90,4 +88,4 @@ To install the add-in in Windows, see [this](https://docs.microsoft.com/en-us/of
 
 ### Bugs and feature requests
 
-Found a bug or got an idea about how to improve the add-in? Create an issue here on Github! If you need some help figuring out how this works, see this support [page](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on Twitter via @willemsleegers.
+Found a bug or got an idea about how to improve the add-in? Create an issue here on Github! If you need some help figuring out how this works, see this support [page](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on [Twitter](https://twitter.com/willemsleegers) or send me an [e-mail](tidystats@gmail.com).
