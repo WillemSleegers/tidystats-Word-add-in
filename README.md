@@ -17,7 +17,7 @@ For more information on the requirements, see [here](https://docs.microsoft.com/
 
 ## Installation
 
-Go to the Insert pane in your Word document and click on 'Store'. Search for tidystats and click on the 'Add' button to install the add-in. 
+**NOTE:** `tidystats` has been submitted to the Office Store but is not yet available. If you want to install it now, see the Testing section below.
 
 ## Usage
 
