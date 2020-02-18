@@ -23,7 +23,7 @@ For more information on the requirements, see [here](https://docs.microsoft.com/
 
 Before you can use the tidystats Word add-in, you must create a file containing your statistics using the `tidystats` R package. For details on how to do this, please see the [website](https://willemsleegers.github.io/tidystats/) of `tidystats`.
 
-If you simply want to try out the add-in, you can also use [this](assets/tidystats/results.json) example file.
+If you simply want to try out the add-in, you can also use [this](assets/tidystats/example.json) example file.
 
 Once you have a file created with `tidystats` and you want to insert the statistics into your document, go to the Insert pane of your Word document and click on 'Insert Statistics'. 
 
