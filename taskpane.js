@@ -437,18 +437,18 @@ function formatCIs(CIs) {
 
 function retrieveStatistic(statistics, statistic) {
 
+  console.log(statistic);
+
 	var output;
 
 	if (statistic == "b") {
 		output = formatNumber(statistics.estimate);
 	} else if (statistic == "r") {
-
-    if ("estimate" in statistics) {
-      output = formatNumber(statistics.estimate, statistic);  
-    } else {
-      output = formatNumber(statistics.r, statistic);  
-    }
-
+    	if ("estimate" in statistics) {
+      		output = formatNumber(statistics.estimate, statistic);  
+    	} else {
+      		output = formatNumber(statistics.r, statistic);  
+    	}
 	} else if (statistic == "tau") {
 		output = formatNumber(statistics.estimate);
 	} else if (statistic == "rho") {
@@ -473,8 +473,12 @@ function retrieveStatistic(statistics, statistic) {
 		output = formatNumber(statistics.df, "df");
 	} else if (statistic == "df1") {
 		output = formatNumber(statistics.dfs.numerator_df, "df");
+  } else if (statistic == "numerator df") {
+    output = formatNumber(statistics.dfs.numerator_df, "df");
 	} else if (statistic == "df2") {
 		output = formatNumber(statistics.dfs.denominator_df, "df");
+  } else if (statistic == "denominator df") {
+    output = formatNumber(statistics.dfs.denominator_df, "df");
 	} else if (statistic == "p") {
 		output = formatNumber(statistics.p, "p");
   } else if (statistic == "CI") {
@@ -511,7 +515,27 @@ function retrieveStatistics(data, id) {
     // Create a variable to store the output in
     var output;
 
-    if (/t-test/.test(method)) {
+    if (/Bayesian/.test(method)) {
+      var statistics = analysis["bayes_factors"];
+      
+      // Determine which bayes factor was click on
+      var BF_name = id_components[1];
+	  var i = 0;
+	  while (BF_name != statistics[i].name) {
+	    i++;
+	  }
+	  var bayes_factor = analysis.bayes_factors[i];
+
+      // Determine whether a single statistic or line of statistics should be
+      // created
+      if (id_components.length == 3) {
+        // Extract the statistic, which should be the last component
+        statistic = id_components[id_components.length - 1];
+        output = retrieveStatistic(bayes_factor.statistics, statistic);
+      } else {
+        output = createBayesFactorLine(bayes_factor.statistics);
+      }
+    } else if (/t-test/.test(method)) {
       var statistics = analysis["statistics"];
 
       // Determine whether a single statistic or line of statistics should be
@@ -707,8 +731,6 @@ function retrieveStatistics(data, id) {
       }
     } else if (/Linear mixed model/.test(method)) {
 
-      console.log(id_components);
-
       // Check whether the user click on a fixed effect name
       if (id_components[1] == "FE" & id_components.length == 4) {
         
@@ -824,7 +846,11 @@ function createAnalysesList(data) {
       var method = analysis["method"];
 
       // Determine what kind of table to make
-      if (/t-test/.test(method)) {
+      if (/Bayesian/.test(method)) {
+      	// Create multiple tables; one for each variable
+      	table = createBayesFactorTable(identifier, analysis);
+        content.appendChild(table);  
+      } else if (/t-test/.test(method)) {
 
           // Create a t-test table
           table = createTTestTable(identifier, analysis);
@@ -899,7 +925,6 @@ function createAnalysesList(data) {
           // Create multiple tables; one for each variable
       	  table = createDescriptivesTable(identifier, analysis);
           content.appendChild(table);  
-
       } else {
           console.log("not supported")
       }
@@ -1060,6 +1085,8 @@ function createStatisticsRow(id, statistic_name, statistic_value, extra) {
   	insert_link_statistic.innerHTML = "R²";
   } else if (statistic_name == "adj-R-squared") {
   	insert_link_statistic.innerHTML = "adj. R²";
+  } else if (statistic_name == "ges") {
+    insert_link_statistic.innerHTML = "η²<sub>G</sub>";
   } else {
     insert_link_statistic.innerHTML = statistic_name;
   }
@@ -1337,20 +1364,27 @@ function createANOVATable(identifier, analysis, group) {
     } else {
       var row_name = createNameRowWithoutLink(coefficient.name);
     }
+    table.appendChild(row_name);
     
     // Add statistics rows
-    // SS, df, MS
-    var row_SS = createStatisticsRow(identifier_coefficient, "SS", coefficient.statistics.SS);
-    var row_df = createStatisticsRow(identifier_coefficient, "df", coefficient.statistics.df);
     var row_MS = createStatisticsRow(identifier_coefficient, "MS", coefficient.statistics.MS);
-    
-    // Add rows
-    table.appendChild(row_name);
-    table.appendChild(row_SS);
-    table.appendChild(row_df);
     table.appendChild(row_MS);
 
-    // Add t and p-value, if this is not the Residual coefficient
+    if ("SS" in coefficient.statistics) {
+      var row_SS = createStatisticsRow(identifier_coefficient, "SS", coefficient.statistics.SS);
+      table.appendChild(row_SS);  
+    }
+
+    if ("dfs" in coefficient.statistics) {
+      var row_num_df = createStatisticsRow(identifier_coefficient, "numerator df", coefficient.statistics.dfs.numerator_df);    
+      var row_den_df = createStatisticsRow(identifier_coefficient, "denominator df", coefficient.statistics.dfs.denominator_df);    
+      table.appendChild(row_num_df);
+      table.appendChild(row_den_df);
+    } else {
+      var row_df = createStatisticsRow(identifier_coefficient, "df", coefficient.statistics.df);
+      table.appendChild(row_df);
+    }
+  
     if (coefficient.name != "Residuals") {
       // Statistic row
       var row_test_statistic = createStatisticsRow(identifier_coefficient, "F", coefficient.statistics.statistic.value);
@@ -1359,6 +1393,11 @@ function createANOVATable(identifier, analysis, group) {
       // p row
       var row_p = createStatisticsRow(identifier_coefficient, "p", coefficient.statistics.p);
       table.appendChild(row_p);
+    }
+
+    if ("ges" in coefficient.statistics) {
+      var row_ges = createStatisticsRow(identifier_coefficient, "ges", coefficient.statistics.ges);    
+      table.appendChild(row_ges);
     }
 
   }
@@ -1703,6 +1742,37 @@ function createDescriptivesTable(identifier, analysis) {
   return(table)
 }
 
+function createBayesFactorTable (identifier, analysis) {
+  // Get the bayes factors
+  var bayes_factors = analysis["bayes_factors"];
+
+  // Create a bayes factors table
+  var table = createStatisticsTable();
+
+  // Loop over the bayes factors and add them to the table
+  for (var i in bayes_factors) {
+  	var bayes_factor = bayes_factors[i];
+
+  	// Create the identifier
+  	var identifier_bf = identifier + "$" + bayes_factor.name;
+  	
+  	// Create name row
+    var row_name = createNameRow(identifier_bf, bayes_factor.name);
+
+    // Create coefficient statistics rows
+    var row_BF_01 = createStatisticsRow(identifier_bf, "BF_01", bayes_factor.statistics.BF_01);
+    var row_BF_10 = createStatisticsRow(identifier_bf, "BF_10", bayes_factor.statistics.BF_10);
+    var row_error = createStatisticsRow(identifier_bf, "error", bayes_factor.statistics.error);
+  
+    // Add rows to the table
+    table.appendChild(row_name);
+    table.appendChild(row_BF_01);
+    table.appendChild(row_BF_10);
+    table.appendChild(row_error);
+  }
+   
+  return(table)
+}
 
 // APA lines of statistics functions -------------------------------------------
 
@@ -1875,8 +1945,15 @@ function createANOVALine(statistics, statistics_residuals) {
   var statistic, df1, df2, p, output;
 
   statistic = formatNumber(statistics.statistic.value);
-  df1 = formatNumber(statistics.df, "df");
-  df2 = formatNumber(statistics_residuals.df, "df");
+  
+  if ("dfs" in statistics) {
+    df1 = formatNumber(statistics.dfs.numerator_df, "df");
+    df2 = formatNumber(statistics.dfs.denominator_df, "df");  
+  } else {
+    df1 = formatNumber(statistics.df, "df");
+    df2 = formatNumber(statistics_residuals.df, "df");
+  }
+  
   p = formatNumber(statistics.p, "p");
 
   if (p == "< .001") {
@@ -1885,6 +1962,11 @@ function createANOVALine(statistics, statistics_residuals) {
   } else {
     output = "<i>F</i>(" + df1 + ", " + df2 + ") = " + statistic + 
       ", <i>p</i> = " + p;
+  }
+
+  if ("ges" in statistics) {
+    var ges = formatNumber(statistics.ges);
+    output = output + ", η²<sub>G</sub> = " + ges;
   }
 
   return(output) 
@@ -1967,6 +2049,17 @@ function createDescriptivesLine(statistics) {
  
   output = "(<i>M</i> = " + M + ", <i>SD</i> = " + SD + ")";
 
+  return(output)
+}
+
+function createBayesFactorLine(statistics) {
+  var BF, error, output;
+ 
+  BF = formatNumber(statistics.BF_01);
+  error = formatNumber(statistics.error);
+
+  output = "<i>BF<sub>01</sub></i> = " + BF + " ± " + error + "%";
+  
   return(output)
 }
 
