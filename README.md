@@ -15,9 +15,11 @@ You need the following to use add-in:
 
 For more information on the requirements, see [here](https://docs.microsoft.com/en-us/office/dev/add-ins/concepts/requirements-for-running-office-add-ins).
 
-## Installation
+## Privacy Policy
 
-**NOTE:** `tidystats` has been submitted to the Office Store but is not yet available. If you want to install it now, see the Testing section below.
+The tidystats Word add-in is like a mini-website that runs in your Word document. This means that when you start the add-in, a connection is made to a server in order to retrieve the content of the add-in. Once downloaded, however, the add-in runs entirely on your computer and no information is shared with the server. The content of your Word document are not saved, nor are the statistics you upload.
+
+For more information on privacy and security for Office add-ins, please see this [page](https://docs.microsoft.com/en-us/office/dev/add-ins/concepts/privacy-and-security).
 
 ## Usage
 
