@@ -215,12 +215,10 @@ p {
   flex-direction: row;
 
   border-bottom: 1px solid rgb(243, 242, 241);
-
-  opacity: 0.5;
 }
 
 .active {
-  opacity: 1;
+  
 }
 
 .row:hover {

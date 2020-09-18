@@ -212,7 +212,6 @@ function createContainer (className, level) {
 
   container = document.createElement("div");
   container.classList.add(className);
-  console.log(level);
   container.classList.add("level" + level);
 
   return(container)
@@ -416,7 +415,9 @@ function addTermsRows(element, level, terms, attrs) {
   var term, termsContainer, termContainer, termAttrs;
 
   // Add a parent row
+  console.log(element);
   element = addRow(element, true, "Terms:");
+  console.log("This is called");
 
   // Create a new container
   termsContainer = createContainer("container", level);
@@ -424,6 +425,7 @@ function addTermsRows(element, level, terms, attrs) {
   // Loop over the terms
   for (var t in terms) {
     term = terms[t];
+    console.log(term);
 
     // Add name row
     termsContainer = addRow(termsContainer, true, "Name", 
@@ -494,6 +496,7 @@ function addGroupsRows(element, level, groups, attrs) {
   // Loop over the groups
   for (var g in groups) {
     group = groups[g];
+    console.log(group);
 
     // Add name row
     groupsContainer = addRow(groupsContainer, true, "Name", 
@@ -515,6 +518,10 @@ function addGroupsRows(element, level, groups, attrs) {
     if ("terms" in group) {
       groupAttrs = {...attrs};
       groupAttrs["group"] = group.name;
+      
+      // Create a new container
+      groupContainer = createContainer("container", level);
+
       groupContainer = addTermsRows(groupContainer, level + 1, 
         group.terms, groupAttrs);
     }
@@ -522,6 +529,10 @@ function addGroupsRows(element, level, groups, attrs) {
     if ("pairs" in group) {
       groupAttrs = {...attrs};
       groupAttrs["group"] = group.name;
+
+      // Create a new container
+      groupContainer = createContainer("container", level);
+
       groupContainer = addPairsRows(groupContainer, level + 1, 
         group.pairs, groupAttrs);
     }
