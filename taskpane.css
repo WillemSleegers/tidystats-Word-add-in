@@ -71,6 +71,10 @@ p {
 
 /* File input section */
 
+#app-input {
+  display: none;
+}
+
 #input-instructions {
   margin-top: 10px;
   margin-bottom: 10px;
@@ -93,7 +97,7 @@ p {
   padding-right: 10px;
   padding-left: 10px;
   padding-top: 8px;
-  padding-bottom: 7px;
+  padding-bottom: 8px;
 
   min-width: 120px;
   line-height: 32px;
@@ -206,23 +210,11 @@ p {
   font-weight: 300;
 }
 
-.container {
-  
-}
-
 .row {
   display: flex;
   flex-direction: row;
 
   border-bottom: 1px solid rgb(243, 242, 241);
-}
-
-.active {
-  
-}
-
-.row:hover {
-  background-color: rgb(243, 242, 241); 
 }
 
 .level1 {
@@ -316,7 +308,7 @@ p {
 
 .identifier-label {
   padding-top: 8px;
-  padding-bottom: 9px;
+  padding-bottom: 8px;
 }
 
 .chevron {
@@ -354,11 +346,22 @@ p {
 }
 
 .child-name {
-  flex: 0 0 82px;
+  flex: 0 0 90px;
   
   padding-top: 5px;
   padding-bottom: 5px;
+  padding-right: 5px;
   font-weight: bold;
+}
+
+.statistics:hover {
+  background-color: rgb(243, 242, 241);
+  cursor: pointer;
+}
+
+.statistic:hover {
+  background-color: rgb(243, 242, 241); 
+  cursor: pointer;
 }
 
 .statistics-name {
@@ -375,40 +378,85 @@ p {
   padding-right: 5px;
 }
 
-/* Insert button */
 
-.insert-button {  
+
+.gear-container {
   display: none;
+}
 
-  height: 14px;
-  width: 14px;
+.statistics:hover .gear-container {
+  display: flex;
+}
 
-  margin-right: 10px;
+.gear {
+  font-size: 16px;
+  fill: rgb(200, 200, 200);
   
-  border-radius: 50%;
+  margin-right: 8px;
+}
+
+.gear:hover {
+  fill: rgb(100, 100, 100);
+}
+
+.gear-active {
+  display: flex;
+}
+
+
+
+/* Statistics checkbox */
+
+.checkbox-container {
+  width: 30px;
+  height: 30px;
   
-  text-align: center;
-  line-height: 12px;
+  display: none;
+  justify-content: center;
+  align-items: center;
 }
 
-.row:hover .insert-button {
-  display: block;
+.checkbox {    
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
-  background-color: white;
-  color: white;
-  border: 1px solid rgb(96, 94, 92);
+  width: 16px;
+  height: 16px;
+  
+  border-width: 1px;
+  border-style: solid;
+  border: 1px solid rgb(50, 49, 48);  
+  border-radius: 2px;
+
+  box-sizing: border-box;
+  
+  transition-property: background, border, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.23, 1);
+  
+  overflow: hidden;
+  
+  fill: white;
 }
 
-.insert-button:hover {
-  cursor: pointer !important;
-
-  color: rgb(96, 94, 92) !important;
+.checkbox:hover {
+  fill: rgb(50, 49, 48);
 }
 
-.insert-button:active {
-  color: rgb(0, 120, 212) !important;
-  background-color: rgb(0, 120, 212) !important;
-  border-color: white !important;
+.checkbox-selected {
+  background-color: rgb(0, 120, 212);
+  fill: white;
+  border: none;
+}
+
+.checkbox-selected:hover {
+  background-color: rgb(0, 90, 158);
+  fill: white;
+}
+
+.checkmark {
+  font-size: 12px;
 }
 
 /* Actions */

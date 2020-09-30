@@ -6,12 +6,9 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="tidystats-local"/>
   <Description DefaultValue="Reproducibly report statistics."/>
-  <IconUrl DefaultValue="http://localhost:8000/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="http://localhost:8000/assets/icon-64.png"/>
-  <SupportUrl DefaultValue="https://willemsleegers.github.io/tidystats-Word-add-in/"/>
-  <AppDomains>
-    <AppDomain>http://localhost:8000</AppDomain>
-  </AppDomains>
+  <IconUrl DefaultValue="http://localhost:9000/assets/icons/icon-80.png"/>
+  <HighResolutionIconUrl DefaultValue="http://localhost:9000/assets/icons/icon-160.png"/>
+  <SupportUrl DefaultValue="https://www.tidystats.io/"/>
   <Hosts>
     <Host Name="Document"/>
   </Hosts>
@@ -21,7 +18,7 @@
    </Sets>
   </Requirements>
   <DefaultSettings>
-    <SourceLocation DefaultValue="http://localhost:8000/taskpane.html"/>
+    <SourceLocation DefaultValue="http://localhost:9000/taskpane.html"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -38,10 +35,10 @@
               <Group id="Group">
                 <Label resid="Group.Label" />
                 <Icon>
-                  <bt:Image size="16" resid="icon-16x16" />
-                  <bt:Image size="32" resid="icon-32x32" />
-                  <bt:Image size="64" resid="icon-64x64" />
-                  <bt:Image size="80" resid="icon-80x80" />
+                  <bt:Image size="16" resid="Icon.16" />
+                  <bt:Image size="32" resid="Icon.32" />
+                  <bt:Image size="64" resid="Icon.64" />
+                  <bt:Image size="80" resid="Icon.80" />
                 </Icon>
                 <Control xsi:type="Button" id="TaskpaneButton">
                   <Label resid="TaskpaneButton.Label" />
@@ -50,10 +47,10 @@
                     <Description resid="TaskpaneButton.Tooltip" />
                   </Supertip>
                   <Icon>
-                    <bt:Image size="16" resid="TaskpaneButton.Icon16" />
-                    <bt:Image size="32" resid="TaskpaneButton.Icon32" />
-                    <bt:Image size="64" resid="TaskpaneButton.Icon64" />
-                    <bt:Image size="80" resid="TaskpaneButton.Icon80" />
+                    <bt:Image size="16" resid="Icon.16" />
+                    <bt:Image size="32" resid="Icon.32" />
+                    <bt:Image size="64" resid="Icon.64" />
+                    <bt:Image size="80" resid="Icon.80" />
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
                     <TaskpaneId>ShowTaskpaneButton</TaskpaneId>
@@ -68,18 +65,14 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="icon-16x16" DefaultValue="http://localhost:8000/assets/icon-16.png"/>
-        <bt:Image id="icon-32x32" DefaultValue="http://localhost:8000/assets/icon-32.png"/>
-        <bt:Image id="icon-64x64" DefaultValue="http://localhost:8000/assets/icon-64.png"/>
-        <bt:Image id="icon-80x80" DefaultValue="http://localhost:8000/assets/icon-80.png"/>
-        <bt:Image id="TaskpaneButton.Icon16" DefaultValue="http://localhost:8000/assets/icon-16.png"/>
-        <bt:Image id="TaskpaneButton.Icon32" DefaultValue="http://localhost:8000/assets/icon-32.png"/>
-        <bt:Image id="TaskpaneButton.Icon64" DefaultValue="http://localhost:8000/assets/icon-64.png"/>
-        <bt:Image id="TaskpaneButton.Icon80" DefaultValue="http://localhost:8000/assets/icon-80.png"/>
+        <bt:Image id="Icon.16" DefaultValue="http://localhost:9000/assets/icons/icon-16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="http://localhost:9000/assets/icons/icon-32.png"/>
+        <bt:Image id="Icon.64" DefaultValue="http://localhost:9000/assets/icons/icon-64.png"/>
+        <bt:Image id="Icon.80" DefaultValue="http://localhost:9000/assets/icons/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://willemsleegers.github.io/tidystats-Word-add-in/" />
-        <bt:Url id="Taskpane.Url" DefaultValue="http://localhost:8000/taskpane.html" />
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://www.tidystats.io/" />
+        <bt:Url id="Taskpane.Url" DefaultValue="http://localhost:9000/taskpane.html" />
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="GetStarted.Title" DefaultValue="Get started with tidystats!" />

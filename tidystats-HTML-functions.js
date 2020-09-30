@@ -1,3 +1,132 @@
+function insertStatistic() {
+  console.log("Inserting single statistic");
+  
+  var element = this;
+  var attributes = {};
+
+  attributes["identifier"] = element.getAttribute("identifier");
+
+  if (element.hasAttribute("statistic")) {
+    attributes["statistic"] = element.getAttribute("statistic");
+  }
+  if (element.hasAttribute("term")) {
+    attributes["term"] = element.getAttribute("term");
+  }
+  if (element.hasAttribute("pair1")) {
+    attributes["pair1"] = element.getAttribute("pair1");
+    attributes["pair2"] = element.getAttribute("pair2");
+  }
+  if (element.hasAttribute("group")) {
+    attributes["group"] = element.getAttribute("group");
+  }
+  if (element.hasAttribute("effect")) {
+    attributes["effect"] = element.getAttribute("effect");
+  }
+  if (element.hasAttribute("model")) {
+    attributes["model"] = element.getAttribute("model");
+  }
+
+  // Insert statistic in Word
+  insert(attributes);
+}
+
+function insertStatistics() {
+  console.log("Inserting multiple statistics");
+  
+  // Get statistics row that was clicked on
+  var row = this;
+  
+  // Get the statistics rows
+  var rows = row.nextSibling.children;
+  
+  // Determine which statistics are selected
+  var selectedStatistics = [];
+  
+  for (var i = 0; i < rows.length; i++) {
+    if (rows[i].getElementsByClassName("checkbox-selected").length) {
+      selectedStatistics.push(rows[i].getAttribute("statistic"));
+    }
+  }
+  
+  // Determine attributes
+  var element = rows[1];
+  var attributes = {};
+  
+  attributes["identifier"] = element.getAttribute("identifier");
+
+  if (element.hasAttribute("term")) {
+    attributes["term"] = element.getAttribute("term");
+  }
+  if (element.hasAttribute("pair1")) {
+    attributes["pair1"] = element.getAttribute("pair1");
+    attributes["pair2"] = element.getAttribute("pair2");
+  }
+  if (element.hasAttribute("group")) {
+    attributes["group"] = element.getAttribute("group");
+  }
+  if (element.hasAttribute("effect")) {
+    attributes["effect"] = element.getAttribute("effect");
+  }
+  if (element.hasAttribute("model")) {
+    attributes["model"] = element.getAttribute("model");
+  }
+  
+  attributes["statistics"] = selectedStatistics;
+  
+  // Insert statistics in Word
+  insert(attributes);
+}
+
+
+function toggleStatistic() {
+  event.stopPropagation();
+  console.log("Toggling statistic");
+  console.log(this);
+  this.firstChild.classList.toggle("checkbox-selected");
+  
+  // If the statistic is confidence interval, also toggle its paired value
+  if (this.parentElement.getAttribute("statistic") == "CI_lower") {
+    this.parentElement.nextSibling.getElementsByClassName("checkbox")[0].classList.toggle("checkbox-selected");
+  } else if (this.parentElement.getAttribute("statistic") == "CI_upper") {
+    this.parentElement.previousSibling.getElementsByClassName("checkbox")[0].classList.toggle("checkbox-selected");
+  }
+  
+  // If the statistic is numerator or denominator df, also toggle its paired value
+  if (this.parentElement.getAttribute("statistic") == "df_numerator") {
+    this.parentElement.nextSibling.getElementsByClassName("checkbox")[0].classList.toggle("checkbox-selected");
+  } else if (this.parentElement.getAttribute("statistic") == "df_denominator") {
+    this.parentElement.previousSibling.getElementsByClassName("checkbox")[0].classList.toggle("checkbox-selected");
+  }
+}
+
+function toggleToggles() {
+  event.stopPropagation();
+  
+  // Get the gear element and toggle its active state
+  this.classList.toggle("gear-active");
+  
+  // Get rows
+  var rows = this.parentElement.nextSibling;
+  
+  // Find all toggles
+  var toggles = rows.getElementsByClassName("checkbox-container");
+  
+  // Loop over the toggles and toggle their visibility
+  for (var i = 0; i < toggles.length; i++) {
+    var toggle = toggles[i];
+    
+    if (toggle.style.display == "flex") {
+      toggle.style.display = "none";
+    } else {
+      toggle.style.display = "flex";
+    }
+  }
+}
+
+function test() {
+  console.log("test");
+}
+
 function createAnalyses(analyses) {
   var analysesContainer, analysisContainer;
 
@@ -53,8 +182,14 @@ function createAnalysis (analyses, identifier) {
 
   // Add statistics
   if ("statistics" in analysis) {
+    // Add name row
+    if ("name" in analysis) {
+      contentContainer = addRow(contentContainer, false, "Name", 
+        analysis.name);  
+    }
+
     contentContainer = addStatisticsRows(contentContainer, true, 3, 
-      analysis.statistics, true, attrs);
+      analysis.statistics, attrs);
   }
 
   // Add models
@@ -82,7 +217,7 @@ function createAnalysis (analyses, identifier) {
 
   // Add terms
   if ("terms" in analysis) {
-    contentContainer = addTermsRows(contentContainer, 3, analysis.terms, attrs);
+    contentContainer = addTermsRows(contentContainer, true, 3, analysis.terms, attrs);
   }
 
   // Add children to table
@@ -97,39 +232,73 @@ function formatName(x, extra) {
 
   // Set extra to '' if no type is provided
   extra = extra || '';
-
-  if (x == "CI_lower") {
-    name = extra * 100 + "% CI lower";
-  } else if (x == "CI_upper") {
-    name = extra * 100 + "% CI upper";
-  } else if (x == "df_numerator") {
-    name = "num. df";
-  } else if (x == "df_denominator") {
-    name = "den. df";
-  } else if (x == "df_null") {
-    name = "null df";
-  } else if (x == "df_residual") {
-    name = "residual df";
-  } else if (x == "cor") {
-    name = "r";
-  } else if (x == "tau") {
-    name = "r<sub>&tau;<sub>";
-  } else if (x == "rho") {
-    name = "r<sub>S</sub>";
-  } else if (x == "X-squared") {
-    name = "&chi;²";
-  } else if (x == "r_squared") {
-    name = "R²";
-  } else if (x == "adjusted_r_squared") {
-    name = "adj. R²";
-  } else if (x == "ges") {
-    name = "η²<sub>G</sub>";
-  } else if (x == "deviance_null") {
-    name = "null deviance";
-  } else if (x == "deviance_residual") {
-    name = "residual deviance";
-  } else {
-    name = x;
+  
+  switch (x) {
+    case "CI_lower":
+      name = extra * 100 + "% CI lower";
+      break;
+    case "CI_upper":
+      name = extra * 100 + "% CI upper";
+      break;
+    case "df_numerator":
+      name = "num. df";
+      break;
+    case "df_denominator":
+      name = "den. df";
+      break;
+    case "df_null":
+      name = "null df";
+      break;
+    case "df_residual":
+      name = "residual df";
+      break;
+    case "cor":
+      name = "r";
+      break;
+    case "tau":
+      name = "r<sub>&tau;</sub>";
+      break;
+    case "rho":
+      name = "r<sub>S</sub>";
+      break;
+    case "X-squared":
+      name = "&chi;²";
+      break;
+    case "r_squared":
+      name = "R²";
+      break;
+    case "adjusted_r_squared":
+      name = "adj. R²";
+      break;
+    case "ges":
+      name = "η²<sub>G</sub>";
+      break;
+    case "deviance_null":
+      name = "null deviance";
+      break;
+    case "deviance_residual":
+      name = "residual deviance";
+      break;
+    case "BF_01":
+      name = "BF<sub>01</sub>";
+      break;
+    case "BF_10":
+      name = "BF<sub>10</sub>";
+      break;
+    case "mean":
+      name = "M";
+      break;
+    case "mean difference":
+      name = "M<sub>diff</sub>";
+      break;
+    case "difference in location":
+      name = "Mdn<sub>diff</sub>";
+      break;
+    case "odds ratio":
+      name = "OR"
+      break;
+    default:
+      name = x;
   }
 
   return(name)
@@ -189,8 +358,12 @@ function formatNumber(x, type) {
         number = number.substr(1);
       }
     } else {
-      if (number >= 1e10 || number <= 1e-10) {
-        number = number.toPrecision(3);
+      if (number == 0) {
+        number = number.toFixed(0);
+      } else if (Math.abs(number) >= 1e8 || Math.abs(number) <= 0.00001) {
+        number = number.toExponential(2);
+      } else if (Math.abs(number) <= 0.001) {
+        number = number.toPrecision(2);
       } else {
         number = number.toFixed(2);
       }
@@ -298,6 +471,10 @@ function addStatisticRow(element, name, value, attrs, extra) {
   row = document.createElement("div");
   row.classList.add("row");
   row.classList.add("child");
+  row.classList.add("statistic");
+  
+  // Add insert statistics functionality
+  row = addInsertClick(row, attrs);
 
   // Add the children labels
   label = document.createElement("div");
@@ -311,10 +488,7 @@ function addStatisticRow(element, name, value, attrs, extra) {
   row.appendChild(valueLabel);
 
   // Add an insert button
-  // Set single attribute to true to indicate the user wants to insert a single
-  // statistic
-  attrs["single"] = true;
-  row = addInsertButton(row, attrs);
+  row = addCheckbox(row, attrs);
 
   element.appendChild(row);
 
@@ -331,7 +505,6 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
   if (isParent) {
     row.classList.add("parent");
     row.classList.add("active");
-
     row = addChevron(row);
   } else {
     row.classList.add("child");
@@ -342,11 +515,14 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
   label.innerHTML = "Statistics:";
   row.appendChild(label);
 
-  // Set single attribute to false to indicate the user wants to insert multiple
-  // statistics
-  attrs["single"] = false;
-  row = addInsertButton(row, attrs);
-
+  // Check if there is more than 1 statistic in statistics
+  // If so, add settings and make the row clickable to insert multiple statistics
+  if (Object.keys(statistics).length > 1) {
+    row.classList.add("statistics");
+    row = addSettings(row);
+    row.onclick = insertStatistics;  
+  }
+  
   element.appendChild(row);
 
   // Loop over each statistic, create a row, and add it to the element
@@ -411,13 +587,11 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
   return(element)
 }
 
-function addTermsRows(element, level, terms, attrs) {
+function addTermsRows(element, isParent, level, terms, attrs) {
   var term, termsContainer, termContainer, termAttrs;
 
   // Add a parent row
-  console.log(element);
-  element = addRow(element, true, "Terms:");
-  console.log("This is called");
+  element = addRow(element, isParent, "Terms:");
 
   // Create a new container
   termsContainer = createContainer("container", level);
@@ -425,7 +599,6 @@ function addTermsRows(element, level, terms, attrs) {
   // Loop over the terms
   for (var t in terms) {
     term = terms[t];
-    console.log(term);
 
     // Add name row
     termsContainer = addRow(termsContainer, true, "Name", 
@@ -448,11 +621,11 @@ function addTermsRows(element, level, terms, attrs) {
   return(element)
 }
 
-function addPairsRows(element, level, pairs, attrs) {
+function addPairsRows(element, isParent, level, pairs, attrs) {
   var pair, pairsContainer, pairContainer, pairAttrs;
 
   // Add a parent row
-  element = addRow(element, true, "Pairs:");
+  element = addRow(element, isParent, "Pairs:");
 
   // Create a new container
   pairsContainer = createContainer("container", level);
@@ -496,51 +669,47 @@ function addGroupsRows(element, level, groups, attrs) {
   // Loop over the groups
   for (var g in groups) {
     group = groups[g];
-    console.log(group);
 
     // Add name row
     groupsContainer = addRow(groupsContainer, true, "Name", 
       group.name);
+      
+    // Create a new container
+    groupContainer = createContainer("container", level + 1);
 
     // Add statistics
     if ("statistics" in group) {
       groupAttrs = {...attrs};
       groupAttrs["group"] = group.name;
-
-      // Create a new container
-      groupContainer = createContainer("container", level);
-
-      groupContainer = addStatisticsRows(groupContainer, false, level + 1, 
+    
+      groupContainer = addStatisticsRows(groupContainer, true, level + 2, 
         group.statistics, groupAttrs);
     }
-
-    // Add terms
-    if ("terms" in group) {
-      groupAttrs = {...attrs};
-      groupAttrs["group"] = group.name;
-      
-      // Create a new container
-      groupContainer = createContainer("container", level);
-
-      groupContainer = addTermsRows(groupContainer, level + 1, 
-        group.terms, groupAttrs);
-    }
-
-    if ("pairs" in group) {
-      groupAttrs = {...attrs};
-      groupAttrs["group"] = group.name;
-
-      // Create a new container
-      groupContainer = createContainer("container", level);
-
-      groupContainer = addPairsRows(groupContainer, level + 1, 
-        group.pairs, groupAttrs);
-    }
-
-    groupsContainer.appendChild(groupContainer);
-  }
     
-  element.appendChild(groupsContainer);
+    if ("terms" in group || "pairs" in group) {
+      // Add terms
+      if ("terms" in group) { 
+        groupAttrs = {...attrs};
+        groupAttrs["group"] = group.name;
+        
+        groupContainer = addTermsRows(groupContainer, true, level + 2, 
+          group.terms, groupAttrs);
+      }
+      
+      // Add pairs
+      if ("pairs" in group) {
+        groupAttrs = {...attrs};
+        groupAttrs["group"] = group.name;
+  
+        groupContainer = addPairsRows(groupContainer, true, level + 2, 
+          group.pairs, groupAttrs);
+      }
+    }
+    
+    groupsContainer.appendChild(groupContainer);
+    
+    element.appendChild(groupsContainer);
+  }
 
   return(element)
 }
@@ -548,7 +717,7 @@ function addGroupsRows(element, level, groups, attrs) {
 function addRandomEffectsRows(element, level, random_effects, attrs) {
   var randomContainer, statisticsAttrs, groupsAttrs;
 
-  attrs["effect"] = "random_effect";
+  attrs["effect"] = "random_effects";
 
   // Add a parent row
   element = addRow(element, true, "Random effects:");
@@ -574,7 +743,7 @@ function addRandomEffectsRows(element, level, random_effects, attrs) {
 function addFixedEffectsRows(element, level, fixed_effects, attrs) {
   var fixedContainer, termsAttrs;
 
-  attrs["effect"] = "fixed_effect";
+  attrs["effect"] = "fixed_effects";
 
   // Add a parent row
   element = addRow(element, true, "Fixed effects:");
@@ -584,13 +753,13 @@ function addFixedEffectsRows(element, level, fixed_effects, attrs) {
 
   // Add terms
   termsAttrs = {...attrs};
-  fixedContainer = addTermsRows(fixedContainer, level + 1, fixed_effects.terms, 
+  fixedContainer = addTermsRows(fixedContainer, true, level + 1, fixed_effects.terms, 
     termsAttrs);
   
   // Add pairs
   if ("pairs" in fixed_effects) {
     var pairsAttrs = {...attrs};
-    fixedContainer = addPairsRows(fixedContainer, level + 1, 
+    fixedContainer = addPairsRows(fixedContainer, true, level + 1, 
       fixed_effects.pairs, pairsAttrs);  
   }
 
@@ -600,8 +769,8 @@ function addFixedEffectsRows(element, level, fixed_effects, attrs) {
 }
 
 function addModelsRows(element, level, models, attrs) {
-  var model, modelsContainer, modelAttrs;
-
+  var model, modelsContainer, modelContainer, modelAttrs;
+  
   // Add a parent row
   element = addRow(element, true, "Models:");
 
@@ -611,15 +780,20 @@ function addModelsRows(element, level, models, attrs) {
   // Loop over the models
   for (var m in models) {
     model = models[m];
-
+    
     // Add name row
-    modelsContainer = addRow(modelsContainer, false, "Name", model.name);
+    modelsContainer = addRow(modelsContainer, true, "Name", model.name);
+    
+    // Create a new container
+    modelContainer = createContainer("container", level);
 
     // Add statistics
     modelAttrs = {...attrs};
     modelAttrs["model"] = model.name;
-    modelsContainer = addStatisticsRows(modelsContainer, true, level + 1, 
-      model.statistics, modelAttrs);  
+    modelContainer = addStatisticsRows(modelContainer, false, level + 1, 
+      model.statistics, modelAttrs);
+      
+    modelsContainer.appendChild(modelContainer); 
   }
 
   element.appendChild(modelsContainer);
@@ -638,11 +812,11 @@ function addChevron(row) {
 
   chevronRight = document.createElement("img");
   chevronRight.className = "chevron-right";
-  chevronRight.src = "assets/chevron-right.svg"
+  chevronRight.src = "assets/icons/chevron-right.svg"
 
   chevronDown = document.createElement("img");
   chevronDown.className = "chevron-down";
-  chevronDown.src = "assets/chevron-down.svg"
+  chevronDown.src = "assets/icons/chevron-down.svg"
 
   chevron.appendChild(chevronRight);
   chevron.appendChild(chevronDown);
@@ -652,21 +826,48 @@ function addChevron(row) {
   return(row);
 }
 
-function addInsertButton(row, attrs) {
-  var insertButton;
+function addInsertClick(row, attrs) {
 
-  insertButton = document.createElement("div");
-  insertButton.className = "insert-button";
-  insertButton.innerHTML = "+";
-  insertButton.onclick = insertStatistics;
+  row.onclick = insertStatistic;
 
   for (var key in attrs) {
     // console.log("key: " + key);
     // console.log("value: " + attrs[key]);
-    insertButton.setAttribute(key, attrs[key]);
+    row.setAttribute(key, attrs[key]);
   }
+  
+  return(row);
+}
 
-  row.appendChild(insertButton);
+function addSettings(row) {
+  var gear;
+  
+  gear = document.createElement("div");
+  gear.className = "gear-container";
+  gear = addGear(gear);
+  
+  gear.onclick = toggleToggles;
+  
+  row.appendChild(gear);
+  
+  return(row);
+}
+
+function addCheckbox(row, attrs) {
+  var div, checkbox, checkmark;
+
+  div = document.createElement("div");
+  div.className = "checkbox-container";
+  div.onclick = toggleStatistic;
+
+  checkbox = document.createElement("div");
+  checkbox.className = "checkbox";
+  checkbox.classList.add("checkbox-selected");
+  checkbox = addCheckmark(checkbox);
+  
+  div.appendChild(checkbox);
+
+  row.appendChild(div);
 
   return(row);
 }
@@ -674,6 +875,8 @@ function addInsertButton(row, attrs) {
 /* Event functions */
 
 function collapse() {
+  event.stopPropagation();
+  
   var parent, content;
 
   parent = this.parentElement;
@@ -694,4 +897,48 @@ function collapse() {
   }
 
   parent.classList.toggle("active"); 
+}
+
+
+
+
+// SVG functions
+
+function addCheckmark(element) {
+  var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  var path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+  
+  svg.setAttribute('width', '1em');
+  svg.setAttribute('height', '1em');
+  svg.setAttribute('viewBox', '0 0 16 16');
+  svg.setAttribute("class", "checkmark");
+  svg.setAttribute("aria-hidden", "true");
+  
+  path.setAttribute('d', 'M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z');
+  path.setAttribute('fill-rule', 'evenodd');
+  
+  svg.appendChild(path);
+  element.appendChild(svg);
+  
+  return(element);
+}
+
+function addGear(element) {
+  var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+  var path = document.createElementNS("http://www.w3.org/2000/svg", 'path');
+  
+  svg.setAttribute('width', '1em');
+  svg.setAttribute('height', '1em');
+  svg.setAttribute('viewBox', '0 0 16 16');
+  svg.setAttribute("class", "gear");
+  svg.setAttribute("aria-hidden", "true");
+  
+  path.setAttribute('d', 'M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 0 0-5.86 2.929 2.929 0 0 0 0 5.858z');
+  path.setAttribute('fill-rule', 'evenodd');
+  
+  svg.appendChild(path);
+  element.appendChild(svg);
+  
+  return(element);
+  
 }

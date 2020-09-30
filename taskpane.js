@@ -19,7 +19,9 @@ Office.onReady(function(info) {
     document.getElementById("update-button").onclick = updateStatistics;
     document.getElementById("cite1").onclick = insertInTextCitation;
     document.getElementById("cite2").onclick = insertFullCitation;
-
+    
+    // Make the file input section visible
+    document.getElementById("app-input").style.display = "block";
 
     // test();
     // Check settings to see whether a file was already opened
@@ -109,13 +111,7 @@ function search() {
 
 // Word functions --------------------------------------------------------------
 
-function insertStatistics() {
-  console.log("Inserting statistics");
-
-  // Obtain the attributes of the button that was clicked on
-  attrs = getAttributes(this);
-  console.log(attrs);
-  
+function insert(attrs) {
   Word.run(function (context) {
     // Determine output
     var output = createStatisticsOutput(analyses, attrs);
@@ -146,35 +142,6 @@ function insertStatistics() {
         console.log("Debug info: " + JSON.stringify(error.debugInfo));
     }
   });
-}
-
-function getAttributes(element) {
-  var attributes = {};
-
-  attributes["identifier"] = element.getAttribute("identifier");
-  attributes["single"] = element.getAttribute("single");
-
-  if (element.hasAttribute("statistic")) {
-    attributes["statistic"] = element.getAttribute("statistic");
-  }
-  if (element.hasAttribute("term")) {
-    attributes["term"] = element.getAttribute("term");
-  }
-  if (element.hasAttribute("pair1")) {
-    attributes["pair1"] = element.getAttribute("pair1");
-    attributes["pair2"] = element.getAttribute("pair2");
-  }
-  if (element.hasAttribute("group")) {
-    attributes["group"] = element.getAttribute("group");
-  }
-  if (element.hasAttribute("effect")) {
-    attributes["effect"] = element.getAttribute("effect");
-  }
-  if (element.hasAttribute("model")) {
-    attributes["model"] = element.getAttribute("model");
-  }
-
-  return(attributes)
 }
 
 function stringifyAttributes(attrs) {
@@ -209,7 +176,6 @@ function updateStatistics() {
       });
   });
 }
-
 
 function insertInTextCitation() {
   
@@ -280,7 +246,7 @@ function insertFullCitation() {
 // Statistics retrieval/formatting functions -----------------------------------
 
 function createStatisticsOutput(data, attrs) {
-    var identifier, analysis, method, single, statistics, statistic;
+    var identifier, analysis, method, single, statistics;
 
     // Get the identifier from the attributes
     identifier = attrs["identifier"];
@@ -289,184 +255,68 @@ function createStatisticsOutput(data, attrs) {
     // method it is
     analysis = data[identifier];
     method = analysis.method; 
+    
+    // Determine the statistics that should be inserted
+    if ("model" in attrs) {
+      var model = analysis.models.find(x => x.name == attrs.model);
+      statistics = model.statistics;
+    } else if ("effect" in attrs) {
+      var effect = analysis.effects[attrs.effect];
+      
+      if ("group" in attrs) {
+        var group = effect.groups.find(x => x.name == attrs.group);
+        
+        if ("term" in attrs) {
+          var term = group.terms.find(x => x.name == attrs.term);
+          statistics = term.statistics;  
+        } else if ("pair1" in attrs) {
+          var pair = group.pairs.find(x => x.names[0] == attrs.pair1 & x.names[1] == attrs.pair2);
+          statistics = pair.statistics;
+        } else {
+          statistics = group.statistics; 
+        }
+      } else if ("term" in attrs) {
+        var term = effect.terms.find(x => x.name == attrs.term);
+        statistics = term.statistics;
+      } else if ("pair1" in attrs) {
+        var pair = effect.pairs.find(x => x.names[0] == attrs.pair1 & x.names[1] == attrs.pair2);
+        statistics = pair.statistics;
+      } else if ("statistic" in attrs) {
+        statistics = effect.statistics;
+      }
+    } else if ("group" in attrs) {
+        var group = analysis.groups.find(x => x.name == attrs.group);
+        
+        if ("term" in attrs) {
+          var term = group.terms.find(x => x.name == attrs.term);
+          statistics = term.statistics;  
+        } else {
+          statistics = group.statistics;  
+        }
+    } else if ("term" in attrs) {
+      var term = analysis.terms.find(x => x.name == attrs.term);
+      statistics = term.statistics;  
+    } else {
+      statistics = analysis.statistics;
+    }
 
-    // Get the single attribute to determine whether a single statistic should
-    // be inserted or a whole line of statistics
-    single = attrs["single"];
+    // Determine whether a single statistic or multiple statistics should be inserted
+    if ("statistic" in attrs) {
+      single = true
+    } else {
+      single = false
+    }
 
     // Create a variable to store the output in
     var output;
-
-   if (/t-test/.test(method)) {
-      statistics = analysis.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-        output = createTTestLine(statistics);
-      }
-    } else if (/Pearson's product-moment correlation/.test(method)) {
-      statistics = analysis.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-        output = createPearsonCorrelationLine(statistics);
-      }
-    } else if (/Kendall's rank correlation tau/.test(method)) {
-      statistics = analysis.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-        output = createKendallCorrelationLine(statistics);
-      }
-    } else if (/Spearman's rank correlation rho/.test(method)) {
-      statistics = analysis.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-        output = createSpearmanCorrelationLine(statistics);
-      }
-    } else if (/Chi-squared test/.test(method)) {
-      statistics = analysis.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-        output = createChiSquaredLine(statistics);
-      }
-    } else if (/Wilcoxon/.test(method)) {
-      statistics = analysis.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-        output = createWilcoxonTestLine(statistics);
-      }
-    } else if (/Fisher's Exact Test/.test(method)) {
-      statistics = analysis.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-        output = createFisherExactTestLine(statistics);
-      }
-    } else if (/One-way analysis of means/.test(method)) {
-      statistics = analysis.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-        output = createOneWayAnalysisOfMeansLine(statistics);
-      }
-    } else if (/Linear regression/.test(method)) {
-      if ("term" in attrs) {
-        var term = analysis.terms.find(x => x.name == attrs["term"]);
-        statistics = term.statistics;        
-
-        if (single == "true") {
-          output = retrieveStatistic(statistics, attrs["statistic"]);
-        } else {
-          output = createLinearModelTermLine(statistics);
-        } 
-      } else {
-        statistics = analysis.statistics;
-
-        if (single == "true") {
-          output = retrieveStatistic(statistics, attrs["statistic"]);
-        } else {
-          output = createLinearModelModelLine(statistics);
-        }
-      }
-    } else if (/ANOVA/.test(method)) {
-      if ("group" in attrs) {
-        var group = analysis.groups.find(x => x.name == attrs["group"]);
-        var terms = group.terms;
-      } else {
-        var terms = analysis.terms;
-      }
-
-      var term = terms.find(x => x.name == attrs["term"]);  
-      statistics = term.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-        var term_residuals = terms.find(x => x.name == "Residuals");
-        statistics_residuals = term_residuals.statistics;
-
-        output = createANOVALine(statistics, statistics_residuals);
-      } 
-    } else if (/Descriptives/.test(method)) {
-      if ("group" in attrs) {
-        var group = analysis.groups.find(x => x.name == attrs["group"]);
-        var statistics = group.statistics;
-      } else {
-        var statistics = analysis.statistics;
-      }
-
-      if (single == "true") {
-          output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-          output = createDescriptivesLine(statistics);
-      }
-    } else if (/Counts/.test(method)) {
-      var group = analysis.groups.find(x => x.name == attrs["group"]);
-      var statistics = group.statistics;
-
-      if (single == "true") {
-          output = retrieveStatistic(statistics, attrs["statistic"]);
-      } else {
-          output = createCountsLine(statistics);
-      }
-    } else if (/Linear mixed model/.test(method)) {
-      if (attrs["effect"] == "random_effect") {
-        if ("group" in attrs) {
-          var group = analysis.effects.random_effects.groups.find(x => 
-            x.name == attrs["group"]);
-          if ("term" in attrs) {
-            var term = group.terms.find(x => x.name == attrs["term"]);
-            var statistics = term.statistics;
-          } else if ("pair1" in attrs) {
-            var pair = group.pairs.find(x => x.names[0] == attrs["pair1"]);
-            var statistics = pair.statistics;
-          } else {
-            var statistics = group.statistics;
-          }  
-        } else {
-          var statistics = analysis.effects.random_effects.statistics;
-        }
-      } else {
-        if ("term" in attrs) {
-          var term = analysis.effects.fixed_effects.terms.find(x => 
-            x.name == attrs["term"]);
-          var statistics = term.statistics;
-
-          if (single == "false") {
-            output = createLinearMixedModelFixedEffectLine(statistics);
-          }
-        } else {
-          var pair = analysis.effects.fixed_effects.pairs.find(x => 
-            x.names[0] == attrs["pair1"]);
-          var statistics = pair.statistics;
-        }
-      }
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      }
-    } else if (/Generic/.test(method)) { 
-      var statistics = analysis.statistics;
-
-      if (single == "true") {
-        output = retrieveStatistic(statistics, attrs["statistic"]);
-      }
+    
+    // If single, report only a single statistic, otherwise a line of statistics
+    if (single) {
+      output = retrieveStatistic(statistics, attrs.statistic);
     } else {
-      output = "Sorry, not supported";
+      var selectedStatistics = attrs.statistics;
+      output = createStatisticsLine(statistics, selectedStatistics);
     }
-
     return(output)
 }
 
@@ -497,309 +347,141 @@ function retrieveStatistic(statistics, statistic) {
   return(output)
 }
 
-// APA lines of statistics functions -------------------------------------------
-
-function createTTestLine(statistics) {
-  var t, df, p, output;
- 
-  t = formatNumber(statistics.statistic.value);
-  df = formatNumber(statistics.df, "df");
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>t</i>(" + df + ") = " + t + ", <i>p</i> " + p;
-  } else {
-    output = "<i>t</i>(" + df + ") = " + t + ", <i>p</i> = " + p;
-  }
-
-  if ("CI" in statistics) {
-    output = output + ", " + statistics.CI.CI_level * 100 + "% CI [" + 
-      formatNumber(statistics.CI.CI_lower) + ", " + 
-      formatNumber(statistics.CI.CI_upper) + "]"
-  }
-
-  return(output)
-}
-
-function createPearsonCorrelationLine(statistics) {
-  var r, df, p, output;
-
-  r = formatNumber(statistics.estimate.value);
-  df = formatNumber(statistics.df, "df");
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>r</i>(" + df + ") = " + r + ", <i>p</i> " + p;
-  } else {
-    output = "<i>r</i>(" + df + ") = " + r + ", <i>p</i> = " + p;
-  }
-
-  if ("CI" in statistics) {
-    output = output + ", " + statistics.CI.CI_level * 100 + "% CI [" + 
-      formatNumber(statistics.CI.CI_lower) + ", " + 
-      formatNumber(statistics.CI.CI_upper) + "]"
-  }
-
-  return(output) 
-}
-
-function createKendallCorrelationLine(statistics) {
-  var tau, p, output;
-
-  tau = formatNumber(statistics.estimate.value);
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>r<sub>&tau;</sub></i> = " + tau + ", <i>p</i> " + p;
-  } else {
-    output = "<i>r<sub>&tau;</sub></i> = " + tau + ", <i>p</i> = " + p;
-  }
-
-  return(output) 
-}
-
-function createSpearmanCorrelationLine(statistics) {
-  var rho, p, output;
-
-  rho = formatNumber(statistics.estimate.value);
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>r<sub>S</sub></i> = " + rho + ", <i>p</i> " + p;
-  } else {
-    output = "<i>r<sub>S</sub></i> = " + rho + ", <i>p</i> = " + p;
-  }
-
-  return(output) 
-}
-
-function createChiSquaredLine(statistics) {
-  var chi_squared, df, p, output;
-
-  chi_squared = formatNumber(statistics.statistic.value);
-  df = formatNumber(statistics.df, "df");
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>&chi;²</i>(" + df + ") = " + chi_squared + ", <i>p</i> " + p;
-  } else {
-    output = "<i>&chi;²</i>(" + df + ") = " + chi_squared + ", <i>p</i> = " + p;
-  }
-
-  return(output) 
-}
-
-function createWilcoxonTestLine(statistics) {
-  var statistic_name, statistic_value, p, output;
-
-  statistic_name = statistics.statistic.name;
-  statistic_value = formatNumber(statistics.statistic.value);
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>" + statistic_name + "</i> = " + statistic_value + 
-      ", <i>p</i> " + p;
-  } else {
-    output = "<i>" + statistic_name + "</i> = " + statistic_value + 
-      ", <i>p</i> = " + p;
-  }
-
-  return(output) 
-}
-
-function createFisherExactTestLine(statistics) {
-
-  var output;
-  var p = formatNumber(statistics.p, "p");
+function createStatisticsLine(statistics, selectedStatistics) {
+  var name, value, text;
+  var output = [];
   
-  if ("estimate" in statistics) {
-    var OR = formatNumber(statistics.estimate.value);
-
-    output = "<i>OR</i> = " + OR
-
-    if (p == "< .001") {
-      output = output + ", <i>p</i> " + p;
-    } else {
-      output = output + ", <i>p</i> = " + p;
-    }
-  } else {
-    if (p == "< .001") {
-      output = "<i>p</i> " + p;
-    } else {
-      output = "<i>p</i> = " + p;
-    }
-  }
-
-  if ("CI" in statistics) {
-    var lower = formatNumber(statistics.CI.lower);
-    var upper = formatNumber(statistics.CI.upper);
-
-    output = output + ", " + statistics.CI.level * 100 + "% CI [" + lower + 
-      ", " + upper + "]"
-  }
-
-  return(output) 
-}
-
-function createOneWayAnalysisOfMeansLine(statistics) {
-  var statistic, df1, df2, p, output;
-
-  statistic = formatNumber(statistics.statistic.value);
-  df1 = formatNumber(statistics.dfs.df_numerator, "df");
-  df2 = formatNumber(statistics.dfs.df_denominator, "df");
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>F</i>(" + df1 + ", " + df2 + ") = " + statistic + 
-      ", <i>p</i> " + p;
-  } else {
-    output = "<i>F</i>(" + df1 + ", " + df2 + ") = " + statistic + 
-      ", <i>p</i> = " + p;
-  }
-
-  return(output) 
-}
-
-function createLinearModelTermLine(statistics) {
-  var estimate, SE, statistic, df, p, output;
-
-  estimate = formatNumber(statistics.estimate.value);
-  SE = formatNumber(statistics.SE);
-  statistic_name = statistics.statistic.name;
-  statistic_value = formatNumber(statistics.statistic.value);
-  df = formatNumber(statistics.df, "df");
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + ", <i>" + 
-      statistic_name + "</i>(" + df + ") = " + statistic_value + 
-      ", <i>p</i> " + p;
-  } else {
-    output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + ", <i>" + 
-      statistic_name + "</i>(" + df + ") = " + statistic_value + 
-      ", <i>p</i> = " + p;
-  }
-
-  return(output) 
-}
-
-function createLinearModelModelLine(statistics) {
-  var r_squared, statistic, df1, df2, p, output;
-
-  r_squared = formatNumber(statistics.r_squared);
-  statistic = formatNumber(statistics.statistic.value);
-  df1 = formatNumber(statistics.dfs.df_numerator, "df");
-  df2 = formatNumber(statistics.dfs.df_denominator, "df");
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>R²</i> = " + r_squared + ", <i>F</i>(" + df1 + ", " + df2 + 
-      ") = " + statistic + ", <i>p</i> " + p;
-  } else {
-    output = "<i>R²</i> = " + r_squared + ", <i>F</i>(" + df1 + ", " + df2 + 
-      ") = " + statistic + ", <i>p</i> = " + p;
-  }
-
-  return(output) 
-}
-
-function createANOVALine(statistics, statistics_residuals) {
-  var statistic, df1, df2, p, output;
-
-  statistic = formatNumber(statistics.statistic.value);
-
-  if ("dfs" in statistics) {
-    df1 = formatNumber(statistics.dfs.df_numerator, "df");
-    df2 = formatNumber(statistics.dfs.df_denominator, "df");  
-  } else {
-    df1 = formatNumber(statistics.df, "df");
-    df2 = formatNumber(statistics_residuals.df, "df");
-  }
-
-  p = formatNumber(statistics.p, "p");
-
-  if (p == "< .001") {
-    output = "<i>F</i>(" + df1 + ", " + df2 + ") = " + statistic + 
-      ", <i>p</i> " + p;
-  } else {
-    output = "<i>F</i>(" + df1 + ", " + df2 + ") = " + statistic + 
-      ", <i>p</i> = " + p;
-  }
-
-  if ("ges" in statistics) {
-    var ges = formatNumber(statistics.ges);
-    output = output + ", η²<sub>G</sub> = " + ges;
-  }
-
-  return(output) 
-}
-
-function createLinearMixedModelFixedEffectLine(statistics) {
-  var b, SE, t, df, p, output;
-
-  estimate = formatNumber(statistics.estimate.value);
-  SE = formatNumber(statistics.SE);
-  statistic = formatNumber(statistics.statistic.value);
-  
-  if ("df" in statistics) {
-    df = formatNumber(statistics.df, "df");
-    p = formatNumber(statistics.p, "p");
-
-    if (p == "< .001") {
-      output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + 
-        ", <i>t</i>(" + df + ") = " + statistic + ", <i>p</i> " + p;
-    } else {
-      output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + 
-        ", <i>t</i>(" + df + ") = " + statistic + ", <i>p</i> = " + p;
-    }
-  } else {
-    if (p == "< .001") {
-      output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + 
-        ", <i>t</i> = " + statistic;
-    } else {
-      output = "<i>b</i> = " + estimate + ", <i>SE</i> = " + SE + 
-        ", <i>t</i> = " + statistic;
+  for (i in selectedStatistics) {
+    
+    name = selectedStatistics[i];
+    
+    switch (name) {
+        case "estimate":
+          name = statistics[selectedStatistics[i]].name;
+          value = statistics[selectedStatistics[i]].value;
+          text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+          output.push(text);
+          break;
+        case "statistic":
+          name = statistics[selectedStatistics[i]].name;
+          value = statistics[selectedStatistics[i]].value;
+          
+          if (selectedStatistics.includes("df")) {
+            var df = statistics.df;
+            text = "<i>" + formatName(name) + "</i>(" + formatNumber(df, "df") + ") = " + 
+              formatNumber(value, name);
+          } else if (selectedStatistics.includes("df_numerator")) {
+            var df_numerator = statistics.dfs.df_numerator;
+            var df_denominator = statistics.dfs.df_denominator;
+            text = "<i>" + formatName(name) + "</i>(" + 
+              formatNumber(df_numerator, "df") + ", " + 
+              formatNumber(df_denominator, "df") + ") = " + 
+              formatNumber(value, name);
+          } else {
+            text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+          }
+          
+          output.push(text);
+          break;
+        case "df":
+          if (selectedStatistics.includes("statistic")) {
+            break;
+          } else {
+            value = statistics[name];
+            text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+            output.push(text);
+            break;
+          }
+        case "df_numerator":
+          if (selectedStatistics.includes("statistic")) {
+            break;
+          } else {
+            value = statistics[name];
+            text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+            output.push(text);
+            break;
+          }
+        case "df_denominator":
+          if (selectedStatistics.includes("statistic")) {
+            break;
+          } else {
+            value = statistics[name];
+            text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+            output.push(text);
+            break;
+          }
+        case "p":
+          value = statistics[name];
+          if (value < 0.001) { 
+          	text = "<i>" + formatName(name) + "</i> " + formatNumber(value, name);
+          } else {
+          	text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+          }
+          output.push(text);
+          break;
+        case "CI_lower":
+          text = createCILine(statistics.CI.CI_lower, statistics.CI.CI_upper, 
+            statistics.CI.CI_level);
+          output.push(text);
+          break;
+        case "CI_upper":
+          break;
+        case "BF_01":
+          value = statistics[name];
+        
+          if (selectedStatistics.includes("error")) {
+            var error = statistics["error"];
+            text = formatName(name) + " = " + formatNumber(value, name) + " ±" + 
+              formatNumber(error) + "%";
+          } else {
+            value = statistics[name];
+            text = formatName(name) + " = " + formatNumber(value, name);
+          }
+          output.push(text);
+          break;
+        case "BF_10":
+          value = statistics[name];
+        
+          if (selectedStatistics.includes("error")) {
+            var error = statistics["error"];
+            text = formatName(name) + " = " + formatNumber(value, name) + " ±" + 
+              formatNumber(error) + "%";
+          } else {
+            value = statistics[name];
+            text = formatName(name) + " = " + formatNumber(value, name);
+          }
+          output.push(text);
+          break;
+        case "error":
+          if (selectedStatistics.includes("BF_01") || selectedStatistics.includes("BF_10")) {
+            break;
+          } else {
+            value = statistics[name];
+            text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+            output.push(text);
+          }
+          break;
+        default:
+          value = statistics[name];
+          text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+          output.push(text);
     }
   }
   
-  return(output) 
-}
-
-function createDescriptivesLine(statistics) {
-  var M, SD, output;
- 
-  M = formatNumber(statistics.M);
-  SD = formatNumber(statistics.SD);
- 
-  output = "(<i>M</i> = " + M + ", <i>SD</i> = " + SD + ")";
-
-  return(output)
-}
-
-function createCountsLine(statistics) {
-  var n, pct;
- 
-  n = formatNumber(statistics.n, type = "N");
-  pct = formatNumber(statistics.pct);
- 
-  output = n + " (" + pct + "%)";
-
-  return(output)
-}
-
-function createBayesFactorLine(statistics) {
-  var BF, error, output;
- 
-  BF = formatNumber(statistics.BF_01);
-  error = formatNumber(statistics.error);
-
-  output = "<i>BF<sub>01</sub></i> = " + BF + " ± " + error + "%";
+  output = output.join(", ");
   
   return(output)
 }
 
-// Table creation functions ----------------------------------------------------
+function createCILine(lower, upper, level) {
+  return(
+    level * 100 + "% CI [" + 
+      formatNumber(lower) + ", " + 
+      formatNumber(upper) + "]"
+  )
+}
 
+// Work in progress ----------------------------------------------------
 
 function createTTestWordTable (body, identifier, analysis) {
   var statistics = analysis.statistics;
