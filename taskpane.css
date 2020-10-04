@@ -214,6 +214,10 @@ p {
   display: flex;
   flex-direction: row;
 
+  min-height: 32px;
+  
+  
+
   border-bottom: 1px solid rgb(243, 242, 241);
 }
 
@@ -223,7 +227,7 @@ p {
 }
 
 .level1 .row {
-  min-height: 30px;
+  
 }
 
 .level2 {
@@ -294,12 +298,17 @@ p {
   font-weight: bold;
 }
 
+.parent-value {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
 .parent-title {
   font-weight: bold; 
 }
 
 .identifier {
-  background-color: rgb(237, 235, 233); 
+  background-color: rgb(237, 235, 233);
 
   font-size: 13px;
 
@@ -315,9 +324,8 @@ p {
   flex: 0 0 25px;
   margin-right: 5px;
 
-
-  padding-top: 5px;
-  padding-bottom: 3px;
+  align-self: stretch;
+  display: flex;
 }
 
 .chevron:hover {
@@ -348,10 +356,20 @@ p {
 .child-name {
   flex: 0 0 90px;
   
-  padding-top: 5px;
-  padding-bottom: 5px;
+  vertical-align: middle;
+  
+  margin-top: 5px;
+  margin-bottom: 5px;
   padding-right: 5px;
   font-weight: bold;
+}
+
+.child-value {
+  flex-grow: 1;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-right: 5px;
 }
 
 .statistics:hover {
@@ -369,16 +387,6 @@ p {
 
   font-weight: bold;
 }
-
-.child-value {
-  flex-grow: 1;
-
-  padding-top: 5px;
-  padding-bottom: 5px;
-  padding-right: 5px;
-}
-
-
 
 .gear-container {
   display: none;
@@ -408,21 +416,27 @@ p {
 /* Statistics checkbox */
 
 .checkbox-container {
-  width: 30px;
-  height: 30px;
+  width: 50px;
+  height: 31px;
+  
+  position: absolute; /* Use absolute position to prevent a border between the checkboxes */
+  right: 5px;         /* The border would otherwise be clickable and insert statistics */
+  margin-right: 5px;
   
   display: none;
   justify-content: center;
   align-items: center;
 }
 
-.checkbox {    
+.checkbox {
   display: flex;
   justify-content: center;
   align-items: center;
 
   width: 16px;
   height: 16px;
+  
+  margin-left: 18px;
   
   border-width: 1px;
   border-style: solid;

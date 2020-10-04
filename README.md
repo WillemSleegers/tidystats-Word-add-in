@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/208565217.svg)](https://zenodo.org/badge/latestdoi/208565217)
+
 # tidystats Word add-in
 
 The tidystats Word add-in is an add-in for Microsoft Word to insert statistics from a file created with the [tidystats](https://github.com/WillemSleegers/tidystats) R package. 

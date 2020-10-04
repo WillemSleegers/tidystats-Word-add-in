@@ -48,33 +48,37 @@ function insertStatistics() {
     }
   }
   
-  // Determine attributes
-  var element = rows[1];
-  var attributes = {};
+  if (selectedStatistics.length > 0) {
+    // Determine attributes
+    var element = rows[1];
+    var attributes = {};
+    
+    attributes["identifier"] = element.getAttribute("identifier");
   
-  attributes["identifier"] = element.getAttribute("identifier");
-
-  if (element.hasAttribute("term")) {
-    attributes["term"] = element.getAttribute("term");
+    if (element.hasAttribute("term")) {
+      attributes["term"] = element.getAttribute("term");
+    }
+    if (element.hasAttribute("pair1")) {
+      attributes["pair1"] = element.getAttribute("pair1");
+      attributes["pair2"] = element.getAttribute("pair2");
+    }
+    if (element.hasAttribute("group")) {
+      attributes["group"] = element.getAttribute("group");
+    }
+    if (element.hasAttribute("effect")) {
+      attributes["effect"] = element.getAttribute("effect");
+    }
+    if (element.hasAttribute("model")) {
+      attributes["model"] = element.getAttribute("model");
+    }
+    
+    attributes["statistics"] = selectedStatistics;
+    
+    // Insert statistics in Word
+    insert(attributes);
+  } else {
+    console.log("No statistics selected.")
   }
-  if (element.hasAttribute("pair1")) {
-    attributes["pair1"] = element.getAttribute("pair1");
-    attributes["pair2"] = element.getAttribute("pair2");
-  }
-  if (element.hasAttribute("group")) {
-    attributes["group"] = element.getAttribute("group");
-  }
-  if (element.hasAttribute("effect")) {
-    attributes["effect"] = element.getAttribute("effect");
-  }
-  if (element.hasAttribute("model")) {
-    attributes["model"] = element.getAttribute("model");
-  }
-  
-  attributes["statistics"] = selectedStatistics;
-  
-  // Insert statistics in Word
-  insert(attributes);
 }
 
 
@@ -241,16 +245,16 @@ function formatName(x, extra) {
       name = extra * 100 + "% CI upper";
       break;
     case "df_numerator":
-      name = "num. df";
+      name = "df<sub>num.</sub>";
       break;
     case "df_denominator":
-      name = "den. df";
+      name = "df<sub>denom.</sub>";
       break;
     case "df_null":
-      name = "null df";
+      name = "df<sub>null</sub>";
       break;
     case "df_residual":
-      name = "residual df";
+      name = "df<sub>residual</sub>";
       break;
     case "cor":
       name = "r";
@@ -273,11 +277,14 @@ function formatName(x, extra) {
     case "ges":
       name = "η²<sub>G</sub>";
       break;
+    case "deviance":
+      name = "D"
+      break;
     case "deviance_null":
-      name = "null deviance";
+      name = "D<sub>null</sub>";
       break;
     case "deviance_residual":
-      name = "residual deviance";
+      name = "D<sub>residual</sub>";
       break;
     case "BF_01":
       name = "BF<sub>01</sub>";
@@ -288,6 +295,9 @@ function formatName(x, extra) {
     case "mean":
       name = "M";
       break;
+    case "median":
+      name = "Mdn";
+      break;
     case "mean difference":
       name = "M<sub>diff</sub>";
       break;
@@ -296,6 +306,12 @@ function formatName(x, extra) {
       break;
     case "odds ratio":
       name = "OR"
+      break;
+    case "cp":
+      name = "C<sub>p</sub>";
+      break;
+    case "rao":
+      name = "R";
       break;
     default:
       name = x;
@@ -318,7 +334,7 @@ function formatNumber(x, type) {
     number = parseFloat(x);
 
     const integers = ["df", "df_numerator", "df_denominator", "df_null",
-      "df_residual", "N", "n", "missing"];
+      "df_residual", "N", "n", "missing", "T", "S"];
     const omitZero = ["r", "cor", "tau", "rho", "r_squared", 
       "adjusted_r_squared"];
 

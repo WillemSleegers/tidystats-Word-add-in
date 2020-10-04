@@ -19,6 +19,7 @@ Office.onReady(function(info) {
     document.getElementById("update-button").onclick = updateStatistics;
     document.getElementById("cite1").onclick = insertInTextCitation;
     document.getElementById("cite2").onclick = insertFullCitation;
+    document.getElementById("cite3").onclick = copyBib;
     
     // Make the file input section visible
     document.getElementById("app-input").style.display = "block";
@@ -243,6 +244,58 @@ function insertFullCitation() {
   });
 }
 
+function copyBib() {
+  /* Get the text field */
+    var text = `@software{sleegers2020,
+      title = {tidystats: Reproducibly report statistics in {{Microsoft Word}}},
+      author = {Sleegers, Willem W. A.},
+      date = {2020},
+      url = {https://doi.org/10.5281/zenodo.4065574},
+      version = {1.0}
+    }`;
+   var textArea = document.createElement("textarea");
+  
+    // Place in top-left corner of screen regardless of scroll position.
+    textArea.style.position = 'fixed';
+    textArea.style.top = 0;
+    textArea.style.left = 0;
+  
+    // Ensure it has a small width and height. Setting to 1px / 1em
+    // doesn't work as this gives a negative w/h on some browsers.
+    textArea.style.width = '2em';
+    textArea.style.height = '2em';
+  
+    // We don't need padding, reducing the size if it does flash render.
+    textArea.style.padding = 0;
+  
+    // Clean up any borders.
+    textArea.style.border = 'none';
+    textArea.style.outline = 'none';
+    textArea.style.boxShadow = 'none';
+  
+    // Avoid flash of white box if rendered for any reason.
+    textArea.style.background = 'transparent';
+    textArea.value = text;
+  
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+  
+    try {
+      var successful = document.execCommand('copy');
+      var msg = successful ? 'successful' : 'unsuccessful';
+      console.log('Copying text command was ' + msg);
+      document.getElementById("cite3").firstChild.innerHTML = "BibTeX copied!";
+      setTimeout(function() {
+        document.getElementById("cite3").firstChild.innerHTML = "Copy BibTeX";
+      }, 3000);
+    } catch (err) {
+      console.log('Oops, unable to copy');
+    }
+  
+    document.body.removeChild(textArea);
+}
+
 // Statistics retrieval/formatting functions -----------------------------------
 
 function createStatisticsOutput(data, attrs) {
@@ -354,6 +407,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
   for (i in selectedStatistics) {
     
     name = selectedStatistics[i];
+    console.log(name);
     
     switch (name) {
         case "estimate":
@@ -387,7 +441,11 @@ function createStatisticsLine(statistics, selectedStatistics) {
           if (selectedStatistics.includes("statistic")) {
             break;
           } else {
-            value = statistics[name];
+            if ("dfs" in statistics) {
+              value = statistics.dfs[name];
+            } else {
+              value = statistics[name];
+            }
             text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
             output.push(text);
             break;
@@ -410,6 +468,11 @@ function createStatisticsLine(statistics, selectedStatistics) {
             output.push(text);
             break;
           }
+        case "df_residual":
+          value = statistics.dfs[name];
+          text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+          output.push(text);
+          break;
         case "p":
           value = statistics[name];
           if (value < 0.001) { 
@@ -458,6 +521,27 @@ function createStatisticsLine(statistics, selectedStatistics) {
           } else {
             value = statistics[name];
             text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+            output.push(text);
+          }
+          break;
+        case "n":
+          if (selectedStatistics.includes("pct")) {
+            var pct = statistics.pct;
+            value = statistics[name];
+            text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name) + 
+              " (" + formatNumber(pct, "pct") + "%)";
+          } else {
+            value = statistics[name];
+            text = "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
+          }
+          output.push(text);
+          break;
+        case "pct":
+          if (selectedStatistics.includes("n")) {
+            break;
+          } else {
+            value = statistics[name];
+            text = formatNumber(value, name) + "%";
             output.push(text);
           }
           break;
