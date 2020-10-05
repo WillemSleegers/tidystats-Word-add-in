@@ -74,7 +74,7 @@ The current release version of the add-in is 1.0. This means that the add-in is 
 
 ### Installing the development version of tidystats for Word
 
-Download the manifest.xml file from the Github [page](https://github.com/WillemSleegers/tidystats-Word-add-in). This is the file that needs to be installed on your computer somewhere in order to run the add-in.
+Download one of the manifest files. This is the file that needs to be installed on your computer somewhere in order to run the add-in. Download the local manifest file if you can host the web-app yourself; download the netlify manifest file for the most recent version of tidystats; and download the web manifest file for the latest official release version of tidystats.
 
 #### Mac
 
