@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
+  <Id>cbe01290-118f-11eb-adc1-0242ac120002</Id>
+  <Version>1.0</Version>
+  <ProviderName>WillemSleegers</ProviderName>
+  <DefaultLocale>en-US</DefaultLocale>
+  <DisplayName DefaultValue="tidystats-local"/>
+  <Description DefaultValue="Reproducibly report statistics."/>
+  <IconUrl DefaultValue="https://tidystats-word.netlify.app/images/tidystats-icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://tidystats-word.netlify.app/images/tidystats-icon-64.png"/>
+  <SupportUrl DefaultValue="https://www.tidystats.io/"/>
+  <Hosts>
+    <Host Name="Document"/>
+  </Hosts>
+  <Requirements>
+    <Sets DefaultMinVersion="1.1">
+      <Set Name="WordApi" MinVersion="1.1"/>
+    </Sets>
+  </Requirements>
+  <DefaultSettings>
+    <SourceLocation DefaultValue="https://tidystats-word.netlify.app/index.html"/>
+  </DefaultSettings>
+  <Permissions>ReadWriteDocument</Permissions>
+  <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
+    <Hosts>
+      <Host xsi:type="Document">
+        <DesktopFormFactor>
+          <GetStarted>
+            <Title resid="GetStarted.Title"/>
+            <Description resid="GetStarted.Description"/>
+            <LearnMoreUrl resid="GetStarted.LearnMoreUrl"/>
+          </GetStarted>
+          <ExtensionPoint xsi:type="PrimaryCommandSurface">
+            <OfficeTab id="TabInsert">
+              <Group id="Group">
+                <Label resid="Group.Label" />
+                <Icon>
+                  <bt:Image size="16" resid="Icon.16" />
+                  <bt:Image size="32" resid="Icon.32" />
+                  <bt:Image size="64" resid="Icon.64" />
+                  <bt:Image size="80" resid="Icon.80" />
+                </Icon>
+                <Control xsi:type="Button" id="TaskpaneButton">
+                  <Label resid="TaskpaneButton.Label" />
+                  <Supertip>
+                    <Title resid="TaskpaneButton.Label" />
+                    <Description resid="TaskpaneButton.Tooltip" />
+                  </Supertip>
+                  <Icon>
+                    <bt:Image size="16" resid="Icon.16" />
+                    <bt:Image size="32" resid="Icon.32" />
+                    <bt:Image size="64" resid="Icon.64" />
+                    <bt:Image size="80" resid="Icon.80" />
+                  </Icon>
+                  <Action xsi:type="ShowTaskpane">
+                    <TaskpaneId>ShowTaskpane</TaskpaneId>
+                    <SourceLocation resid="Taskpane.Url" />
+                  </Action>
+                </Control>
+              </Group>
+            </OfficeTab>
+          </ExtensionPoint>
+        </DesktopFormFactor>
+      </Host>
+    </Hosts>
+    <Resources>
+      <bt:Images>
+        <bt:Image id="Icon.16" DefaultValue="https://tidystats-word.netlify.app/images/statistics-icon-16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://tidystats-word.netlify.app/images/statistics-icon-32.png"/>
+        <bt:Image id="Icon.64" DefaultValue="https://tidystats-word.netlify.app/images/statistics-icon-64.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://tidystats-word.netlify.app/images/statistics-icon-80.png"/>
+      </bt:Images>
+      <bt:Urls>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://www.tidystats.io/" />
+        <bt:Url id="Taskpane.Url" DefaultValue="https://tidystats-word.netlify.app/index.html" />
+      </bt:Urls>
+      <bt:ShortStrings>
+        <bt:String id="GetStarted.Title" DefaultValue="Get started with tidystats!" />
+        <bt:String id="Group.Label" DefaultValue="Statistics" />
+        <bt:String id="TaskpaneButton.Label" DefaultValue="Insert Statistics" />
+      </bt:ShortStrings>
+      <bt:LongStrings>
+        <bt:String id="GetStarted.Description" DefaultValue="tidystats loaded succesfully. Go to the Insert tab and click the 'Insert Statistics' button to get started." />
+        <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to open tidystats" />
+      </bt:LongStrings>
+    </Resources>
+  </VersionOverrides>
+</OfficeApp>

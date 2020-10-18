@@ -1,18 +1,137 @@
-<!doctype html>
-
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <title>tidystats</title>
-  <meta name="description" content="The HTML5 Herald">
-  <meta name="author" content="SitePoint">
+    <title>tidystats Word Add-in</title>
 
-  <link rel="stylesheet" href="css/styles.css?v=1.0">
+    <!-- Office JavaScript API -->
+    <script src="https://appsforoffice.microsoft.com/lib/1.1/hosted/office.js"></script>
 
-</head>
+    <!-- CSS styles -->
+    <link href="styles/styles.css" rel="stylesheet" type="text/css" />
+  </head>
 
-<body>
-	Hi.
-</body>
-</html
+  <body>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+
+    <div class="app-header">
+      <!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="32" height="32"><path fill="none" d="M0 0h24v24H0z"/><path d="M3 12h2v9H3v-9zm16-4h2v13h-2V8zm-8-6h2v19h-2V2z" fill="rgba(0, 120, 212, 1)"/></svg> -->
+      <img src="images/tidystats-icon-white.svg" alt="tidystats logo" />
+      <h1>tidystats</h1>
+    </div>
+
+    <div id="app-body">
+      <div id="loading-message">
+        <h2>Loading...</h2>
+      </div>
+
+      <div id="fail-message">
+        <h2>tidystats failed to load.</h2>
+        <p>Did you open tidystats inside Microsoft Word?</p>
+      </div>
+
+      <div id="app-input">
+        <p id="input-instructions">
+          Click the button below to upload your statistics created with the
+          <a href="https://tidystats.io#r-package">tidystats</a> R package.
+        </p>
+
+        <div>
+          <input type="file" name="file" id="file-input" />
+          <label for="file-input" id="file-label">
+            <svg
+              id="file-upload-icon"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+            >
+              <path fill="none" d="M0 0h24v24H0z" />
+              <path
+                d="M4 19h16v-7h2v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-8h2v7zM14 9v6h-4V9H5l7-7 7 7h-5z"
+                fill="rgba(255,255,255,1)"
+              />
+            </svg>
+            Upload statistics
+          </label>
+        </div>
+      </div>
+
+      <div id="app-main">
+        <h4>Analyses</h4>
+
+        <p>
+          Expand your analyses to view the statistics. Click on the statistics
+          to insert them into your document.
+        </p>
+
+        <div class="search-container">
+          <img class="search-icon" src="images/search.svg" alt="search" />
+          <input
+            id="search"
+            class="search-box"
+            type="search"
+            name="search"
+            placeholder="Search..."
+          />
+        </div>
+
+        <div id="analyses-container"></div>
+
+        <h4>Actions</h4>
+
+        <p>
+          Automatically update all statistics in your document after uploading a
+          new statistics file.
+        </p>
+
+        <button
+          type="button"
+          class="action-button"
+          id="update-button"
+          title="Update statistics"
+        >
+          <span>Update statistics</span>
+        </button>
+
+        <p>
+          Was tidystats useful to you? If so, please consider citing it. Thanks!
+        </p>
+
+        <button
+          type="button"
+          class="action-button"
+          id="cite1"
+          title="(Sleegers, 2020)"
+        >
+          <span>Insert in-text citation</span>
+        </button>
+        <button
+          type="button"
+          class="action-button"
+          id="cite2"
+          title="Sleegers, W.W.A. (2020) tidystats: Combine output of statistical tests. R package version 0.4. https://CRAN.R-project.org/package=tidystats"
+        >
+          <span>Insert full citation</span>
+        </button>
+        <button type="button" class="action-button" id="cite3" title="Copy bib">
+          <span>Copy BibTex</span>
+        </button>
+      </div>
+
+      <h4>Support</h4>
+
+      <p>
+        If you have a question about tidystats or if you're having issues,
+        please see the tidystats
+        <a href="https://tidystats.io#support">support</a> page.
+      </p>
+    </div>
+
+    <script src="scripts/main.js"></script>
+    <script src="scripts/HTML-functions.js"></script>
+  </body>
+</html>

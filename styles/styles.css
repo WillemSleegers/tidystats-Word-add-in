@@ -1,0 +1,516 @@
+/* General */
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+
+  margin: 0;
+  padding: 0;
+
+  font-family: "Segoe UI Web (West European)", Segoe UI, -apple-system,
+    BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+p {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  font-size: 14px;
+  font-weight: 300;
+
+  color: #333;
+}
+
+h4 {
+  margin-top: 10px;
+  margin-bottom: -4px;
+
+  font-size: 24px;
+  font-weight: 200;
+}
+
+a {
+  color: rgb(0, 120, 212);
+  text-decoration: none;
+}
+
+/* Header */
+
+.app-header {
+  /*display: flex;
+  justify-content: center;
+  align-items: center;*/
+
+  padding: 1.25rem;
+
+  text-align: center;
+
+  background-color: #edebe9;
+}
+
+.app-header img {
+  width: 48px;
+  height: 48px;
+}
+
+.app-header h1 {
+  margin: 0;
+
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* App body */
+
+#app-body {
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+/* Loading */
+
+#loading-message {
+  position: absolute;
+  top: 50%;
+
+  width: 95%;
+}
+
+#loading-message h2 {
+  text-align: center;
+  font-size: 20px;
+}
+
+/* Failed to load message */
+
+#fail-message {
+  display: none;
+
+  text-align: center;
+}
+
+/* File input section */
+
+#app-input {
+  display: none;
+}
+
+#input-instructions {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#input-instructions a:hover {
+  text-decoration: underline;
+}
+
+#file-input {
+  display: none;
+}
+
+#file-label {
+  padding-right: 10px;
+  padding-left: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+
+  min-width: 120px;
+  line-height: 32px;
+
+  color: white;
+  background-color: rgb(0, 120, 212);
+
+  font-size: 14px;
+  font-family: "Segoe UI Web (West European)", Segoe UI, -apple-system,
+    BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+
+  border-radius: 2px;
+}
+
+#file-label:hover {
+  background-color: rgb(16, 110, 190);
+}
+
+#file-upload-icon {
+  width: 16px;
+  height: 16px;
+
+  margin-right: 5px;
+  margin-bottom: -1px;
+}
+
+/* App main section */
+
+#app-main {
+  display: none;
+  width: 100%;
+}
+
+/* Search */
+
+.search-container {
+  display: flex;
+
+  height: 32px;
+  width: 100%;
+
+  margin-bottom: 10px;
+
+  border: 1px solid rgb(194, 194, 194);
+  border-radius: 2px;
+}
+
+.search-container:focus-within {
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border: 2px solid rgb(68, 119, 208);
+
+  height: 34px;
+}
+
+.search-icon {
+  flex: 0 0 24px;
+
+  margin-left: 5px;
+  margin-right: -5px;
+
+  padding-top: 7px;
+  padding-bottom: 7px;
+}
+
+.search-container:focus-within img {
+  display: none;
+}
+
+.search-box {
+  flex-grow: 1;
+
+  -webkit-appearance: none;
+  border: 0;
+  outline: none;
+
+  padding-left: 5px;
+
+  font-family: "Segoe UI Web (West European)", Segoe UI, -apple-system,
+    BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.search-box::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+.search-box::placeholder {
+  color: rgb(96, 94, 92);
+}
+
+.search-container:focus-within .search-box::placeholder {
+  color: rgb(53, 52, 51);
+}
+
+/* Analyses */
+
+#analyses-container {
+  font-size: 13px;
+  font-weight: 300;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+
+  min-height: 32px;
+
+  border-bottom: 1px solid rgb(243, 242, 241);
+}
+
+.level1 {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.level1 .row {
+}
+
+.level2 {
+  display: none;
+}
+
+.level2 .row {
+  padding-left: 30px;
+}
+
+.level2 .child {
+  opacity: 1;
+}
+
+.level2 .parent {
+  padding-left: 0;
+}
+
+.level3 .row {
+  padding-left: 45px;
+}
+
+.level3 .parent {
+  padding-left: 15px;
+}
+
+.level4 .row {
+  padding-left: 60px;
+}
+
+.level4 .parent {
+  padding-left: 30px;
+}
+
+.level5 .row {
+  padding-left: 75px;
+}
+
+.level5 .parent {
+  padding-left: 45px;
+}
+
+.level6 .row {
+  padding-left: 90px;
+}
+
+.level6 .parent {
+  padding-left: 60px;
+}
+
+.level7 .row {
+  padding-left: 105px;
+}
+
+.level7 .parent {
+  padding-left: 75px;
+}
+
+.parent {
+  display: flex;
+  align-items: center;
+}
+
+.parent-name {
+  flex: 0 0 82px;
+
+  font-weight: bold;
+}
+
+.parent-value {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.parent-title {
+  font-weight: bold;
+}
+
+.identifier {
+  background-color: rgb(237, 235, 233);
+
+  font-size: 13px;
+
+  border-bottom: none;
+}
+
+.identifier-label {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.chevron {
+  flex: 0 0 25px;
+  margin-right: 5px;
+
+  align-self: stretch;
+  display: flex;
+}
+
+.chevron:hover {
+  background-color: rgb(230, 228, 226);
+}
+
+.chevron-down {
+  display: none;
+}
+
+.chevron-right {
+  display: block;
+}
+
+.active .chevron .chevron-down {
+  display: block;
+}
+
+.active .chevron .chevron-right {
+  display: none;
+}
+
+.child {
+  display: flex;
+  align-items: center;
+}
+
+.child-name {
+  flex: 0 0 90px;
+
+  vertical-align: middle;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-right: 5px;
+  font-weight: bold;
+}
+
+.child-value {
+  flex-grow: 1;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-right: 5px;
+}
+
+.statistics:hover {
+  background-color: rgb(243, 242, 241);
+  cursor: pointer;
+}
+
+.statistic:hover {
+  background-color: rgb(243, 242, 241);
+  cursor: pointer;
+}
+
+.statistics-name {
+  flex-grow: 1;
+
+  font-weight: bold;
+}
+
+.gear-container {
+  display: none;
+}
+
+.statistics:hover .gear-container {
+  display: flex;
+}
+
+.gear {
+  font-size: 16px;
+  fill: rgb(200, 200, 200);
+
+  margin-right: 8px;
+}
+
+.gear:hover {
+  fill: rgb(100, 100, 100);
+}
+
+.gear-active {
+  display: flex;
+}
+
+/* Statistics checkbox */
+
+.checkbox-container {
+  width: 50px;
+  height: 31px;
+
+  position: absolute; /* Use absolute position to prevent a border between the checkboxes */
+  right: 5px; /* The border would otherwise be clickable and insert statistics */
+  margin-right: 5px;
+
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+.checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 16px;
+  height: 16px;
+
+  margin-left: 18px;
+
+  border-width: 1px;
+  border-style: solid;
+  border: 1px solid rgb(50, 49, 48);
+  border-radius: 2px;
+
+  box-sizing: border-box;
+
+  transition-property: background, border, border-color;
+  transition-duration: 200ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.23, 1);
+
+  overflow: hidden;
+
+  fill: white;
+}
+
+.checkbox:hover {
+  fill: rgb(50, 49, 48);
+}
+
+.checkbox-selected {
+  background-color: rgb(0, 120, 212);
+  fill: white;
+  border: none;
+}
+
+.checkbox-selected:hover {
+  background-color: rgb(0, 90, 158);
+  fill: white;
+}
+
+.checkmark {
+  font-size: 12px;
+}
+
+/* Actions */
+
+.action-button {
+  display: block;
+
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  height: 32px;
+  min-width: 101px;
+
+  border: none;
+  border-radius: 2px;
+
+  background-color: rgb(0, 120, 212);
+}
+
+.action-button span {
+  margin-top: 0;
+  margin-bottom: 0;
+  margin-left: 4px;
+  margin-right: 4px;
+
+  color: white;
+
+  font-size: 14px;
+  font-family: "Segoe UI Web (West European)", Segoe UI, -apple-system,
+    BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+}
+
+.action-button:hover {
+  background-color: rgb(16, 110, 190);
+}
+
+/* Debugging */
+
+#fail-msg {
+  display: none;
+}

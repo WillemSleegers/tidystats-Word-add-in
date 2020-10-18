@@ -2,38 +2,36 @@
 
 # tidystats Word add-in
 
-The tidystats Word add-in is an add-in for Microsoft Word to insert statistics from a file created with the [tidystats](https://github.com/WillemSleegers/tidystats) R package. 
+The tidystats Word add-in is an add-in for Microsoft Word to insert statistics from a file created with the [tidystats](https://github.com/WillemSleegers/tidystats) R package.
 
 ## Requirements
 
 You need the following to use add-in:
+
 - An internet connection (the add-in is a web app that runs inside of Word)
 - A compatible version of Microsoft Word:
-	- Word for iPad
-	- Word 2016 for Mac
-	- Word Online
-	- Word 2013 or later
-	- Word 2016 or later
+  - Office 2016 or 2019 on Windows
+  - Office 2016 or 2019 on Mac
+  - Office on iPad
+  - Office on the web
 
 For more information on the requirements, see [here](https://docs.microsoft.com/en-us/office/dev/add-ins/concepts/requirements-for-running-office-add-ins).
 
-## Privacy Policy
+## Installation
 
-The tidystats Word add-in is like a mini-website that runs in your Word document. This means that when you start the add-in, a connection is made to a server in order to retrieve the content of the add-in. Once downloaded, however, the add-in runs entirely on your computer and no information is shared with the server. The content of your Word document are not saved, nor are the statistics you upload.
-
-For more information on privacy and security for Office add-ins, please see this [page](https://docs.microsoft.com/en-us/office/dev/add-ins/concepts/privacy-and-security).
+The add-in will become available in the Office add-in store. Once available, the add-in can be installed via the add-in store, which can be found in the Insert tab of your Word document. If you already want access to the add-in, see the Testing section below.
 
 ## Usage
 
-Before you can use the tidystats Word add-in, you must create a file containing your statistics using the `tidystats` R package. For details on how to do this, please see the [website](https://willemsleegers.github.io/tidystats/) of `tidystats`.
+Before you can use the tidystats Word add-in, you must create a file containing your statistics using the `tidystats` R package. For details on how to do this, please see the <a href="https://willemsleegers.github.io/tidystats/articles/introduction-to-tidystats.html">introduction to tidystats</a> vignette on the R package [website](https://willemsleegers.github.io/tidystats/) of `tidystats`.
 
-If you simply want to try out the add-in, you can also use [this](assets/tidystats/example.json) example file.
+If you simply want to try out the add-in, you can also use [this](data/example.json) example file.
 
-Once you have a file created with `tidystats` and you want to insert the statistics into your document, go to the Insert pane of your Word document and click on 'Insert Statistics'. 
+Once you have a file created with `tidystats` and you want to insert the statistics into your document, go to the Insert pane of your Word document and click on 'Insert Statistics'.
 
 ![](assets/screens/screen_insert_x2_w_help.png)
 
-Next, click on 'Choose a file' and select the file you created with `tidystats`. 
+Next, click on 'Choose a file' and select the file you created with `tidystats`.
 
 ![](assets/screens/screen_start_x2.png)
 
@@ -50,6 +48,7 @@ Finally, if you found the add-in useful, please cite the work. You can use the c
 The following statistical tests, in R, are supported:
 
 Package: **stats**
+
 - `t.test()`
 - `cor.test()`
 - `chisq.test()`
@@ -84,7 +83,7 @@ To install the add-in in Mac, see the 'Sideload an add-in in Office on Mac' sect
 
 If the 'wef' folder does not exist yet, simply create it and put the manifest file inside. After doing that, you can access the add-in via Insert ribbon > Add-ins > My Add-ins (click on the dropdown arrow; only then will you see the Developer add-ins). You should see the tidystats add-in in the list. Simply click on it and the add-in will open.
 
-That's it for Mac <3. 
+That's it for Mac <3.
 
 #### Windows
 
