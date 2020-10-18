@@ -4,7 +4,7 @@
   <Version>1.0</Version>
   <ProviderName>WillemSleegers</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="tidystats-local"/>
+  <DisplayName DefaultValue="tidystats-netlify"/>
   <Description DefaultValue="Reproducibly report statistics."/>
   <IconUrl DefaultValue="https://tidystats-word.netlify.app/images/tidystats-icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://tidystats-word.netlify.app/images/tidystats-icon-64.png"/>

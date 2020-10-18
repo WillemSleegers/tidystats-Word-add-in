@@ -29,47 +29,78 @@ If you simply want to try out the add-in, you can also use [this](data/example.j
 
 Once you have a file created with `tidystats` and you want to insert the statistics into your document, go to the Insert pane of your Word document and click on 'Insert Statistics'.
 
-![](assets/screens/screen_insert_x2_w_help.png)
+![](images/screen0.png)
 
 Next, click on 'Choose a file' and select the file you created with `tidystats`.
 
-![](assets/screens/screen_start_x2.png)
+![](images/screen1.png)
 
-This should reveal a list of your analyses, each with a name that identifies your analyses. You can use the Search textbox to search for your analyses. Click on one of the analyses to reveal its statistics. You can then click on the name of a statistic or set of statistics to insert them into your document.
+This should reveal a list of your analyses, each with a name that identifies your analysis. You can use the Search textbox to search for your analyses.
 
-![](assets/screens/screen_t_test_x2_w_help.png)
+![](images/screen2.png)
+
+Click on one of the analyses to reveal its statistics. You can then click on the name of a statistic or set of statistics to insert them into your document.
+
+![](images/screen3.png)
+
+By default, clicking on 'Statistics:' will insert all the statistics. If you only want to insert a subset of the analyses, click on the gear icon next to 'Statistics:' and select the statistics you would like to insert.
+
+![](images/screen4.png)
 
 If you want to update the statistics, simply choose a new file and click on the 'Update statistics' button. Note that this does require that your analyses have the same identifier as in the previous file.
 
-Finally, if you found the add-in useful, please cite the work. You can use the citation buttons to quickly insert a citation; thanks!
+Finally, if you found the add-in useful, please cite the software. You can use the citation buttons to quickly insert a citation; thanks!
 
 ## Supported statistical tests
 
 The following statistical tests, in R, are supported:
 
-Package: **stats**
+**Package:** stats
 
-- `t.test()`
-- `cor.test()`
-- `chisq.test()`
-- `wilcox.test()`
-- `fisher.test()`
-- `oneway.test()`
-- `aov()`
-- `lm()`
+    - `t.test()`
+    - `cor.test()`
+    - `chisq.test()`
+    - `wilcox.test()`
+    - `fisher.test()`
+    - `oneway.test()`
+    - `aov()`
+    - `lm()`
+    - `anova()`
+
+**Package:** lme4
+
+    - `lmer()`
+
+**Package:** lmerTest
+
+    - `lmer()`
+
+**Package:** BayesFactor
+
+    - `generalTestBF()`
+    - `lmBF()`
+    - `regressionBF()`
+    - `ttestBF()`
+    - `anovaBF()`
+    - `correlationBF()`
+    - `contingencyTableBF()`
+    - `proportionBF()`
+    - `meta.ttestBF()`
+
+**Package:** tidystats
+
+    - `describe_data()`
+    - `count_data()`
 
 ## More resources
 
-Please see the following links for more information on how to use `tidystats` R package.
-
-- [tidystats website](https://willemsleegers.github.io/tidystats/)
-- [www.willemsleegers.com/tidystats](https://www.willemsleegers.com/tidystats.html)
+For more information on tidystats, see its website at <a href="https://tidystats.io">https://tidystats.io</a>.
 
 If you have any questions about how to use `tidystats`, or suggestions for improvements, you can contact me on [Twitter](https://twitter.com/willemsleegers) or via [e-mail](mailto:tidystats@gmail.com).
 
 ## Testing
 
-The current release version of the add-in is 1.0. This means that the add-in is sort of feature complete, but there is still a lot of room for improvements and new features. If you want to help test these newer versions, you can install the development version of the add-in. For instructions on how to do this, see below.
+The current release version of the add-in is 1.0. This means that the add-in is sort of feature complete, but there is still a lot of room for improvements and new features. If you want to help test newer versions, you can install the development version of the add-in. For instructions on how to do this, see below.
 
 ### Installing the development version of tidystats for Word
 
@@ -87,7 +118,7 @@ That's it for Mac <3.
 
 #### Windows
 
-To install the add-in in Windows, see [this](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins) webpage. When you copy the path to the shared folder, make sure it is a valid path (When I copied the path in step 5 of 'Share a folder' it also added some extra text to the front and end of the path).
+To install the add-in in Windows, see [this](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins) webpage.
 
 ### Bugs and feature requests
 
