@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0" xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="TaskPaneApp">
-  <Id>f2753d41-d72a-4c16-8836-192052c7f43b</Id>
+  <Id>57714b5e-11f3-11eb-adc1-0242ac120002</Id>
   <Version>1.0.0.0</Version>
   <ProviderName>WillemSleegers</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>

@@ -31,11 +31,11 @@ Once you have a file created with `tidystats` and you want to insert the statist
 
 ![](images/screen0.png)
 
-Next, click on 'Choose a file' and select the file you created with `tidystats`.
+Next, click on 'Upload statistics' and select the file you created with `tidystats`.
 
 ![](images/screen1.png)
 
-This should reveal a list of your analyses, each with a name that identifies your analysis. You can use the Search textbox to search for your analyses.
+This should reveal a list of your analyses, each with a name that identifies your analysis. You can use the Search text box to search for your analyses.
 
 ![](images/screen2.png)
 
@@ -49,6 +49,8 @@ By default, clicking on 'Statistics:' will insert all the statistics. If you onl
 
 If you want to update the statistics, simply choose a new file and click on the 'Update statistics' button. Note that this does require that your analyses have the same identifier as in the previous file.
 
+![](images/screen5.png)
+
 Finally, if you found the add-in useful, please cite the software. You can use the citation buttons to quickly insert a citation; thanks!
 
 ## Supported statistical tests
@@ -57,40 +59,40 @@ The following statistical tests, in R, are supported:
 
 **Package:** stats
 
-    - `t.test()`
-    - `cor.test()`
-    - `chisq.test()`
-    - `wilcox.test()`
-    - `fisher.test()`
-    - `oneway.test()`
-    - `aov()`
-    - `lm()`
-    - `anova()`
+- `t.test()`
+- `cor.test()`
+- `chisq.test()`
+- `wilcox.test()`
+- `fisher.test()`
+- `oneway.test()`
+- `aov()`
+- `lm()`
+- `anova()`
 
 **Package:** lme4
 
-    - `lmer()`
+- `lmer()`
 
 **Package:** lmerTest
 
-    - `lmer()`
+- `lmer()`
 
 **Package:** BayesFactor
 
-    - `generalTestBF()`
-    - `lmBF()`
-    - `regressionBF()`
-    - `ttestBF()`
-    - `anovaBF()`
-    - `correlationBF()`
-    - `contingencyTableBF()`
-    - `proportionBF()`
-    - `meta.ttestBF()`
+- `generalTestBF()`
+- `lmBF()`
+- `regressionBF()`
+- `ttestBF()`
+- `anovaBF()`
+- `correlationBF()`
+- `contingencyTableBF()`
+- `proportionBF()`
+- `meta.ttestBF()`
 
 **Package:** tidystats
 
-    - `describe_data()`
-    - `count_data()`
+- `describe_data()`
+- `count_data()`
 
 ## More resources
 
