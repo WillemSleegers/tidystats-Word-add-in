@@ -600,7 +600,8 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
     // Handle exception cases: named statistics, multiple dfs, CIs
     if (typeof statistics[statistic] == "object") {
       if ("name" in statistics[statistic]) {
-        var statisticsAttrs = { ...attrs };
+        var statisticsAttrs = {}
+        Object.assign(statisticsAttrs, attrs);
         statisticsAttrs["statistic"] = statistic;
 
         statisticsContainer = addStatisticRow(
