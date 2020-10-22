@@ -613,7 +613,8 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
       } else if (statistic == "CI") {
         for (CI in statistics["CI"]) {
           if (CI != "CI_level") {
-            var attrsCI = { ...attrs };
+            var attrsCI = {};
+            Object.assign(attrsCI, attrs);
             attrsCI["statistic"] = CI;
 
             statisticsContainer = addStatisticRow(
@@ -627,7 +628,8 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
         }
       } else if (statistic == "dfs") {
         for (df in statistics["dfs"]) {
-          var attrsDf = { ...attrs };
+          var attrsDf = {};
+          Object.assign(attrsDf, attrs);
           attrsDf["statistic"] = df;
 
           statisticsContainer = addStatisticRow(
@@ -639,7 +641,8 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
         }
       }
     } else {
-      var statisticsAttrs = { ...attrs };
+      var statisticsAttrs = {};
+      Object.assign(statisticsAttrs, attrs);
       statisticsAttrs["statistic"] = statistic;
 
       statisticsContainer = addStatisticRow(
@@ -676,7 +679,8 @@ function addTermsRows(element, isParent, level, terms, attrs) {
     termContainer = createContainer("container", level);
 
     // Add statistics
-    termAttrs = { ...attrs };
+    termAttrs = {};
+    Object.assign(termAttrs, attrs);
     termAttrs["term"] = term.name;
     termContainer = addStatisticsRows(
       termContainer,
@@ -720,7 +724,8 @@ function addPairsRows(element, isParent, level, pairs, attrs) {
     // Create a new container
     pairContainer = createContainer("container", level);
 
-    pairAttrs = { ...attrs };
+    pairAttrs = {};
+    Object.assign(pairAttrs, attrs);
     pairAttrs["pair1"] = pair.names[0];
     pairAttrs["pair2"] = pair.names[1];
     pairContainer = addStatisticsRows(
@@ -760,7 +765,8 @@ function addGroupsRows(element, level, groups, attrs) {
 
     // Add statistics
     if ("statistics" in group) {
-      groupAttrs = { ...attrs };
+      groupAttrs = {};
+      Object.assign(groupAttrs, attrs);
       groupAttrs["group"] = group.name;
 
       groupContainer = addStatisticsRows(
@@ -775,7 +781,8 @@ function addGroupsRows(element, level, groups, attrs) {
     if ("terms" in group || "pairs" in group) {
       // Add terms
       if ("terms" in group) {
-        groupAttrs = { ...attrs };
+        groupAttrs = {};
+        Object.assign(groupAttrs, attrs);
         groupAttrs["group"] = group.name;
 
         groupContainer = addTermsRows(
@@ -789,7 +796,8 @@ function addGroupsRows(element, level, groups, attrs) {
 
       // Add pairs
       if ("pairs" in group) {
-        groupAttrs = { ...attrs };
+        groupAttrs = {};
+        Object.assign(groupAttrs, attrs);
         groupAttrs["group"] = group.name;
 
         groupContainer = addPairsRows(
@@ -822,7 +830,8 @@ function addRandomEffectsRows(element, level, random_effects, attrs) {
   randomContainer = createContainer("random-container", level);
 
   // Add statistics
-  statisticsAttrs = { ...attrs };
+  statisticsAttrs = {};
+  Object.assign(statisticsAttrs, attrs);
   randomContainer = addStatisticsRows(
     randomContainer,
     true,
@@ -832,7 +841,8 @@ function addRandomEffectsRows(element, level, random_effects, attrs) {
   );
 
   // Add groups
-  groupsAttrs = { ...attrs };
+  groupsAttrs = {};
+  Object.assign(groupsAttrs, attrs);
   randomContainer = addGroupsRows(
     randomContainer,
     level + 1,
@@ -857,7 +867,8 @@ function addFixedEffectsRows(element, level, fixed_effects, attrs) {
   fixedContainer = createContainer("container", level);
 
   // Add terms
-  termsAttrs = { ...attrs };
+  termsAttrs = {};
+  Object.assign(termsAttrs, attrs);
   fixedContainer = addTermsRows(
     fixedContainer,
     true,
@@ -868,7 +879,8 @@ function addFixedEffectsRows(element, level, fixed_effects, attrs) {
 
   // Add pairs
   if ("pairs" in fixed_effects) {
-    var pairsAttrs = { ...attrs };
+    var pairsAttrs = {};
+    Object.assign(pairsAttrs, attrs);
     fixedContainer = addPairsRows(
       fixedContainer,
       true,
@@ -903,7 +915,8 @@ function addModelsRows(element, level, models, attrs) {
     modelContainer = createContainer("container", level);
 
     // Add statistics
-    modelAttrs = { ...attrs };
+    modelAttrs = {};
+    Object.assign(modelAttrs, attrs);
     modelAttrs["model"] = model.name;
     modelContainer = addStatisticsRows(
       modelContainer,
