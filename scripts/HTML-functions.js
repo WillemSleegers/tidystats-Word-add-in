@@ -25,6 +25,8 @@ function insertStatistic() {
   if (element.hasAttribute("model")) {
     attributes["model"] = element.getAttribute("model");
   }
+  
+  console.log(attributes);
 
   // Insert statistic in Word
   insert(attributes);
