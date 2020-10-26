@@ -10,6 +10,8 @@ body {
 
   font-family: "Segoe UI Web (West European)", Segoe UI, -apple-system,
     BlinkMacSystemFont, Roboto, Helvetica Neue, sans-serif;
+
+  background-color: white;
 }
 
 p {
