@@ -340,10 +340,12 @@ a {
 
 .chevron-down {
   display: none;
+  width: 25px;
 }
 
 .chevron-right {
   display: block;
+  width: 25px;
 }
 
 .active .chevron .chevron-down {

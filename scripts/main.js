@@ -114,6 +114,7 @@ function search() {
 function insert(attrs) {
   Word.run(function (context) {
     // Determine output
+    console.log(attrs);
     var output = createStatisticsOutput(analyses, attrs);
 
     // Create a context control
@@ -369,6 +370,10 @@ function createStatisticsOutput(data, attrs) {
 }
 
 function retrieveStatistic(statistics, statistic) {
+  console.log("Retrieving statistics");
+  console.log(statistics);
+  console.log(statistic);
+  
   var output;
 
   if (statistic == "estimate") {
