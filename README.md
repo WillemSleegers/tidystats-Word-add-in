@@ -120,7 +120,15 @@ That's it for Mac <3.
 
 #### Windows
 
-To install the add-in in Windows, see [this](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins) webpage.
+Start by creating a new folder somewhere on your computer. Then, share this folder by going to the Sharing tab in the folder's properties. There should be a button there to start sharing the folder. This step should create a network path. Copy this path.
+
+Open a Word document and go to File -> Options -> Trust Center. Here, click on Trust Center Settings and then Trusted Add-in Catalogs. In the Catalog Url box, enter the full network path to the folder that you shared previously. Click on Add catalog and make sure the Show in Menu checkbox is checked. Click on OK and restart Word.
+
+Next, put the manifest file you downloaded from here in the shared folder.
+
+In Word, go to the Insert tab and click on My Add-ins. Choose Shared Folder at the top of the Office Add-ins dialog box. Select the name of the add-in and choose Add to insert the add-in.
+
+For more information, see [this](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins) webpage, which also includes a link to a Youtube video explaining how to install the add-in.
 
 ### Bugs and feature requests
 
