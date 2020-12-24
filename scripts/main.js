@@ -128,7 +128,7 @@ function insert(attrs) {
 
     // Set analysis specific information
     content_control.tag = stringifyAttributes(attrs);
-    content_control.insertHtml(output, "Replace");
+    content_control.insertHtml(output, Word.InsertLocation.end);
 
     return context.sync().then(function () {
       // Match the font and font size to the selection
@@ -373,7 +373,7 @@ function retrieveStatistic(statistics, statistic) {
   console.log("Retrieving statistics");
   console.log(statistics);
   console.log(statistic);
-  
+
   var output;
 
   if (statistic == "estimate") {
