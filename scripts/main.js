@@ -209,7 +209,7 @@ function insertFullCitation() {
     var doc = context.document;
     var originalRange = doc.getSelection();
     originalRange.insertText(
-      "Sleegers, W.W.A. (2020) tidystats: Combine output of statistical tests. R package version 0.4. https://CRAN.R-project.org/package=tidystats",
+      "Sleegers, W. W. A. (2020) tidystats: Save output of statistical tests (Version 0.5) [Computer software] https://doi.org/10.5281/zenodo.4041859",
       "End"
     );
 
@@ -239,7 +239,7 @@ function insertFullCitation() {
 function copyBib() {
   /* Get the text field */
   var text =
-    "@software{sleegers2020, title = {tidystats: Reproducibly report statistics in {{Microsoft Word}}}, author = {Sleegers, Willem W. A.}, date = {2020}, url = {https://doi.org/10.5281/zenodo.4065574}, version = {1.0}}";
+    "@software{sleegers2020, title = {tidystats: Save output of statistical tests}, author = {Sleegers, Willem W. A.}, date = {2020}, url = {https://doi.org/10.5281/zenodo.4041859}, version = {0.5}}";
   var textArea = document.createElement("textarea");
 
   // Place in top-left corner of screen regardless of scroll position.
