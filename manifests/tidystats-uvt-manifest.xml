@@ -8,7 +8,7 @@
   <Description DefaultValue="Reproducibly report statistics."/>
   <IconUrl DefaultValue="https://tidystats-word.uvt.nl/images/tidystats-icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://tidystats-word.uvt.nl/images/tidystats-icon-64.png"/>
-  <SupportUrl DefaultValue="https://www.tidystats.io/"/>
+  <SupportUrl DefaultValue="https://www.tidystats.io/support.html"/>
   <Hosts>
     <Host Name="Document"/>
   </Hosts>
