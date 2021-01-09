@@ -238,13 +238,8 @@ function insertFullCitation() {
 
 function copyBib() {
   /* Get the text field */
-  var text = `@software{sleegers2020,
-      title = {tidystats: Reproducibly report statistics in {{Microsoft Word}}},
-      author = {Sleegers, Willem W. A.},
-      date = {2020},
-      url = {https://doi.org/10.5281/zenodo.4065574},
-      version = {1.0}
-    }`;
+  var text =
+    "@software{sleegers2020, title = {tidystats: Reproducibly report statistics in {{Microsoft Word}}}, author = {Sleegers, Willem W. A.}, date = {2020}, url = {https://doi.org/10.5281/zenodo.4065574}, version = {1.0}}";
   var textArea = document.createElement("textarea");
 
   // Place in top-left corner of screen regardless of scroll position.
@@ -303,47 +298,61 @@ function createStatisticsOutput(data, attrs) {
 
   // Determine the statistics that should be inserted
   if ("model" in attrs) {
-    var model = analysis.models.find((x) => x.name == attrs.model);
+    var model = analysis.models.find(function (x) {
+      return x.name == attrs.model;
+    });
     statistics = model.statistics;
   } else if ("effect" in attrs) {
     var effect = analysis.effects[attrs.effect];
 
     if ("group" in attrs) {
-      var group = effect.groups.find((x) => x.name == attrs.group);
+      var group = effect.groups.find(function (x) {
+        return x.name == attrs.group;
+      });
 
       if ("term" in attrs) {
-        var term = group.terms.find((x) => x.name == attrs.term);
+        var term = group.terms.find(function (x) {
+          return x.name == attrs.term;
+        });
         statistics = term.statistics;
       } else if ("pair1" in attrs) {
-        var pair = group.pairs.find(
-          (x) => (x.names[0] == attrs.pair1) & (x.names[1] == attrs.pair2)
-        );
+        var pair = group.pairs.find(function (x) {
+          return (x.names[0] == attrs.pair1) & (x.names[1] == attrs.pair2);
+        });
         statistics = pair.statistics;
       } else {
         statistics = group.statistics;
       }
     } else if ("term" in attrs) {
-      var term = effect.terms.find((x) => x.name == attrs.term);
+      var term = effect.terms.find(function (x) {
+        return x.name == attrs.term;
+      });
       statistics = term.statistics;
     } else if ("pair1" in attrs) {
-      var pair = effect.pairs.find(
-        (x) => (x.names[0] == attrs.pair1) & (x.names[1] == attrs.pair2)
-      );
+      var pair = effect.pairs.find(function (x) {
+        return (x.names[0] == attrs.pair1) & (x.names[1] == attrs.pair2);
+      });
       statistics = pair.statistics;
     } else if ("statistic" in attrs) {
       statistics = effect.statistics;
     }
   } else if ("group" in attrs) {
-    var group = analysis.groups.find((x) => x.name == attrs.group);
+    var group = analysis.groups.find(function (x) {
+      return x.name == attrs.group;
+    });
 
     if ("term" in attrs) {
-      var term = group.terms.find((x) => x.name == attrs.term);
+      var term = group.terms.find(function (x) {
+        return x.name == attrs.term;
+      });
       statistics = term.statistics;
     } else {
       statistics = group.statistics;
     }
   } else if ("term" in attrs) {
-    var term = analysis.terms.find((x) => x.name == attrs.term);
+    var term = analysis.terms.find(function (x) {
+      return x.name == attrs.term;
+    });
     statistics = term.statistics;
   } else {
     statistics = analysis.statistics;
