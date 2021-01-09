@@ -10,10 +10,9 @@ You need the following to use add-in:
 
 - An internet connection (the add-in is a web app that runs inside of Word)
 - A compatible version of Microsoft Word:
-  - Office 2016 or 2019 on Windows
-  - Office 2016 or 2019 on Mac
-  - Office on iPad
-  - Office on the web
+  - Word 2016 or later on Windows
+  - Word 2016 or later on Mac
+  - Word on the web
 
 For more information on the requirements, see [here](https://docs.microsoft.com/en-us/office/dev/add-ins/concepts/requirements-for-running-office-add-ins).
 
