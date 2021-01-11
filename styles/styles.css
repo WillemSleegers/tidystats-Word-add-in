@@ -455,7 +455,7 @@ a {
 
 .checkbox-container {
   width: 50px;
-  height: 31px;
+  height: 28px;
 
   right: 5px; /* The border would otherwise be clickable and insert statistics */
 
