@@ -16,6 +16,7 @@ Office.onReady(function (info) {
   document.getElementById("file-input").onclick = resetFile;
   document.getElementById("search").onkeyup = search;
   document.getElementById("cite3").onclick = copyBib;
+  document.getElementById("update-button").onclick = updateStatistics;
 
   // Check if a Word application is running
   inWord = info.host === Office.HostType.Word;
