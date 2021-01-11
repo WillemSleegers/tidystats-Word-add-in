@@ -39,6 +39,7 @@ Office.onReady(function (info) {
     //  instantlyLoadData();
     //}
   } else {
+    document.getElementById("word-warning").style.display = "flex";
     document.getElementById("loading-message").style.display = "none";
     document.getElementById("update").style.display = "none";
     document.getElementById("cite1").style.display = "none";

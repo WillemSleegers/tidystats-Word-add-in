@@ -97,7 +97,7 @@ a {
 /* Warning message in case the add-in is loaded outside of Word */
 
 .warning {
-  display: flex;
+  display: none;
   flex-direction: row;
   align-items: center;
   justify-content: center;
