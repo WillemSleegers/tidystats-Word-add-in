@@ -130,24 +130,26 @@ function insert(attrs) {
     console.log(attrs);
     var output = createStatisticsOutput(analyses, attrs);
 
-    // Create a context control
+    // Get the selection and load the font
     var doc = context.document;
     var selection = doc.getSelection();
-    var selection_font = selection.font;
-    selection_font.load("name");
-    selection_font.load("size");
+    selection.load("font");
 
-    var content_control = selection.insertContentControl();
+    return context
+      .sync()
+      .then(function () {
+        // Create a content control
+        var content_control = selection.insertContentControl();
 
-    // Set analysis specific information
-    content_control.tag = stringifyAttributes(attrs);
-    content_control.insertHtml(output, Word.InsertLocation.end);
+        // Set analysis information
+        content_control.tag = stringifyAttributes(attrs);
+        content_control.insertHtml(output, Word.InsertLocation.end);
 
-    return context.sync().then(function () {
-      // Match the font and font size to the selection
-      content_control.font.name = selection_font.name;
-      content_control.font.size = selection_font.size;
-    });
+        // Set font and font size
+        content_control.font.name = selection.font.name;
+        content_control.font.size = selection.font.size;
+      })
+      .then(context.sync);
   }).catch(function (error) {
     console.log("Error: " + error);
     if (error instanceof OfficeExtension.Error) {
@@ -393,8 +395,6 @@ function createStatisticsOutput(data, attrs) {
 
 function retrieveStatistic(statistics, statistic) {
   console.log("Retrieving statistics");
-  console.log(statistics);
-  console.log(statistic);
 
   var output;
 
@@ -418,16 +418,19 @@ function retrieveStatistic(statistics, statistic) {
     output = formatNumber(statistics[statistic], statistic);
   }
 
+  console.log(output);
+
   return output;
 }
 
 function createStatisticsLine(statistics, selectedStatistics) {
+  console.log("Creating statistics line");
+
   var name, value, text;
   var output = [];
 
   for (i in selectedStatistics) {
     name = selectedStatistics[i];
-    console.log(name);
 
     switch (name) {
       case "estimate":
@@ -612,6 +615,8 @@ function createStatisticsLine(statistics, selectedStatistics) {
   }
 
   output = output.join(", ");
+
+  console.log(output);
 
   return output;
 }

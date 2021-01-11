@@ -110,6 +110,7 @@ a {
 }
 
 .warning svg {
+  min-width: 20px;
   padding: 10px;
 }
 
@@ -200,6 +201,9 @@ a {
 
 .search-icon {
   flex: 0 0 24px;
+
+  width: 18px;
+  height: 18px;
 
   margin-left: 5px;
   margin-right: -5px;
@@ -453,9 +457,7 @@ a {
   width: 50px;
   height: 31px;
 
-  position: absolute; /* Use absolute position to prevent a border between the checkboxes */
   right: 5px; /* The border would otherwise be clickable and insert statistics */
-  margin-right: 5px;
 
   display: none;
   justify-content: center;
