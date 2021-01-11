@@ -147,6 +147,7 @@ a {
 #app-main {
   display: none;
   width: 100%;
+  padding-bottom: 0.5rem;
 }
 
 /* Search */
