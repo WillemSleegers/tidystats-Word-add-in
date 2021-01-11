@@ -218,7 +218,7 @@ function insertFullCitation() {
     var doc = context.document;
     var originalRange = doc.getSelection();
     originalRange.insertText(
-      "Sleegers, W. W. A. (2020) tidystats: Save output of statistical tests (Version 0.5) [Computer software] https://doi.org/10.5281/zenodo.4041859",
+      "Sleegers, W. W. A. (2020) tidystats: Save output of statistical tests (Version 0.5) [Computer software]. https://doi.org/10.5281/zenodo.4041859",
       "End"
     );
 

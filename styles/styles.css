@@ -68,6 +68,8 @@ a {
 #app-body {
   margin-left: 10px;
   margin-right: 10px;
+
+  padding-bottom: 10px;
 }
 
 /* Loading */
@@ -95,6 +97,11 @@ a {
 /* Warning message in case the add-in is loaded outside of Word */
 
 .warning {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
   margin-top: 10px;
   background-color: rgb(255, 244, 206);
   color: rgb(50, 49, 48);
@@ -103,9 +110,7 @@ a {
 }
 
 .warning svg {
-  vertical-align: middle;
-  padding-bottom: 2px;
-  margin-left: 10px;
+  padding: 10px;
 }
 
 .warning p {
@@ -362,11 +367,13 @@ a {
 .chevron-down {
   display: none;
   width: 25px;
+  height: 32px;
 }
 
 .chevron-right {
   display: block;
   width: 25px;
+  height: 32px;
 }
 
 .active .chevron .chevron-down {
