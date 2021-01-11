@@ -440,7 +440,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
         name = statistics[selectedStatistics[i]].name;
         value = statistics[selectedStatistics[i]].value;
 
-        if (selectedStatistics.includes("df")) {
+        if (selectedStatistics.indexOf("df") > -1) {
           var df = statistics.df;
           text =
             "<i>" +
@@ -449,7 +449,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
             formatNumber(df, "df") +
             ") = " +
             formatNumber(value, name);
-        } else if (selectedStatistics.includes("df_numerator")) {
+        } else if (selectedStatistics.indexOf("df_numerator") > -1) {
           var df_numerator = statistics.dfs.df_numerator;
           var df_denominator = statistics.dfs.df_denominator;
           text =
@@ -469,7 +469,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
         output.push(text);
         break;
       case "df":
-        if (selectedStatistics.includes("statistic")) {
+        if (selectedStatistics.indexOf("statistic") > -1) {
           break;
         } else {
           if ("dfs" in statistics) {
@@ -483,7 +483,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
           break;
         }
       case "df_numerator":
-        if (selectedStatistics.includes("statistic")) {
+        if (selectedStatistics.indexOf("statistic") > -1) {
           break;
         } else {
           value = statistics[name];
@@ -493,7 +493,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
           break;
         }
       case "df_denominator":
-        if (selectedStatistics.includes("statistic")) {
+        if (selectedStatistics.indexOf("statistic") > -1) {
           break;
         } else {
           value = statistics[name];
@@ -530,7 +530,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
       case "BF_01":
         value = statistics[name];
 
-        if (selectedStatistics.includes("error")) {
+        if (selectedStatistics.indexOf("error") > -1) {
           var error = statistics["error"];
           text =
             formatName(name) +
@@ -548,7 +548,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
       case "BF_10":
         value = statistics[name];
 
-        if (selectedStatistics.includes("error")) {
+        if (selectedStatistics.indexOf("error") > -1) {
           var error = statistics["error"];
           text =
             formatName(name) +
@@ -565,8 +565,8 @@ function createStatisticsLine(statistics, selectedStatistics) {
         break;
       case "error":
         if (
-          selectedStatistics.includes("BF_01") ||
-          selectedStatistics.includes("BF_10")
+          selectedStatistics.indexOf("BF_01") > -1 ||
+          selectedStatistics.indexOf("BF_10") > -1
         ) {
           break;
         } else {
@@ -577,7 +577,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
         }
         break;
       case "n":
-        if (selectedStatistics.includes("pct")) {
+        if (selectedStatistics.indexOf("pct") > -1) {
           var pct = statistics.pct;
           value = statistics[name];
           text =
@@ -596,7 +596,7 @@ function createStatisticsLine(statistics, selectedStatistics) {
         output.push(text);
         break;
       case "pct":
-        if (selectedStatistics.includes("n")) {
+        if (selectedStatistics.indexOf("n") > -1) {
           break;
         } else {
           value = statistics[name];

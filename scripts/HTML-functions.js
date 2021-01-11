@@ -366,7 +366,7 @@ function formatNumber(x, type) {
   if (x == "Inf") {
     number = "&infin;";
   } else if (x == "-Inf") {
-    number = "-&infin;"; // Would be nice to solve this issue with .includes and .replace at some point
+    number = "-&infin;";
   } else {
     number = parseFloat(x);
 
@@ -391,7 +391,7 @@ function formatNumber(x, type) {
       "adjusted_r_squared",
     ];
 
-    if (integers.includes(type)) {
+    if (integers.indexOf(type) > -1) {
       if (number % 1 == 0) {
         number = number.toFixed(0);
       } else {
@@ -415,7 +415,7 @@ function formatNumber(x, type) {
         number = number.toString();
         number = number.substr(1);
       }
-    } else if (omitZero.includes(type)) {
+    } else if (omitZero.indexOf(type) > -1) {
       number = number.toFixed(2);
       if (number < 0) {
         number = number.toString();
