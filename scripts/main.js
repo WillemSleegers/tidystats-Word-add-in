@@ -1,28 +1,33 @@
 // Global variables ------------------------------------------------------------
 
 var analyses;
+var inWord;
 
 // Setup -----------------------------------------------------------------------
 
 Office.onReady(function (info) {
   console.log("Office ready");
-  // Check if a Word application is running; if not, show that tidystats failed
-  // to load
-  if (info.host === Office.HostType.Word) {
-    document.getElementById("loading-message").style.display = "none";
 
-    document.getElementById("file-input").onchange = readFile;
-    document.getElementById("file-input").onclick = resetFile;
+  // Make the file input section visible
+  document.getElementById("app-input").style.display = "block";
 
-    document.getElementById("search").onkeyup = search;
+  // Set functions
+  document.getElementById("file-input").onchange = readFile;
+  document.getElementById("file-input").onclick = resetFile;
+  document.getElementById("search").onkeyup = search;
+  document.getElementById("cite3").onclick = copyBib;
 
-    document.getElementById("update-button").onclick = updateStatistics;
+  // Check if a Word application is running
+  inWord = info.host === Office.HostType.Word;
+
+  // If so, hide the warning message, make the insert buttons visible
+  if (inWord) {
+    // Hide warning
+    document.getElementById("word-warning").style.display = "none";
+
+    // Set insert button functions
     document.getElementById("cite1").onclick = insertInTextCitation;
     document.getElementById("cite2").onclick = insertFullCitation;
-    document.getElementById("cite3").onclick = copyBib;
-
-    // Make the file input section visible
-    document.getElementById("app-input").style.display = "block";
 
     // test();
     // Check settings to see whether a file was already opened
@@ -34,10 +39,14 @@ Office.onReady(function (info) {
     //  instantlyLoadData();
     //}
   } else {
-    // If the add-in fails to load, remove the loading message and show the failed to load message
     document.getElementById("loading-message").style.display = "none";
-    document.getElementById("fail-message").style.display = "block";
+    document.getElementById("update").style.display = "none";
+    document.getElementById("cite1").style.display = "none";
+    document.getElementById("cite2").style.display = "none";
   }
+
+  // Remove the loading message
+  document.getElementById("loading-message").style.display = "none";
 });
 
 // Read .json file function ----------------------------------------------------

@@ -92,6 +92,27 @@ a {
   text-align: center;
 }
 
+/* Warning message in case the add-in is loaded outside of Word */
+
+.warning {
+  margin-top: 10px;
+  background-color: rgb(255, 244, 206);
+  color: rgb(50, 49, 48);
+  min-height: 32px;
+  width: 100%;
+}
+
+.warning svg {
+  vertical-align: middle;
+  padding-bottom: 2px;
+  margin-left: 10px;
+}
+
+.warning p {
+  display: inline-block;
+  text-align: left;
+}
+
 /* File input section */
 
 #app-input {
@@ -147,7 +168,6 @@ a {
 #app-main {
   display: none;
   width: 100%;
-  padding-bottom: 0.5rem;
 }
 
 /* Search */

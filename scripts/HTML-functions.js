@@ -25,7 +25,7 @@ function insertStatistic() {
   if (element.hasAttribute("model")) {
     attributes["model"] = element.getAttribute("model");
   }
-  
+
   console.log(attributes);
 
   // Insert statistic in Word
@@ -590,7 +590,10 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
   if (Object.keys(statistics).length > 1) {
     row.classList.add("statistics");
     row = addSettings(row);
-    row.onclick = insertStatistics;
+
+    if (inWord) {
+      row.onclick = insertStatistics;
+    }
   }
 
   element.appendChild(row);
@@ -602,7 +605,7 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
     // Handle exception cases: named statistics, multiple dfs, CIs
     if (typeof statistics[statistic] == "object") {
       if ("name" in statistics[statistic]) {
-        var statisticsAttrs = {}
+        var statisticsAttrs = {};
         Object.assign(statisticsAttrs, attrs);
         statisticsAttrs["statistic"] = statistic;
 
@@ -962,7 +965,9 @@ function addChevron(row) {
 }
 
 function addInsertClick(row, attrs) {
-  row.onclick = insertStatistic;
+  if (inWord) {
+    row.onclick = insertStatistic;
+  }
 
   for (var key in attrs) {
     // console.log("key: " + key);
