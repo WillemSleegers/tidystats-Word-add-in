@@ -141,13 +141,16 @@ function insert(attrs) {
         // Create a content control
         var content_control = selection.insertContentControl();
 
+        // Set font and font size
+        content_control.font.name = selection.font.name;
+        content_control.font.size = selection.font.size;
+
         // Set analysis information
         content_control.tag = stringifyAttributes(attrs);
         content_control.insertHtml(output, Word.InsertLocation.end);
 
-        // Set font and font size
-        content_control.font.name = selection.font.name;
-        content_control.font.size = selection.font.size;
+        // Set cursor to the end of the selection
+        selection.select(Word.InsertLocation.end);
       })
       .then(context.sync);
   }).catch(function (error) {
@@ -197,20 +200,6 @@ function insertInTextCitation() {
     originalRange.insertText("(Sleegers, 2020)", "End");
 
     return context.sync();
-
-    // Create a context control
-    //var doc = context.document;
-    //var selection = doc.getSelection();
-    //var selection_font = selection.font;
-    //selection_font.load("name");
-    //selection_font.load("size");
-
-    //return context.sync()
-    //  .then(function () {
-    //    // Match the font and font size to the selection
-    //   content_control.font.name = selection_font.name;
-    //    content_control.font.size = selection_font.size;
-    //  });
   }).catch(function (error) {
     console.log("Error: " + error);
     if (error instanceof OfficeExtension.Error) {
@@ -229,20 +218,6 @@ function insertFullCitation() {
     );
 
     return context.sync();
-
-    // Create a context control
-    //var doc = context.document;
-    //var selection = doc.getSelection();
-    //var selection_font = selection.font;
-    //selection_font.load("name");
-    //selection_font.load("size");
-
-    //return context.sync()
-    //  .then(function () {
-    //    // Match the font and font size to the selection
-    //   content_control.font.name = selection_font.name;
-    //    content_control.font.size = selection_font.size;
-    //  });
   }).catch(function (error) {
     console.log("Error: " + error);
     if (error instanceof OfficeExtension.Error) {

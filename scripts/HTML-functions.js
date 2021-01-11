@@ -592,6 +592,7 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
     row = addSettings(row);
 
     if (inWord) {
+      row.title = "Click to insert statistics";
       row.onclick = insertStatistics;
     }
   }
@@ -966,6 +967,7 @@ function addChevron(row) {
 
 function addInsertClick(row, attrs) {
   if (inWord) {
+    row.title = "Click to insert statistics";
     row.onclick = insertStatistic;
   }
 
