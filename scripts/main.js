@@ -16,7 +16,6 @@ Office.onReady(function (info) {
   document.getElementById("file-input").onclick = resetFile;
   document.getElementById("search").onkeyup = search;
   document.getElementById("cite3").onclick = copyBib;
-  document.getElementById("update-button").onclick = updateStatistics;
 
   // Check if a Word application is running
   inWord = info.host === Office.HostType.Word;
@@ -29,6 +28,9 @@ Office.onReady(function (info) {
     // Set insert button functions
     document.getElementById("cite1").onclick = insertInTextCitation;
     document.getElementById("cite2").onclick = insertFullCitation;
+
+    // Set update button function
+    document.getElementById("update-button").onclick = updateStatistics;
 
     // test();
     // Check settings to see whether a file was already opened
