@@ -412,6 +412,10 @@ a {
   padding-right: 5px;
 }
 
+.statistics {
+  height: 32px;
+}
+
 .statistics:hover {
   background-color: rgb(243, 242, 241);
   cursor: pointer;
