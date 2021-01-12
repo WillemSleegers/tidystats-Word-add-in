@@ -127,7 +127,6 @@ function search() {
 function insert(attrs) {
   Word.run(function (context) {
     // Determine output
-    console.log(attrs);
     var output = createStatisticsOutput(analyses, attrs);
 
     // Get the selection and load the font
@@ -168,7 +167,7 @@ function stringifyAttributes(attrs) {
 }
 
 function updateStatistics() {
-  return Word.run(function (context) {
+  Word.run(function (context) {
     // Get all the content controls
     var content_controls = context.document.contentControls;
 
@@ -184,12 +183,23 @@ function updateStatistics() {
 
         // Use the tag to identify the reported analysis
         var attrs = JSON.parse(tag);
-        var output = createStatisticsOutput(analyses, attrs);
 
-        // Set the new output
-        content_control.insertHtml(output, "Replace");
+        // Try to get the statistics, it may be that statistics were previously reported that are not in the new file
+        try {
+          var output = createStatisticsOutput(analyses, attrs);
+
+          // Set the new output
+          content_control.insertHtml(output, "Replace");
+        } catch (err) {
+          console.log(err.message);
+        }
       }
     });
+  }).catch(function (error) {
+    console.log("Error: " + error);
+    if (error instanceof OfficeExtension.Error) {
+      console.log("Debug info: " + JSON.stringify(error.debugInfo));
+    }
   });
 }
 
@@ -197,7 +207,10 @@ function insertInTextCitation() {
   Word.run(function (context) {
     var doc = context.document;
     var originalRange = doc.getSelection();
-    originalRange.insertText("(Sleegers, 2020)", "End");
+    originalRange.insertText("(Sleegers, 2020)", Word.InsertLocation.end);
+
+    // Set cursor to the end of the selection
+    originalRange.select(Word.InsertLocation.end);
 
     return context.sync();
   }).catch(function (error) {
@@ -214,8 +227,11 @@ function insertFullCitation() {
     var originalRange = doc.getSelection();
     originalRange.insertText(
       "Sleegers, W. W. A. (2020) tidystats: Save output of statistical tests (Version 0.5) [Computer software]. https://doi.org/10.5281/zenodo.4041859",
-      "End"
+      Word.InsertLocation.end
     );
+
+    // Set cursor to the end of the selection
+    originalRange.select(Word.InsertLocation.end);
 
     return context.sync();
   }).catch(function (error) {
@@ -590,8 +606,6 @@ function createStatisticsLine(statistics, selectedStatistics) {
   }
 
   output = output.join(", ");
-
-  console.log(output);
 
   return output;
 }
