@@ -138,15 +138,15 @@ function insert(attrs) {
       .sync()
       .then(function () {
         // Create a content control
-        var content_control = selection.insertContentControl();
+        var contentControl = selection.insertContentControl();
 
         // Set font and font size
-        content_control.font.name = selection.font.name;
-        content_control.font.size = selection.font.size;
+        contentControl.font.name = selection.font.name;
+        contentControl.font.size = selection.font.size;
 
         // Set analysis information
-        content_control.tag = stringifyAttributes(attrs);
-        content_control.insertHtml(output, Word.InsertLocation.end);
+        contentControl.tag = stringifyAttributes(attrs);
+        contentControl.insertHtml(output, Word.InsertLocation.end);
 
         // Set cursor to the end of the selection
         selection.select(Word.InsertLocation.end);
@@ -169,17 +169,17 @@ function stringifyAttributes(attrs) {
 function updateStatistics() {
   Word.run(function (context) {
     // Get all the content controls
-    var content_controls = context.document.contentControls;
+    var contentControls = context.document.contentControls;
 
     // Sync context and loop over all content controls
-    context.load(content_controls, "items");
+    context.load(contentControls, "items");
     return context.sync().then(function () {
-      var items = content_controls.items;
+      var items = contentControls.items;
 
       for (var item in items) {
         // Extract the tag from the content control
-        var content_control = content_controls.items[item];
-        var tag = content_control.tag;
+        var contentControl = contentControls.items[item];
+        var tag = contentControl.tag;
 
         // Use the tag to identify the reported analysis
         var attrs = JSON.parse(tag);
@@ -189,7 +189,7 @@ function updateStatistics() {
           var output = createStatisticsOutput(analyses, attrs);
 
           // Set the new output
-          content_control.insertHtml(output, "Replace");
+          contentControl.insertHtml(output, "Replace");
         } catch (err) {
           console.log(err.message);
         }
