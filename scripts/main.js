@@ -146,7 +146,7 @@ function insert(attrs) {
 
         // Set analysis information
         contentControl.tag = stringifyAttributes(attrs);
-        contentControl.insertHtml(output, Word.InsertLocation.end);
+        contentControl.insertHtml(output, Word.InsertLocation.replace);
 
         // Set cursor to the end of the selection
         selection.select(Word.InsertLocation.end);
@@ -226,7 +226,7 @@ function insertFullCitation() {
     var doc = context.document;
     var originalRange = doc.getSelection();
     originalRange.insertText(
-      "Sleegers, W. W. A. (2020) tidystats: Save output of statistical tests (Version 0.5) [Computer software]. https://doi.org/10.5281/zenodo.4041859",
+      "Sleegers, W. W. A. (2020). tidystats: Save output of statistical tests (Version 0.5) [Computer software]. https://doi.org/10.5281/zenodo.4041859",
       Word.InsertLocation.end
     );
 
@@ -455,11 +455,15 @@ function createStatisticsLine(statistics, selectedStatistics) {
             formatNumber(df_denominator, "df") +
             ") = " +
             formatNumber(value, name);
+          // Check if the statistic is a Cohen's d or Hedges' g
+        } else if (name == "d") {
+          text = "Cohen's <i>d</i> = " + formatNumber(value, name);
+        } else if (name == "g") {
+          text = "Hedges' <i>g</i> = " + formatNumber(value, name);
         } else {
           text =
             "<i>" + formatName(name) + "</i> = " + formatNumber(value, name);
         }
-
         output.push(text);
         break;
       case "df":

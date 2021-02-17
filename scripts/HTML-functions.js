@@ -275,6 +275,12 @@ function formatName(x, extra) {
   extra = extra || "";
 
   switch (x) {
+    case "BF_01":
+      name = "BF<sub>01</sub>";
+      break;
+    case "BF_10":
+      name = "BF<sub>10</sub>";
+      break;
     case "CI_lower":
       name = extra * 100 + "% CI lower";
       break;
@@ -323,12 +329,6 @@ function formatName(x, extra) {
     case "deviance_residual":
       name = "D<sub>residual</sub>";
       break;
-    case "BF_01":
-      name = "BF<sub>01</sub>";
-      break;
-    case "BF_10":
-      name = "BF<sub>10</sub>";
-      break;
     case "mean":
       name = "M";
       break;
@@ -349,6 +349,12 @@ function formatName(x, extra) {
       break;
     case "rao":
       name = "R";
+      break;
+    case "N_subjects":
+      name = "N<sub>subjects</sub>";
+      break;
+    case "N_raters":
+      name = "N<sub>raters</sub>";
       break;
     default:
       name = x;
@@ -378,6 +384,8 @@ function formatNumber(x, type) {
       "df_residual",
       "N",
       "n",
+      "N_subjects",
+      "N_raters",
       "missing",
       "T",
       "S",
