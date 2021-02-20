@@ -26,8 +26,6 @@ function insertStatistic() {
     attributes["model"] = element.getAttribute("model");
   }
 
-  console.log(attributes);
-
   // Insert statistic in Word
   insert(attributes);
 }
@@ -134,10 +132,6 @@ function toggleToggles() {
       toggle.style.display = "flex";
     }
   }
-}
-
-function test() {
-  console.log("test");
 }
 
 function createAnalyses(analyses) {
@@ -600,8 +594,14 @@ function addStatisticsRows(element, isParent, level, statistics, attrs) {
     row = addSettings(row);
 
     if (inWord) {
-      row.title = "Click to insert statistics";
       row.onclick = insertStatistics;
+    }
+  } else {
+    if (Object.keys(statistics)[0] == "CI") {
+      // Confidence intervals are an exception; they are 1 element with 2 statistics
+      if (inWord) {
+        row.onclick = insertStatistics;
+      }
     }
   }
 
@@ -975,7 +975,6 @@ function addChevron(row) {
 
 function addInsertClick(row, attrs) {
   if (inWord) {
-    row.title = "Click to insert statistics";
     row.onclick = insertStatistic;
   }
 
