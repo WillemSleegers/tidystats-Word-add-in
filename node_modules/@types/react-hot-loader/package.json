@@ -1,0 +1,14 @@
+{
+    "name": "@types/react-hot-loader",
+    "version": "4.1.1",
+    "typings": null,
+    "description": "Stub TypeScript definitions entry for react-hot-loader, which provides its own types definitions",
+    "main": "",
+    "scripts": {},
+    "author": "",
+    "repository": "https://github.com/gaearon/react-hot-loader",
+    "license": "MIT",
+    "dependencies": {
+        "react-hot-loader": "*"
+    }
+}
