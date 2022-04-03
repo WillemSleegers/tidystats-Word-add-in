@@ -4,6 +4,8 @@ Project creation date: 2022-01-08
 
 ## Setup
 
+### First time setup
+
 - Run `npx create-react-app tidystats-word-add-in --template typescript` to create the app
 - Remove redundant files (e.g., `setupTests.js`)
 - Install `npm install office-addin-debugging`
@@ -15,6 +17,10 @@ Project creation date: 2022-01-08
 - Install `npm i @fluentui/react`
 - Install `npm install --save styled-components`
 - Install `npm i --save-dev @types/styled-components`
+
+### Later setup
+
+- Run `npm install`
 
 ## Usage
 
