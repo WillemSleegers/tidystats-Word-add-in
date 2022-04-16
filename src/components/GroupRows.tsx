@@ -43,9 +43,9 @@ const GroupRows = (props: GroupRowsProps) => {
     )
   }
 
-  // Add addTable() function, but only in some cases
+  // Add addTable() function, but only if the groups contain more groups
   let addTable = false
-  if (name === "Coefficients") addTable = true
+  if (Array.isArray(groups)) addTable = true
 
   const handleAddClick = () => {
     insertTable(name, groups)

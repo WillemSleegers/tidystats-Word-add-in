@@ -23,15 +23,27 @@ const insertTable = async (name: string, groups?: Group[]) => {
 
       // Set the content of the remaining cells in the first row to the names of the statistics
       groups[0].statistics.forEach((statistic, i) => {
-        const cellStatisticsName = table.getCell(0, i + 1)
-        cellStatisticsName.getBorder("Bottom").type = "Single"
-        cellStatisticsName.body.getRange().font.italic = true
-        cellStatisticsName.body
-          .getRange()
-          .insertText(
-            statistic.symbol ? statistic.symbol : statistic.name,
-            Word.InsertLocation.replace
+        const cell = table.getCell(0, i + 1)
+
+        cell.getBorder("Bottom").type = "Single"
+
+        const range = cell.body.getRange("End")
+
+        range.insertText(
+          statistic.symbol ? statistic.symbol : statistic.name,
+          Word.InsertLocation.replace
+        )
+
+        range.font.italic = true
+
+        if (statistic.subscript) {
+          const subscriptRange = cell.body.getRange("End")
+          subscriptRange.insertText(
+            statistic.subscript,
+            Word.InsertLocation.end
           )
+          subscriptRange.font.subscript = true
+        }
       })
 
       // Loop over each group and set the name and values
