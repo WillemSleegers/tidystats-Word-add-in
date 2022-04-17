@@ -1,7 +1,15 @@
 import { Statistic, RangedStatistic } from "../classes/Statistic"
 
 const SMOL = ["p", "r", "R²"]
-const INTEGERS = ["df", "df numerator", "df denominator"]
+const INTEGERS = [
+  "df",
+  "df numerator",
+  "df denominator",
+  "n",
+  "N",
+  "k",
+  "n parameters",
+]
 
 const formatValue = (
   x: Statistic | RangedStatistic,

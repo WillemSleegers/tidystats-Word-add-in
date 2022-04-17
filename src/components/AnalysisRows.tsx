@@ -30,30 +30,29 @@ const AnalysisRows = (props: AnalysisRowsProps) => {
     </Row>
   )
 
-  // Create the statistics section
-  // If the statistics contain statistics, create StatisticsRows
-  // Else create a one or more GroupRows
+  // Create the statistics rows, if there are statistics
   let statisticsRows
 
   if (analysis.statistics) {
     statisticsRows = <StatisticsRows statistics={analysis.statistics} />
   }
 
+  // Create the group rows, if there are groups
+  let groupsRows
   if (analysis.groups) {
-    statisticsRows = (
+    groupsRows = (
       <>
         {analysis.groups.map((x) => {
           let group
 
-          if (x.groups) {
-            group = <GroupRows key={x.name} name={x.name} groups={x.groups} />
-          }
-
-          if (x.statistics) {
-            group = (
-              <GroupRows key={x.name} name={x.name} statistics={x.statistics} />
-            )
-          }
+          group = (
+            <GroupRows
+              key={x.name}
+              name={x.name}
+              statistics={x.statistics}
+              groups={x.groups}
+            />
+          )
 
           return group
         })}
@@ -66,6 +65,7 @@ const AnalysisRows = (props: AnalysisRowsProps) => {
     <>
       {methodRow}
       {statisticsRows}
+      {groupsRows}
     </>
   )
 

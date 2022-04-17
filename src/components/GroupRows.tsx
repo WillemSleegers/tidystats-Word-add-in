@@ -27,15 +27,14 @@ const GroupRows = (props: GroupRowsProps) => {
         {groups.map((x) => {
           let group
 
-          if (x.groups) {
-            group = <GroupRows key={x.name} name={x.name} groups={x.groups} />
-          }
-
-          if (x.statistics) {
-            group = (
-              <GroupRows key={x.name} name={x.name} statistics={x.statistics} />
-            )
-          }
+          group = (
+            <GroupRows
+              key={x.name}
+              name={x.name}
+              statistics={x.statistics}
+              groups={x.groups}
+            />
+          )
 
           return group
         })}
@@ -43,7 +42,8 @@ const GroupRows = (props: GroupRowsProps) => {
     )
   }
 
-  // Add addTable() function, but only if the groups contain more groups
+  // Add addTable() function
+  // TODO: Figure out when exactly to add this option
   let addTable = false
   if (Array.isArray(groups)) addTable = true
 
