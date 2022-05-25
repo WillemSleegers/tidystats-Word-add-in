@@ -9,10 +9,6 @@ import { updateStatistics } from "../functions/updateStatistics"
 import { insertInTextCitation } from "../functions/insertInTextCitation"
 import { insertFullCitation } from "../functions/insertFullCitation"
 
-const ActionHeader = styled.h3`
-  margin-bottom: 0;
-`
-
 const ActionInstructions = styled.p`
   font-size: ${FontSizes.size14};
   font-weight: ${FontWeights.regular};
@@ -24,7 +20,7 @@ const ActionButton = styled(PrimaryButton)`
 `
 
 type ActionsProps = {
-  tidystats: Tidystats
+  tidystats: Tidystats | null
 }
 
 const Actions = (props: ActionsProps) => {
@@ -52,18 +48,20 @@ const Actions = (props: ActionsProps) => {
 
   return (
     <>
-      <ActionHeader>Actions:</ActionHeader>
       <ActionInstructions>
         Automatically update all statistics in your document after uploading a
         new statistics file.
       </ActionInstructions>
-      <ActionButton onClick={() => updateStatistics(tidystats)}>
+      <ActionButton
+        disabled={tidystats === null ? true : false}
+        onClick={() => updateStatistics(tidystats!)}
+      >
         Update statistics
       </ActionButton>
+
       <ActionInstructions>
         Was tidystats useful to you? If so, please consider citing it. Thanks!
       </ActionInstructions>
-
       <ActionButton onClick={insertInTextCitation}>
         Insert in-text citation
       </ActionButton>

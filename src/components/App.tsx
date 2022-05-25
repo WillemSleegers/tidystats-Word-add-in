@@ -11,37 +11,41 @@ import { Support } from "./Support"
 
 import styled from "styled-components"
 import { initializeIcons } from "@fluentui/font-icons-mdl2"
+import { MessageBar, MessageBarType, Pivot, PivotItem } from "@fluentui/react"
 
 import logoSrc from "../assets/tidystats-icon.svg"
-// import data from "../assets/results.json" // For debugging
 
 initializeIcons()
 
 const Main = styled.div`
-  margin: 0.5rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
 `
 
 type AppProps = {
   isOfficeInitialized: boolean
+  host: string
+  savedFileName: string | null
+  savedStatistics: string | null
 }
 
 const App = (props: AppProps) => {
-  const { isOfficeInitialized } = props
+  const { isOfficeInitialized, host, savedFileName, savedStatistics } = props
 
-  //const [tidystats, setTidystats] = useState<Tidystats | undefined>(
-  //  new Tidystats(data)
-  //) // For debugging
-  const [tidystats, setTidystats] = useState<Tidystats | undefined>()
+  const [fileName, setFileName] = useState(savedFileName)
+  const [tidystats, setTidystats] = useState(
+    savedStatistics === null ? null : new Tidystats(JSON.parse(savedStatistics))
+  )
 
-  const parseStatistics = (text: string) => {
-    const data = JSON.parse(text as string)
-    const tidystats = new Tidystats(data)
-
-    //setTidystats(undefined)
-    setTidystats(tidystats)
-  }
-
-  const statisticsUpload = <Upload parseStatistics={parseStatistics} />
+  const statisticsUpload = (
+    <Upload
+      host={host}
+      fileName={fileName}
+      setFileName={setFileName}
+      setTidystats={setTidystats}
+    />
+  )
 
   let content
   if (isOfficeInitialized) {
@@ -52,16 +56,33 @@ const App = (props: AppProps) => {
     content = <Progress message="Please sideload your addin to see app body." />
   }
 
+  const actionContent = <Actions tidystats={tidystats} />
   const support = <Support />
 
   return (
     <>
       <Logo title="tidystats" logo={logoSrc} />
+
       <Main>
-        {statisticsUpload}
-        {tidystats && content}
-        {tidystats && <Actions tidystats={tidystats} />}
-        {support}
+        {host !== "Word" && (
+          <MessageBar messageBarType={MessageBarType.warning}>
+            Add-in loaded outside of Microsoft Word; functionality is limited.
+          </MessageBar>
+        )}
+        <Pivot aria-label="Basic Pivot Example">
+          <PivotItem
+            headerText="Statistics"
+            headerButtonProps={{
+              "data-order": 1,
+              "data-title": "My Files Title",
+            }}
+          >
+            {statisticsUpload}
+            {isOfficeInitialized && content}
+          </PivotItem>
+          <PivotItem headerText="Actions">{actionContent}</PivotItem>
+          <PivotItem headerText="Support">{support}</PivotItem>
+        </Pivot>
       </Main>
     </>
   )

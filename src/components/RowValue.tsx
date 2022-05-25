@@ -2,6 +2,7 @@ import styled from "styled-components"
 
 const RowValueDiv = styled.div`
   flex-grow: 1;
+  margin: 5px;
 `
 
 type RowValueProps = {

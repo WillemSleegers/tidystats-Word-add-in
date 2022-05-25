@@ -1,10 +1,6 @@
 import { FontSizes, FontWeights } from "@fluentui/theme"
 import styled from "styled-components"
 
-const ActionHeader = styled.h3`
-  margin-bottom: 0;
-`
-
 const ActionInstructions = styled.p`
   font-size: ${FontSizes.size14};
   font-weight: ${FontWeights.regular};
@@ -13,11 +9,17 @@ const ActionInstructions = styled.p`
 const Support = () => {
   return (
     <>
-      <ActionHeader>Support</ActionHeader>
       <ActionInstructions>
         If you have a question about tidystats or if you're having issues,
         please see the tidystats{" "}
-        <a href="https://www.tidystats.io/support.html">support</a> page.
+        <a
+          href="https://www.tidystats.io/support.html"
+          target="_blank"
+          rel="noreferrer"
+        >
+          support
+        </a>{" "}
+        page.
       </ActionInstructions>
     </>
   )

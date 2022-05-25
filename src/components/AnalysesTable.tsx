@@ -10,7 +10,7 @@ const AnalysesTable = (props: AnalysesTableProps) => {
 
   return (
     <>
-      <h3>Analyses:</h3>
+      <h3>Analyses</h3>
       {tidystats.analyses.map((x) => {
         return <AnalysisRows key={x.identifier} analysis={x} />
       })}
