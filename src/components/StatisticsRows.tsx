@@ -60,7 +60,8 @@ const StatisticsRows = (props: StatisticsRowsProps) => {
         const item_lower = {
           identifier: y.identifier + "$lower",
           name: "lower",
-          symbol: y.level * 100 + "% " + y.interval,
+          //symbol: y.level * 100 + "% " + y.interval,
+          symbol: y.interval,
           subscript: "lower",
           value: formatValue(y, 2, "lower"),
           checked: true,
@@ -68,7 +69,8 @@ const StatisticsRows = (props: StatisticsRowsProps) => {
         const item_upper = {
           identifier: y.identifier + "$upper",
           name: "upper",
-          symbol: y.level * 100 + "% " + y.interval,
+          //symbol: y.level * 100 + "% " + y.interval,
+          symbol: y.interval,
           subscript: "upper",
           value: formatValue(y, 2, "upper"),
           checked: true,
@@ -108,8 +110,11 @@ const StatisticsRows = (props: StatisticsRowsProps) => {
   }
 
   const content = items.map((x) => {
+    const indent = x.name === "lower" || x.name === "upper" ? true : false
+    console.log(indent)
+
     return (
-      <Row primary={false} key={x.identifier}>
+      <Row primary={false} indent={indent} key={x.identifier}>
         <RowName
           key={x.name}
           header={false}

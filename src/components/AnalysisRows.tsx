@@ -24,7 +24,7 @@ const AnalysisRows = (props: AnalysisRowsProps) => {
 
   // Create the method row
   const methodRow = (
-    <Row primary={false}>
+    <Row primary={false} indent={false}>
       <RowName header={false} bold={true} name="Method" />
       <RowValue value={analysis.method} />
     </Row>

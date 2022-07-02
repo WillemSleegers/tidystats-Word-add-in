@@ -65,18 +65,14 @@ const App = (props: AppProps) => {
 
       <Main>
         {host !== "Word" && (
-          <MessageBar messageBarType={MessageBarType.warning}>
-            Add-in loaded outside of Microsoft Word; functionality is limited.
-          </MessageBar>
+          <div style={{ marginTop: "0.5rem" }}>
+            <MessageBar messageBarType={MessageBarType.warning}>
+              Add-in loaded outside of Microsoft Word; functionality is limited.
+            </MessageBar>
+          </div>
         )}
-        <Pivot aria-label="Basic Pivot Example">
-          <PivotItem
-            headerText="Statistics"
-            headerButtonProps={{
-              "data-order": 1,
-              "data-title": "My Files Title",
-            }}
-          >
+        <Pivot aria-label="tidystats navigation">
+          <PivotItem headerText="Statistics">
             {statisticsUpload}
             {isOfficeInitialized && content}
           </PivotItem>

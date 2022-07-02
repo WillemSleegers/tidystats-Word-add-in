@@ -47,7 +47,7 @@ const Collapsible = (props: CollapsibleProps) => {
 
   return (
     <>
-      <Row primary={primary}>
+      <Row primary={primary} indent={false}>
         <>
           {!disabled && (
             <IconButton

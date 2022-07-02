@@ -18,9 +18,6 @@ Office.onReady((info) => {
     // Retrieve saved data
     savedFileName = Office.context.document.settings.get("fileName")
     savedStatistics = Office.context.document.settings.get("data")
-
-    if (savedFileName === "") savedFileName = null
-    if (savedStatistics === "") savedStatistics = null
   }
 
   ReactDOM.render(
