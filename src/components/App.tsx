@@ -1,87 +1,55 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { Pivot, PivotItem } from "@fluentui/react"
 
 import { Tidystats } from "../classes/Tidystats"
 
 import { AnalysesTable } from "./AnalysesTable"
 import { Logo } from "./Logo"
 import { Upload } from "./Upload"
-import { Progress } from "./Progress"
 import { Actions } from "./Actions"
 import { Support } from "./Support"
 
-import styled from "styled-components"
-import { initializeIcons } from "@fluentui/font-icons-mdl2"
-import { MessageBar, MessageBarType, Pivot, PivotItem } from "@fluentui/react"
-
 import logoSrc from "../assets/tidystats-icon.svg"
 
-initializeIcons()
-
-const Main = styled.div`
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-  margin-bottom: 0.5rem;
-`
-
 type AppProps = {
-  isOfficeInitialized: boolean
-  host: string
-  savedFileName: string | null
-  savedStatistics: string | null
+  host: Office.HostType
 }
 
-const App = (props: AppProps) => {
-  const { isOfficeInitialized, host, savedFileName, savedStatistics } = props
+export const App = (props: AppProps) => {
+  const { host } = props
 
-  const [fileName, setFileName] = useState(savedFileName)
-  const [tidystats, setTidystats] = useState(
-    savedStatistics === null ? null : new Tidystats(JSON.parse(savedStatistics))
-  )
+  const [tidystats, setTidystats] = useState<Tidystats>()
 
-  const statisticsUpload = (
-    <Upload
-      host={host}
-      fileName={fileName}
-      setFileName={setFileName}
-      setTidystats={setTidystats}
-    />
-  )
-
-  let content
-  if (isOfficeInitialized) {
-    if (tidystats) {
-      content = <AnalysesTable tidystats={tidystats} />
+  useEffect(() => {
+    if (host === Office.HostType.Word) {
+      const savedStatistics = Office.context.document.settings.get("data")
+      if (savedStatistics) {
+        const savedTidystats = new Tidystats(JSON.parse(savedStatistics))
+        setTidystats(savedTidystats)
+      }
     }
-  } else {
-    content = <Progress message="Please sideload your addin to see app body." />
-  }
-
-  const actionContent = <Actions tidystats={tidystats} />
-  const support = <Support />
+  }, [host])
 
   return (
     <>
       <Logo title="tidystats" logo={logoSrc} />
-
-      <Main>
-        {host !== "Word" && (
-          <div style={{ marginTop: "0.5rem" }}>
-            <MessageBar messageBarType={MessageBarType.warning}>
-              Add-in loaded outside of Microsoft Word; functionality is limited.
-            </MessageBar>
-          </div>
-        )}
-        <Pivot aria-label="tidystats navigation">
+      <div style={{ margin: "0 10px" }}>
+        <Pivot
+          aria-label="tidystats navigation"
+          styles={{ root: { marginBottom: "1rem" } }}
+        >
           <PivotItem headerText="Statistics">
-            {statisticsUpload}
-            {isOfficeInitialized && content}
+            <Upload setTidystats={setTidystats} />
+            {tidystats && <AnalysesTable tidystats={tidystats} />}
           </PivotItem>
-          <PivotItem headerText="Actions">{actionContent}</PivotItem>
-          <PivotItem headerText="Support">{support}</PivotItem>
+          <PivotItem headerText="Actions">
+            <Actions tidystats={tidystats} />
+          </PivotItem>
+          <PivotItem headerText="Support">
+            <Support />
+          </PivotItem>
         </Pivot>
-      </Main>
+      </div>
     </>
   )
 }
-
-export { App }

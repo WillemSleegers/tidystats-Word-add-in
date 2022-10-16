@@ -5,7 +5,7 @@ type AnalysesTableProps = {
   tidystats: Tidystats
 }
 
-const AnalysesTable = (props: AnalysesTableProps) => {
+export const AnalysesTable = (props: AnalysesTableProps) => {
   const { tidystats } = props
 
   return (
@@ -17,5 +17,3 @@ const AnalysesTable = (props: AnalysesTableProps) => {
     </>
   )
 }
-
-export { AnalysesTable }

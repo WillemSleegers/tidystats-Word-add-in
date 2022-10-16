@@ -4,9 +4,9 @@ const RowDiv = styled.div<RowProps>`
   display: flex;
   flex-direction: row;
   align-items: center;
-  min-height: 32px;
+
   margin-left: ${(p) => (p.indent ? "1rem" : "0")};
-  font-size: 14px;
+
   background: ${(p) => (p.primary ? "#f3f2f1" : "white")};
   border-bottom: 1px solid #eee;
 `

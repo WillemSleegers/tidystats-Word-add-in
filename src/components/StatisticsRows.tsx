@@ -111,7 +111,6 @@ const StatisticsRows = (props: StatisticsRowsProps) => {
 
   const content = items.map((x) => {
     const indent = x.name === "lower" || x.name === "upper" ? true : false
-    console.log(indent)
 
     return (
       <Row primary={false} indent={indent} key={x.identifier}>

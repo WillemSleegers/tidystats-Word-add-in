@@ -1,5 +1,3 @@
-import styled from "styled-components"
-
 import { Analysis } from "../classes/Analysis"
 
 import { Row } from "./Row"
@@ -9,11 +7,6 @@ import { RowValue } from "./RowValue"
 import { GroupRows } from "./GroupRows"
 import { StatisticsRows } from "./StatisticsRows"
 import { Collapsible } from "./Collapsible"
-
-const AnalysisDiv = styled.div`
-  margin-top: 4px;
-  margin-bottom: 4px;
-`
 
 type AnalysisRowsProps = {
   analysis: Analysis
@@ -71,7 +64,7 @@ const AnalysisRows = (props: AnalysisRowsProps) => {
 
   // Create a collapsible element containing the identifier row and the content
   const collapsible = (
-    <AnalysisDiv>
+    <div>
       <Collapsible
         primary={true}
         bold={false}
@@ -79,7 +72,7 @@ const AnalysisRows = (props: AnalysisRowsProps) => {
         content={content}
         open={false}
       />
-    </AnalysisDiv>
+    </div>
   )
 
   return collapsible

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { FontSizes, FontWeights } from "@fluentui/theme"
+import { FontSizes, FontWeights } from "@fluentui/react"
 
 const LogoDiv = styled.div`
   display: flex;

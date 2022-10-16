@@ -1,15 +1,17 @@
-import { FontSizes, FontWeights } from "@fluentui/theme"
-import styled from "styled-components"
+import { MouseEvent } from "react"
+import { PrimaryButton } from "@fluentui/react/lib/Button"
 
-const ActionInstructions = styled.p`
-  font-size: ${FontSizes.size14};
-  font-weight: ${FontWeights.regular};
-`
+export const Support = () => {
+  const handleResetHelpClick = (e: MouseEvent<HTMLButtonElement>) => {
+    Office.context.document.settings.set("messageDismissed", false)
+    Office.context.document.settings.saveAsync(function (asyncResult) {
+      console.log("Settings saved with status: " + asyncResult.status)
+    })
+  }
 
-const Support = () => {
   return (
     <>
-      <ActionInstructions>
+      <p>
         If you have a question about tidystats or if you're having issues,
         please see the tidystats{" "}
         <a
@@ -20,9 +22,11 @@ const Support = () => {
           support
         </a>{" "}
         page.
-      </ActionInstructions>
+      </p>
+      <p>Click the button below to reset the help messages.</p>
+      <PrimaryButton onClick={handleResetHelpClick}>
+        Reset help messages
+      </PrimaryButton>
     </>
   )
 }
-
-export { Support }

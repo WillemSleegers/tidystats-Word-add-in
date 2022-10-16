@@ -1,34 +1,20 @@
-import ReactDOM from "react-dom"
-import "./index.css"
+import { createRoot } from "react-dom/client"
+import { ThemeProvider } from "@fluentui/react"
+import { initializeIcons } from "@fluentui/font-icons-mdl2"
 import { App } from "./components/App"
+import "./index.css"
 
-const Office = window.Office
+initializeIcons()
 
-let isOfficeInitialized = false
-let host = ""
-let savedFileName: string | null = null
-let savedStatistics: string | null = null
+const container = document.getElementById("container")!
+const root = createRoot(container)
 
-Office.onReady((info) => {
-  isOfficeInitialized = true
-
-  if (info.host === Office.HostType.Word) {
-    host = "Word"
-
-    // Retrieve saved data
-    savedFileName = Office.context.document.settings.get("fileName")
-    savedStatistics = Office.context.document.settings.get("data")
-  }
-
-  ReactDOM.render(
-    <App
-      isOfficeInitialized={isOfficeInitialized}
-      host={host}
-      savedFileName={savedFileName}
-      savedStatistics={savedStatistics}
-    />,
-    document.getElementById("root")
-  )
-
+window.Office.onReady((info) => {
   console.log(`Office.js is now ready in ${info.host} on ${info.platform}`)
+
+  root.render(
+    <ThemeProvider>
+      <App host={info.host} />
+    </ThemeProvider>
+  )
 })
