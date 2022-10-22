@@ -1,16 +1,16 @@
 import { Tidystats } from "../classes/Tidystats"
 import { AnalysisRows } from "./AnalysisRows"
 
-type AnalysesTableProps = {
+type AnalysesProps = {
   tidystats: Tidystats
 }
 
-export const AnalysesTable = (props: AnalysesTableProps) => {
+export const Analyses = (props: AnalysesProps) => {
   const { tidystats } = props
 
   return (
     <>
-      <h3>Analyses</h3>
+      <h2>Analyses</h2>
       {tidystats.analyses.map((x) => {
         return <AnalysisRows key={x.identifier} analysis={x} />
       })}

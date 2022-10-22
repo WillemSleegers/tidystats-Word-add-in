@@ -1,15 +1,11 @@
 import { useState, useEffect } from "react"
 import { Pivot, PivotItem } from "@fluentui/react"
-
-import { Tidystats } from "../classes/Tidystats"
-
-import { AnalysesTable } from "./AnalysesTable"
-import { Logo } from "./Logo"
+import { Analyses } from "./Analyses"
+import { Header } from "./Header"
 import { Upload } from "./Upload"
 import { Actions } from "./Actions"
 import { Support } from "./Support"
-
-import logoSrc from "../assets/tidystats-icon.svg"
+import { Tidystats } from "../classes/Tidystats"
 
 type AppProps = {
   host: Office.HostType
@@ -32,24 +28,22 @@ export const App = (props: AppProps) => {
 
   return (
     <>
-      <Logo title="tidystats" logo={logoSrc} />
-      <div style={{ margin: "0 10px" }}>
-        <Pivot
-          aria-label="tidystats navigation"
-          styles={{ root: { marginBottom: "1rem" } }}
-        >
-          <PivotItem headerText="Statistics">
-            <Upload setTidystats={setTidystats} />
-            {tidystats && <AnalysesTable tidystats={tidystats} />}
-          </PivotItem>
-          <PivotItem headerText="Actions">
-            <Actions tidystats={tidystats} />
-          </PivotItem>
-          <PivotItem headerText="Support">
-            <Support />
-          </PivotItem>
-        </Pivot>
-      </div>
+      <Header />
+      <Pivot
+        aria-label="tidystats navigation"
+        styles={{ root: { marginBottom: "1rem" } }}
+      >
+        <PivotItem headerText="Statistics">
+          <Upload setTidystats={setTidystats} />
+          {tidystats && <Analyses tidystats={tidystats} />}
+        </PivotItem>
+        <PivotItem headerText="Actions">
+          <Actions tidystats={tidystats} />
+        </PivotItem>
+        <PivotItem headerText="Support">
+          <Support />
+        </PivotItem>
+      </Pivot>
     </>
   )
 }

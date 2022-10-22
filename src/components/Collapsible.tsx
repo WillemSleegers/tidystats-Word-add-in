@@ -1,15 +1,10 @@
 import { ReactNode, useState } from "react"
-import styled from "styled-components"
 
 import { Row } from "../components/Row"
 import { RowName } from "../components/RowName"
 
 import { IIconProps } from "@fluentui/react"
 import { IconButton } from "@fluentui/react/lib/Button"
-
-export const Content = styled.div`
-  padding-left: 16px;
-`
 
 const chevronDownIcon: IIconProps = { iconName: "ChevronDown" }
 const chevronRightIcon: IIconProps = { iconName: "ChevronRight" }
@@ -71,7 +66,7 @@ const Collapsible = (props: CollapsibleProps) => {
           )}
         </>
       </Row>
-      <Content>{isOpen && content}</Content>
+      <div>{isOpen && content}</div>
     </>
   )
 }

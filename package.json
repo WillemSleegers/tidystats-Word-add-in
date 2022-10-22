@@ -3,15 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@fluentui/react": "^8.49.1",
+    "@fluentui/react": "^8.98.5",
     "@fluentui/react-hooks": "^8.6.11",
-    "office-addin-debugging": "^4.3.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.3.1",
-    "react-scripts": "^5.0.0",
-    "styled-components": "^5.3.3",
-    "typescript": "^4.5.4"
+    "react-icons": "^4.3.1"
   },
   "scripts": {
     "start": "HTTPS=true BROWSER=none react-scripts start & office-addin-debugging start manifest.xml",
@@ -42,6 +38,10 @@
     "@types/office-js": "^1.0.287",
     "@types/react": "^18.0.21",
     "@types/react-dom": "^18.0.6",
-    "@types/styled-components": "^5.1.19"
+    "@types/styled-components": "^5.1.19",
+    "styled-components": "^5.3.3",
+    "typescript": "^4.5.4",
+    "office-addin-debugging": "^4.3.7",
+    "react-scripts": "^5.0.1"
   }
 }
