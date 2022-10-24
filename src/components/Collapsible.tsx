@@ -1,38 +1,23 @@
 import { ReactNode, useState } from "react"
 
-import { Row } from "../components/Row"
-import { RowName } from "../components/RowName"
+import { Row, RowName } from "./Row"
 
-import { IIconProps } from "@fluentui/react"
 import { IconButton } from "@fluentui/react/lib/Button"
 
-const chevronDownIcon: IIconProps = { iconName: "ChevronDown" }
-const chevronRightIcon: IIconProps = { iconName: "ChevronRight" }
-const settingsIcon: IIconProps = { iconName: "Settings" }
-const addIcon: IIconProps = { iconName: "Add" }
+const chevronDownIcon = { iconName: "ChevronDown" }
+const chevronRightIcon = { iconName: "ChevronRight" }
+const TableIcon = { iconName: "Table" }
 
 interface CollapsibleProps {
-  primary: boolean
-  bold: boolean
-  name: string
-  handleSettingsClick?: Function
-  handleAddClick?: Function
-  content: ReactNode
+  header: string
+  headerBackground?: "gray"
+  onInsertClick?: Function
   open?: boolean
-  disabled?: boolean
+  children: ReactNode
 }
 
 const Collapsible = (props: CollapsibleProps) => {
-  const {
-    primary,
-    bold,
-    name,
-    handleSettingsClick,
-    handleAddClick,
-    content,
-    open,
-    disabled,
-  } = props
+  const { header, headerBackground, onInsertClick, open, children } = props
 
   const [isOpen, setIsOpen] = useState(open)
 
@@ -42,31 +27,22 @@ const Collapsible = (props: CollapsibleProps) => {
 
   return (
     <>
-      <Row primary={primary} indent={false}>
-        <>
-          {!disabled && (
-            <IconButton
-              iconProps={!isOpen ? chevronRightIcon : chevronDownIcon}
-              onClick={toggleOpen}
-            />
+      <div>
+        <Row background={headerBackground}>
+          <IconButton
+            iconProps={!isOpen ? chevronRightIcon : chevronDownIcon}
+            styles={{ rootHovered: { background: "rgba(0, 0,0, 0.05)" } }}
+            onClick={toggleOpen}
+          />
+
+          <RowName isHeader={true}>{header}</RowName>
+
+          {onInsertClick && (
+            <IconButton iconProps={TableIcon} onClick={() => onInsertClick} />
           )}
-        </>
-        <RowName header={true} bold={bold} name={name} />
-        <>
-          {handleSettingsClick && (
-            <IconButton
-              iconProps={settingsIcon}
-              onClick={() => handleSettingsClick()}
-            />
-          )}
-        </>
-        <>
-          {handleAddClick && (
-            <IconButton iconProps={addIcon} onClick={() => handleAddClick()} />
-          )}
-        </>
-      </Row>
-      <div>{isOpen && content}</div>
+        </Row>
+        {isOpen && <div>{children}</div>}
+      </div>
     </>
   )
 }

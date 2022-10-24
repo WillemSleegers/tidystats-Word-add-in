@@ -7,7 +7,7 @@ type StatisticProps = {
   checked: boolean
 }
 
-const insertStatistics = async (statistics: StatisticProps[]) => {
+export const insertStatistics = async (statistics: StatisticProps[]) => {
   Word.run(async (context) => {
     const range = context.document.getSelection()
     let elements
@@ -162,5 +162,3 @@ const insertStatistics = async (statistics: StatisticProps[]) => {
     }
   })
 }
-
-export { insertStatistics }

@@ -1,4 +1,4 @@
-const insertFullCitation = async () => {
+export const insertFullCitation = async () => {
   Word.run(async (context) => {
     const range = context.document.getSelection()
     range.insertText(
@@ -14,5 +14,3 @@ const insertFullCitation = async () => {
     }
   })
 }
-
-export { insertFullCitation }

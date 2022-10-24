@@ -11,7 +11,7 @@ const INTEGERS = [
   "n parameters",
 ]
 
-const formatValue = (
+export const formatValue = (
   x: Statistic | RangedStatistic,
   decimals: number,
   bound?: "lower" | "upper"
@@ -74,5 +74,3 @@ const formatValue = (
 
   return value
 }
-
-export { formatValue }

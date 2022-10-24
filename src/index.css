@@ -1,26 +1,3 @@
 :root {
-  --spacer-1: 8px;
   --gray: #f3f2f1;
-}
-
-body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #323130;
-}
-
-a {
-  color: rgb(0, 120, 212);
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: underline;
-}
-
-p {
-  font-size: 14px;
 }

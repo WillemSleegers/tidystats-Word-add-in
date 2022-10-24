@@ -1,47 +1,42 @@
 {
   "name": "tidystats-word-add-in",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@fluentui/react": "^8.98.5",
-    "@fluentui/react-hooks": "^8.6.11",
+  "version": "2.0.0",
+  "description": "A tidystats add-in for Microsoft Word",
+  "devDependencies": {
+    "@types/office-js": "^1.0.292",
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
+    "office-addin-debugging": "^4.6.2",
+    "parcel": "^2.7.0",
+    "parcel-reporter-static-files-copy": "^1.4.0",
+    "process": "^0.11.10",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-icons": "^4.3.1"
+    "react-dom": "^18.2.0"
   },
   "scripts": {
-    "start": "HTTPS=true BROWSER=none react-scripts start & office-addin-debugging start manifest.xml",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "word": "office-addin-debugging start manifest.xml"
+    "dev": "parcel src/index.html --https --port 3000 & office-addin-debugging start manifest.xml",
+    "build": "parcel build",
+    "start": "office-addin-debugging start manifest.xml"
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app"
-    ]
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WillemSleegers/tidystats-Word-add-in.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "keywords": [
+    "tidystats",
+    "statistics",
+    "reporting"
+  ],
+  "author": "Willem Sleegers",
+  "bugs": {
+    "url": "https://github.com/WillemSleegers/tidystats-Word-add-in/issues"
   },
-  "devDependencies": {
-    "@types/node": "^18.7.23",
-    "@types/office-js": "^1.0.287",
-    "@types/react": "^18.0.21",
-    "@types/react-dom": "^18.0.6",
-    "@types/styled-components": "^5.1.19",
-    "styled-components": "^5.3.3",
-    "typescript": "^4.5.4",
-    "office-addin-debugging": "^4.3.7",
-    "react-scripts": "^5.0.1"
+  "homepage": "https://github.com/WillemSleegers/tidystats-Word-add-in#readme",
+  "staticFiles": {
+    "staticPath": "static",
+    "staticOutPath": "assets"
+  },
+  "dependencies": {
+    "@fluentui/react": "^8.98.6"
   }
 }

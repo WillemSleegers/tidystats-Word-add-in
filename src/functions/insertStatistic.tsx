@@ -1,7 +1,5 @@
 const insertStatistic = async (statistic: string, id: string) => {
   Word.run(async (context) => {
-    console.log("Inserting statistic")
-
     const contentControl = context.document
       .getSelection()
       .insertContentControl()
