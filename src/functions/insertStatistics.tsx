@@ -1,8 +1,27 @@
+export const insertStatistic = async (statistic: string, id: string) => {
+  Word.run(async (context) => {
+    const contentControl = context.document
+      .getSelection()
+      .insertContentControl()
+    contentControl.tag = id
+    contentControl.insertText(statistic, "End")
+
+    return context.sync
+  }).catch(function (error) {
+    console.log("Error: " + error)
+    if (error instanceof OfficeExtension.Error) {
+      console.log("Debug info: " + JSON.stringify(error.debugInfo))
+    }
+  })
+}
+
 type StatisticProps = {
-  name: string
   identifier: string
-  symbol: string
+  name: string
+  symbol?: string
   subscript?: string
+  interval?: string
+  level?: number
   value: string
   checked: boolean
 }
@@ -30,14 +49,16 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
     }
 
     // If both the lower and upper bound of an interval are present, remove one
-    const lower = statistics.find((x: StatisticProps) => x.name === "lower")
-    const upper = statistics.find((x: StatisticProps) => x.name === "upper")
+    const lower = statistics.find((x: StatisticProps) => x.name === "LL")
+    const upper = statistics.find((x: StatisticProps) => x.name === "UL")
 
     if (lower && upper) {
       elements = elements.filter(
-        (statistic: StatisticProps) => statistic.name !== "upper"
+        (statistic: StatisticProps) => statistic.name !== "UL"
       )
     }
+
+    console.log(elements)
 
     // Loop over the remaining elements and insert them
     elements.forEach((statistic: StatisticProps, i: number) => {
@@ -48,12 +69,14 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
       }
 
       // Add the degrees of freedom in parentheses if there's a test statistic
-      const lower = statistics.find((x: StatisticProps) => x.name === "lower")
-      const upper = statistics.find((x: StatisticProps) => x.name === "upper")
+      const lower = statistics.find((x: StatisticProps) => x.name === "LL")
+      const upper = statistics.find((x: StatisticProps) => x.name === "UL")
 
-      if (statistic.name === "lower" && lower && upper) {
+      if (statistic.name === "LL" && lower && upper) {
         const interval = range.getRange()
-        interval.insertText(statistic.symbol, Word.InsertLocation.end)
+
+        const text = statistic.level! * 100 + "% " + statistic.interval!
+        interval.insertText(text, Word.InsertLocation.end)
         interval.insertText(" [", "End")
 
         const lowerRange = range.getRange()
@@ -131,7 +154,10 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
           }
         } else {
           const name = range.getRange()
-          name.insertText(statistic.symbol, "End")
+          name.insertText(
+            statistic.symbol ? statistic.symbol : statistic.name,
+            "End"
+          )
           name.font.italic = true
 
           if (statistic.subscript) {

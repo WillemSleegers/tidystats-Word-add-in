@@ -1,24 +1,40 @@
 import { useEffect, useState } from "react"
-import { Checkbox, IIconProps } from "@fluentui/react"
-import { IconButton } from "@fluentui/react/lib/Button"
+import { makeStyles, Button, Checkbox } from "@fluentui/react-components"
+import {
+  Add24Filled,
+  Add24Regular,
+  Settings24Filled,
+  Settings24Regular,
+  bundleIcon,
+} from "@fluentui/react-icons"
 import { Row, RowName, RowValue } from "./Row"
 import { Statistic, RangedStatistic } from "../classes/Statistic"
 import { formatValue } from "../functions/formatValue"
-import { insertStatistic } from "../functions/insertStatistic"
-import { insertStatistics } from "../functions/insertStatistics"
+import {
+  insertStatistic,
+  insertStatistics,
+} from "../functions/insertStatistics"
 
-const gearIcon: IIconProps = { iconName: "Settings" }
-const addIcon: IIconProps = { iconName: "Add" }
+const useStyles = makeStyles({
+  statisticsWrapper: {
+    marginLeft: "2rem",
+  },
+})
+
+const AddIcon = bundleIcon(Add24Filled, Add24Regular)
+const GearIcon = bundleIcon(Settings24Filled, Settings24Regular)
 
 type StatisticsProps = {
   data: Statistic[]
 }
 
-type itemProps = {
-  name: string
+type statistic = {
   identifier: string
+  name: string
   symbol?: string
   subscript?: string
+  interval?: string
+  level?: number
   value: string
   checked: boolean
 }
@@ -26,129 +42,112 @@ type itemProps = {
 export const Statistics = (props: StatisticsProps) => {
   const { data } = props
 
-  const [items, setItems] = useState<Array<itemProps>>([])
+  const styles = useStyles()
+
+  const [statistics, setStatistics] = useState<statistic[]>()
   const [clickedSettings, setClickedSettings] = useState(false)
 
-  const toggleSettings = () => {
-    setClickedSettings((prev) => !prev)
-  }
-
   useEffect(() => {
-    const initialItems: itemProps[] = []
+    const initialStatistics: statistic[] = []
 
     data.forEach((x) => {
-      if ("level" in x) {
-        const y = x as RangedStatistic
+      const item = {
+        identifier: x.identifier,
+        name: x.name,
+        symbol: x.symbol,
+        subscript: x.subscript,
+        value: formatValue(x, 2),
+        checked: true,
+      }
+      initialStatistics.push(item)
 
-        const item = {
-          identifier: y.identifier,
-          name: y.name,
-          symbol: y.symbol !== undefined ? y.symbol : y.name,
-          subscript: y.subscript,
-          value: formatValue(y, 2),
-          checked: true,
-        }
+      if ("level" in x) {
+        const rangedStatistic = x as RangedStatistic
+
         const item_lower = {
-          identifier: y.identifier + "$lower",
-          name: "lower",
-          //symbol: y.level * 100 + "% " + y.interval,
-          symbol: y.symbol,
-          subscript: "lower",
-          value: formatValue(y, 2, "lower"),
+          identifier: x.identifier + "$lower",
+          name: "LL",
+          interval: rangedStatistic.interval,
+          level: rangedStatistic.level,
+          value: formatValue(rangedStatistic, 2, "lower"),
           checked: true,
         }
         const item_upper = {
-          identifier: y.identifier + "$upper",
-          name: "upper",
-          //symbol: y.level * 100 + "% " + y.interval,
-          symbol: y.symbol,
-          subscript: "upper",
-          value: formatValue(y, 2, "upper"),
+          identifier: x.identifier + "$upper",
+          name: "UL",
+          interval: rangedStatistic.interval,
+          level: rangedStatistic.level,
+          value: formatValue(rangedStatistic, 2, "upper"),
           checked: true,
         }
-        initialItems.push(item)
-        initialItems.push(item_lower)
-        initialItems.push(item_upper)
-      } else {
-        const item = {
-          identifier: x.identifier,
-          name: x.name,
-          symbol: x.symbol !== undefined ? x.symbol : x.name,
-          subscript: x.subscript,
-          value: formatValue(x, 2),
-          checked: true,
-        }
-        initialItems.push(item)
+
+        initialStatistics.push(item_lower)
+        initialStatistics.push(item_upper)
       }
     })
 
-    setItems(initialItems)
-  }, [data])
-
-  const handleAddClick = () => {
-    console.log("Inserting statistic")
-  }
+    setStatistics(initialStatistics)
+  }, [])
 
   const toggleCheck = (name: string) => {
-    const newItems = items.map((item) =>
-      item.name === name ? { ...item, checked: !item.checked } : item
+    setStatistics(
+      statistics!.map((item) =>
+        item.name === name ||
+        (name === "LL" && item.name == "UL") ||
+        (name === "UL" && item.name == "LL")
+          ? { ...item, checked: !item.checked }
+          : item
+      )
     )
-    setItems(newItems)
   }
 
   return (
     <>
-      <Row indentationLevel={1} hasBorder={true}>
+      <Row indented hasBorder>
         <RowName isHeader={true} isBold={true}>
           Statistics:
         </RowName>
-
-        <IconButton iconProps={gearIcon} onClick={toggleSettings} />
-        <IconButton iconProps={addIcon} onClick={() => console.log("test")} />
+        <Button
+          icon={<GearIcon />}
+          appearance="transparent"
+          onClick={() => setClickedSettings((prev) => !prev)}
+        />
+        <Button
+          icon={<AddIcon />}
+          appearance="transparent"
+          onClick={() => insertStatistics(statistics!)}
+        />
       </Row>
-      {items.map((x: itemProps, index: number) => {
-        const lastRow = index === items.length - 1
-        return (
-          <Row
-            key={x.identifier}
-            // indent more if the statistic is an upper or lower bound
-            indentationLevel={
-              x.subscript === "upper" || x.subscript === "lower" ? 3 : 2
-            }
-            hasBorder={!lastRow}
-          >
-            <RowName isHeader={false}>
-              {x.symbol}
-              {x.subscript && <sub>{x.subscript}</sub>}
-            </RowName>
-            <RowValue>{x.value}</RowValue>
-            {clickedSettings && (
-              <Checkbox
-                styles={{
-                  root: {
-                    marginRight: "2px",
-                    "&:hover .ms-Checkbox-checkbox": {
-                      borderColor: "rgb(16, 110, 190)",
-                    },
-                  },
-                  checkbox: {
-                    borderColor: "rgb(16, 110, 190)",
-                    [":hover"]: {
-                      borderColor: "red",
-                    },
-                  },
-                }}
-                checked={x.checked}
-                onChange={() => toggleCheck(x.name)}
-              />
-            )}
-            <IconButton
-              iconProps={addIcon}
-              onClick={() => insertStatistic(x.value, x.identifier)}
-            />
-          </Row>
-        )
-      })}
+      <div className={styles.statisticsWrapper}>
+        {statistics &&
+          statistics.map((x, index: number) => {
+            const lastRow = index === statistics.length - 1
+            return (
+              <Row
+                key={x.identifier}
+                indented={x.name === "UL" || x.name === "LL"}
+                hasBorder={!lastRow}
+              >
+                <RowName isHeader={false}>
+                  {x.symbol ? x.symbol : x.name}
+                  {x.subscript && <sub>{x.subscript}</sub>}
+                </RowName>
+                <RowValue>{x.value}</RowValue>
+                {clickedSettings && (
+                  <Checkbox
+                    checked={x.checked}
+                    onChange={() => toggleCheck(x.name)}
+                  />
+                )}
+                <Button
+                  icon={<AddIcon />}
+                  appearance="transparent"
+                  onClick={() => insertStatistic(x.value, x.identifier)}
+                />
+              </Row>
+            )
+          })}
+      </div>
     </>
   )
 }

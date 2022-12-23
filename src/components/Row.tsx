@@ -1,25 +1,56 @@
 import { ReactNode } from "react"
+import { makeStyles, mergeClasses, tokens } from "@fluentui/react-components"
+
+const useStyles = makeStyles({
+  row: {
+    minHeight: "2rem",
+    display: "flex",
+    alignItems: "center",
+  },
+  indented: {
+    marginLeft: "1rem",
+  },
+  border: {
+    borderBottomWidth: "1px",
+    borderBottomColor: tokens.colorNeutralBackground4,
+    borderBottomStyle: "solid",
+  },
+  width: {
+    width: "5rem",
+  },
+  header: {
+    width: "100%",
+  },
+  bold: {
+    fontWeight: "bold",
+  },
+  flexGrow: {
+    flexGrow: 1,
+  },
+})
 
 type RowProps = {
-  indentationLevel?: number
-  background?: "gray"
+  indented?: boolean
   hasBorder?: boolean
   children: ReactNode
 }
 
 export const Row = (props: RowProps) => {
-  const { indentationLevel, background, hasBorder, children } = props
+  const { indented, hasBorder, children } = props
 
-  const styles = {
-    minHeight: "2rem",
-    marginLeft: `${indentationLevel}rem`,
-    background: background ? "var(--gray)" : "",
-    borderBottom: hasBorder ? "1px solid var(--gray)" : "",
-    display: "flex",
-    alignItems: "center",
-  }
+  const styles = useStyles()
 
-  return <div style={styles}>{children}</div>
+  return (
+    <div
+      className={mergeClasses(
+        styles.row,
+        indented && styles.indented,
+        hasBorder && styles.border
+      )}
+    >
+      {children}
+    </div>
+  )
 }
 
 type RowNameProps = {
@@ -31,12 +62,19 @@ type RowNameProps = {
 export const RowName = (props: RowNameProps) => {
   const { isHeader, isBold, children } = props
 
-  const styles = {
-    width: isHeader ? "100%" : "5rem",
-    fontWeight: isBold ? "bold" : "normal",
-  }
+  const styles = useStyles()
 
-  return <div style={styles}>{children}</div>
+  return (
+    <div
+      className={mergeClasses(
+        styles.width,
+        isHeader && styles.header,
+        isBold && styles.bold
+      )}
+    >
+      {children}
+    </div>
+  )
 }
 
 type RowValueProps = {
@@ -46,9 +84,7 @@ type RowValueProps = {
 export const RowValue = (props: RowValueProps) => {
   const { children } = props
 
-  const styles = {
-    flexGrow: "1",
-  }
+  const styles = useStyles()
 
-  return <div style={styles}>{children}</div>
+  return <div className={styles.flexGrow}>{children}</div>
 }

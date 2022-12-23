@@ -3,18 +3,17 @@
   "version": "2.0.0",
   "description": "A tidystats add-in for Microsoft Word",
   "devDependencies": {
-    "@types/office-js": "^1.0.292",
-    "@types/react": "^18.0.22",
-    "@types/react-dom": "^18.0.7",
-    "office-addin-debugging": "^4.6.2",
-    "parcel": "^2.7.0",
+    "@types/office-js": "^1.0.300",
+    "@types/react": "^18.0.25",
+    "office-addin-debugging": "^4.6.4",
+    "parcel": "^2.8.0",
     "parcel-reporter-static-files-copy": "^1.4.0",
     "process": "^0.11.10",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "scripts": {
-    "dev": "parcel src/index.html --https --port 3000 & office-addin-debugging start manifest.xml",
+    "dev": "parcel src/index.html --https --port 3000",
     "build": "parcel build",
     "start": "office-addin-debugging start manifest.xml"
   },
@@ -37,6 +36,8 @@
     "staticOutPath": "assets"
   },
   "dependencies": {
-    "@fluentui/react": "^8.98.6"
+    "@fluentui/react": "^8.103.2",
+    "@fluentui/react-components": "^9.7.4",
+    "@fluentui/react-icons": "^2.0.190"
   }
 }

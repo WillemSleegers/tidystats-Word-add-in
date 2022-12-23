@@ -1,19 +1,26 @@
-import src from "../assets/tidystats-icon.svg"
+import { makeStyles, tokens } from "@fluentui/react-components"
+const src = require("../assets/tidystats-icon.svg") as string
 
-export const Header = () => {
-  const styles = {
-    margin: "-0.5rem -0.5rem 0 -0.5rem",
+const useStyles = makeStyles({
+  header: {
+    marginTop: "-0.5rem",
+    marginRight: "-0.5rem",
+    marginLeft: "-0.5rem",
     display: "flex",
-    flexDirection: "row" as "row",
+    columnGap: "0.5rem",
     alignItems: "center",
     justifyContent: "center",
-    gap: "0.5rem",
-    padding: "0.5rem 1rem",
-    backgroundColor: "var(--gray)",
-  }
+    paddingTop: "0.5rem",
+    paddingBottom: "0.5rem",
+    backgroundColor: tokens.colorNeutralBackground4,
+  },
+})
+
+export const Header = () => {
+  const styles = useStyles()
 
   return (
-    <div style={styles}>
+    <div className={styles.header}>
       <img width={48} height={48} src={src} alt="tidystats" title="tidystats" />
       <h1>tidystats</h1>
     </div>

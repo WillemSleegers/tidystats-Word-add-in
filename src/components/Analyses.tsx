@@ -23,11 +23,11 @@ export const Analyses = (props: AnalysesProps) => {
             key={x.identifier}
             open={false}
             header={x.identifier}
-            headerBackground="gray"
+            isPrimary
           >
-            <Row indentationLevel={1} hasBorder={true}>
-              <RowName isHeader={false} isBold={true}>
-                Method
+            <Row indented hasBorder>
+              <RowName isHeader={false} isBold>
+                Method:
               </RowName>
               <div>{x.method}</div>
             </Row>

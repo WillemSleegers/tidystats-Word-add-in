@@ -1,50 +1,72 @@
 import { ReactNode, useState } from "react"
-
+import { makeStyles, mergeClasses, tokens } from "@fluentui/react-components"
+import { Button } from "@fluentui/react-components"
+import {
+  ChevronDown28Regular,
+  ChevronDown28Filled,
+  ChevronRight28Regular,
+  ChevronRight28Filled,
+  Table28Regular,
+  Table28Filled,
+  bundleIcon,
+} from "@fluentui/react-icons"
 import { Row, RowName } from "./Row"
 
-import { IconButton } from "@fluentui/react/lib/Button"
-
-const chevronDownIcon = { iconName: "ChevronDown" }
-const chevronRightIcon = { iconName: "ChevronRight" }
-const TableIcon = { iconName: "Table" }
+const useStyles = makeStyles({
+  background: {
+    backgroundColor: tokens.colorNeutralBackground4,
+  },
+  open: {
+    fontStyle: "italic",
+  },
+})
 
 interface CollapsibleProps {
   header: string
-  headerBackground?: "gray"
+  isPrimary?: boolean
   onInsertClick?: Function
   open?: boolean
   children: ReactNode
 }
 
-const Collapsible = (props: CollapsibleProps) => {
-  const { header, headerBackground, onInsertClick, open, children } = props
+const ChevronDownIcon = bundleIcon(ChevronDown28Regular, ChevronDown28Filled)
+const ChevronRightIcon = bundleIcon(ChevronRight28Regular, ChevronRight28Filled)
+const TableIcon = bundleIcon(Table28Regular, Table28Filled)
+
+export const Collapsible = (props: CollapsibleProps) => {
+  const { header, isPrimary, onInsertClick, open, children } = props
+
+  const styles = useStyles()
 
   const [isOpen, setIsOpen] = useState(open)
 
-  const toggleOpen = () => {
-    setIsOpen((prev) => !prev)
-  }
-
   return (
     <>
-      <div>
-        <Row background={headerBackground}>
-          <IconButton
-            iconProps={!isOpen ? chevronRightIcon : chevronDownIcon}
-            styles={{ rootHovered: { background: "rgba(0, 0,0, 0.05)" } }}
-            onClick={toggleOpen}
+      <div
+        className={mergeClasses(
+          isPrimary && styles.background,
+          isOpen && styles.open
+        )}
+      >
+        <Row>
+          <Button
+            icon={!isOpen ? <ChevronRightIcon /> : <ChevronDownIcon />}
+            appearance="transparent"
+            onClick={() => setIsOpen((prev) => !prev)}
           />
 
-          <RowName isHeader={true}>{header}</RowName>
+          <RowName isHeader>{header}</RowName>
 
           {onInsertClick && (
-            <IconButton iconProps={TableIcon} onClick={() => onInsertClick} />
+            <Button
+              icon={<TableIcon />}
+              onClick={() => onInsertClick()}
+              appearance="transparent"
+            />
           )}
         </Row>
-        {isOpen && <div>{children}</div>}
       </div>
+      {isOpen && <div>{children}</div>}
     </>
   )
 }
-
-export { Collapsible }
