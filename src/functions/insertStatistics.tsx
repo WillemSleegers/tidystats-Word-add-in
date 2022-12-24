@@ -28,50 +28,49 @@ type StatisticProps = {
 
 export const insertStatistics = async (statistics: StatisticProps[]) => {
   Word.run(async (context) => {
-    const range = context.document.getSelection()
-    let elements
+    let selectedStatistics
 
     // Filter out the unchecked statistics
-    elements = statistics.filter(
+    selectedStatistics = statistics.filter(
       (statistic: StatisticProps) => statistic.checked
     )
 
-    // Filter out the degrees of freedom if there's a test statistic (e.g., t, F)
+    // Filter out the degrees of freedom if there's a test statistic
+    // (e.g., t, F) because we will report those together with the test
+    // statistic itself
     if (
-      elements.some(
+      selectedStatistics.some(
         (statistic: StatisticProps) => statistic.name === "statistic"
       )
     ) {
-      elements = elements.filter(
+      selectedStatistics = selectedStatistics.filter(
         (statistic: StatisticProps) =>
           !["df", "df numerator", "df denominator"].includes(statistic.name)
       )
     }
 
-    // If both the lower and upper bound of an interval are present, remove one
+    // If both the lower and upper bound of an interval are present, remove one,
+    // because we'll report it together with the other one
     const lower = statistics.find((x: StatisticProps) => x.name === "LL")
     const upper = statistics.find((x: StatisticProps) => x.name === "UL")
 
     if (lower && upper) {
-      elements = elements.filter(
+      selectedStatistics = selectedStatistics.filter(
         (statistic: StatisticProps) => statistic.name !== "UL"
       )
     }
 
-    console.log(elements)
+    // Loop over the statistics and insert them
+    const range = context.document.getSelection()
 
-    // Loop over the remaining elements and insert them
-    elements.forEach((statistic: StatisticProps, i: number) => {
+    selectedStatistics.forEach((statistic: StatisticProps, i: number) => {
       // Add a comma starting after the first element
       if (i !== 0) {
         const comma = range.getRange()
         comma.insertText(", ", "End")
       }
 
-      // Add the degrees of freedom in parentheses if there's a test statistic
-      const lower = statistics.find((x: StatisticProps) => x.name === "LL")
-      const upper = statistics.find((x: StatisticProps) => x.name === "UL")
-
+      // Create the confidence interval section
       if (statistic.name === "LL" && lower && upper) {
         const interval = range.getRange()
 
@@ -82,6 +81,7 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
         const lowerRange = range.getRange()
         const lowerCC = lowerRange.insertContentControl()
         lowerCC.insertText(lower.value, Word.InsertLocation.start)
+        lowerCC.tag = lower.identifier
 
         const intervalComma = range.getRange()
         intervalComma.insertText(", ", "End")
@@ -89,10 +89,12 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
         const upperRange = range.getRange()
         const upperCC = upperRange.insertContentControl()
         upperCC.insertText(upper.value, Word.InsertLocation.start)
+        upperCC.tag = upper.identifier
 
         const rightBracket = range.getRange("End")
         rightBracket.insertText("]", "End")
       } else {
+        // Create the test statistic section
         if (statistic.name === "statistic") {
           if (
             statistic.symbol === "t" &&
@@ -111,6 +113,7 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
               const dfValue = range.getRange("End")
               const dfValueCC = dfValue.insertContentControl()
               dfValueCC.insertText(df.value, Word.InsertLocation.replace)
+              dfValueCC.tag = df.identifier
             }
 
             const parenthesisRight = range.getRange("End")
@@ -135,6 +138,7 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
               const dfValue = range.getRange("End")
               const dfValueCC = dfValue.insertContentControl()
               dfValueCC.insertText(dfNum.value, Word.InsertLocation.replace)
+              dfValueCC.tag = dfNum.identifier
             }
 
             const dfComma = range.getRange()
@@ -147,6 +151,7 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
               const dfValue = range.getRange()
               const dfValueCC = dfValue.insertContentControl()
               dfValueCC.insertText(dfDen.value, Word.InsertLocation.replace)
+              dfValueCC.tag = dfDen.identifier
             }
 
             const parenthesisRight = range.getRange()
@@ -177,6 +182,7 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
         const value = range.getRange()
         const valueCC = value.insertContentControl()
         valueCC.insertText(statistic.value, Word.InsertLocation.end)
+        valueCC.tag = statistic.identifier
       }
     })
 

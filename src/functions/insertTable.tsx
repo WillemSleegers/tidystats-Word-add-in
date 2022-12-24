@@ -1,20 +1,65 @@
 import { Group } from "../classes/Group"
 import { formatValue } from "../functions/formatValue"
 
-const insertTable = async (data: Group) => {
-  console.log(data)
+export const insertTable = async (data: Group) => {
+  const groups = data.groups!
 
-  // find the statistics
-  if ("statistics" in data) {
-    console.log(data.statistics)
-  } else {
-    console.log(data)
-  }
+  const rows = groups.length + 1
+  const columns = groups[0].statistics!.length + 1
 
   Word.run(async (context) => {
     const range = context.document.getSelection()
-    const previousRange = context.document.get
-    const table = range.insertTable(1, 6, Word.InsertLocation.after)
+    const table = range.insertTable(rows, columns, Word.InsertLocation.after)
+
+    table.getBorder("All").type = "None"
+    table.getBorder("Top").type = "Single"
+    table.getBorder("Bottom").type = "Single"
+
+    // Set the first cell's content to the group name
+    const cellName = table.getCell(0, 0)
+    cellName.getBorder("Bottom").type = "Single"
+    cellName.body.getRange().insertText(data.name, Word.InsertLocation.replace)
+
+    // Set the content of the remaining cells in the first row to the names of the statistics
+    groups[0].statistics!.forEach((statistic, i) => {
+      const cell = table.getCell(0, i + 1)
+
+      cell.getBorder("Bottom").type = "Single"
+
+      const range = cell.body.getRange("End")
+
+      range.insertText(
+        statistic.symbol ? statistic.symbol : statistic.name,
+        Word.InsertLocation.replace
+      )
+
+      range.font.italic = true
+
+      if (statistic.subscript) {
+        const subscriptRange = cell.body.getRange("End")
+        subscriptRange.insertText(statistic.subscript, Word.InsertLocation.end)
+        subscriptRange.font.subscript = true
+      }
+    })
+
+    // Loop over each group and set the name and values
+    groups.forEach((group, i) => {
+      table
+        .getCell(i + 1, 0)
+        .body.getRange()
+        .insertText(group.name, Word.InsertLocation.replace)
+
+      group.statistics?.forEach((statistic, j) => {
+        const value = table
+          .getCell(i + 1, j + 1)
+          .body.getRange()
+          .insertContentControl()
+        value.tag = statistic.identifier
+        value.insertText(formatValue(statistic, 2), Word.InsertLocation.replace)
+      })
+    })
+
+    return context.sync
   }).catch(function (error) {
     console.log("Error: " + error)
     if (error instanceof OfficeExtension.Error) {
@@ -22,71 +67,3 @@ const insertTable = async (data: Group) => {
     }
   })
 }
-
-export { insertTable }
-
-// // Make sure there are groups and that there are statistics
-// if (groups && groups[0].statistics) {
-//   const rows = groups.length + 1
-//   const columns = groups[0].statistics?.length + 1
-
-//   const range = context.document.getSelection()
-//   const table = range.insertTable(rows, columns, Word.InsertLocation.after)
-
-//   // Some styling
-//   table.getBorder("All").type = "None"
-//   table.getBorder("Top").type = "Double"
-//   table.getBorder("Bottom").type = "Single"
-
-//   // Set the first cell's content to the group name
-//   const cellName = table.getCell(0, 0)
-//   cellName.getBorder("Bottom").type = "Single"
-//   cellName.body.getRange().insertText(name, Word.InsertLocation.replace)
-
-//   // Set the content of the remaining cells in the first row to the names of the statistics
-//   groups[0].statistics.forEach((statistic, i) => {
-//     const cell = table.getCell(0, i + 1)
-
-//     cell.getBorder("Bottom").type = "Single"
-
-//     const range = cell.body.getRange("End")
-
-//     range.insertText(
-//       statistic.symbol ? statistic.symbol : statistic.name,
-//       Word.InsertLocation.replace
-//     )
-
-//     range.font.italic = true
-
-//     if (statistic.subscript) {
-//       const subscriptRange = cell.body.getRange("End")
-//       subscriptRange.insertText(
-//         statistic.subscript,
-//         Word.InsertLocation.end
-//       )
-//       subscriptRange.font.subscript = true
-//     }
-//   })
-
-//   // Loop over each group and set the name and values
-//   groups.forEach((group, i) => {
-//     table
-//       .getCell(i + 1, 0)
-//       .body.getRange()
-//       .insertText(group.name, Word.InsertLocation.replace)
-
-//     group.statistics?.forEach((statistic, j) => {
-//       const value = table
-//         .getCell(i + 1, j + 1)
-//         .body.getRange()
-//         .insertContentControl()
-//       value.tag = statistic.identifier
-//       value.insertText(
-//         formatValue(statistic, 2),
-//         Word.InsertLocation.replace
-//       )
-//     })
-//   })
-
-//   return context.sync
-// }

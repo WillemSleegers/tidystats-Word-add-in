@@ -10,7 +10,7 @@ import { Analyses } from "./Analyses"
 import { Header } from "./Header"
 import { Upload } from "./Upload"
 import { Actions } from "./Actions"
-import { Settings } from "./Settings"
+import { Support } from "./Support"
 import { Tidystats } from "../classes/Tidystats"
 import { getSettingsData } from "../functions/settings"
 
@@ -46,7 +46,7 @@ export const App = (props: AppProps) => {
       <TabList selectedValue={selectedTab} onTabSelect={onTabSelect}>
         <Tab value="statistics">Statistics</Tab>
         <Tab value="actions">Actions</Tab>
-        <Tab value="settings">Settings</Tab>
+        <Tab value="support">Support</Tab>
       </TabList>
 
       {selectedTab === "statistics" && <Upload setTidystats={setTidystats} />}
@@ -54,7 +54,7 @@ export const App = (props: AppProps) => {
         <Analyses tidystats={tidystats} />
       )}
       {selectedTab === "actions" && <Actions tidystats={tidystats} />}
-      {selectedTab === "settings" && <Settings />}
+      {selectedTab === "support" && <Support />}
     </>
   )
 }

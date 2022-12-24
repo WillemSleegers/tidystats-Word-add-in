@@ -1,12 +1,12 @@
 import { MouseEvent } from "react"
-import { makeStyles, Button } from "@fluentui/react-components"
+import { makeStyles, Button, Link } from "@fluentui/react-components"
 import { removeSettingsData } from "../functions/settings"
 
 const useStyles = makeStyles({
   resetButton: { width: "180px" },
 })
 
-export const Settings = () => {
+export const Support = () => {
   const classes = useStyles()
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -23,6 +23,16 @@ export const Settings = () => {
   return (
     <>
       <h3>Help</h3>
+      <p>
+        For more information on how to use tidystats, including examples and
+        FAQs, see the tidystats{" "}
+        <Link href="https://www.tidystats.io" target="_blank">
+          website
+        </Link>
+        .
+      </p>
+
+      <p>Click the button below to reset the help messages.</p>
       <Button
         className={classes.resetButton}
         appearance="primary"

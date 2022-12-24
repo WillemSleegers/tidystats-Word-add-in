@@ -32,7 +32,7 @@ const useStyles = makeStyles({
     columnGap: "0.5rem",
   },
   citationBibtexButton: {
-    width: "10rem",
+    width: "11rem",
   },
 })
 

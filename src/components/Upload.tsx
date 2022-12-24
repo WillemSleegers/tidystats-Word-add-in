@@ -84,6 +84,7 @@ const Upload = (props: UploadProps) => {
       const file = event.target.files[0]
 
       setFileName(file.name)
+      setTidystats(null) // reset the statistics
 
       if (file.type === "application/json") {
         const reader = new FileReader()
@@ -100,7 +101,6 @@ const Upload = (props: UploadProps) => {
         if (showErrorMessage) setShowErrorMessage(false)
       } else {
         setShowErrorMessage(true)
-        setTidystats(null)
       }
     }
   }
