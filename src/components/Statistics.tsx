@@ -104,7 +104,7 @@ export const Statistics = (props: StatisticsProps) => {
   return (
     <>
       <Row indented hasBorder>
-        <RowName isHeader={true} isBold={true}>
+        <RowName isHeader isBold>
           Statistics:
         </RowName>
         <Button
