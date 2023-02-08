@@ -1,6 +1,6 @@
 import { Statistic, RangedStatistic } from "../classes/Statistic"
 
-const SMOL = ["p", "r", "R²"]
+const SMOL = ["p", "r", "R²", "ges"]
 const INTEGERS = [
   "df",
   "df numerator",
@@ -16,14 +16,7 @@ export const formatValue = (
   decimals: number,
   bound?: "lower" | "upper"
 ) => {
-  let name
   let value
-
-  if (x.symbol) {
-    name = x.symbol
-  } else {
-    name = x.name
-  }
 
   if ("lower" in x) {
     switch (bound) {
@@ -42,9 +35,16 @@ export const formatValue = (
 
   if (typeof value == "number") {
     if (INTEGERS.includes(x.name)) {
-      value = Intl.NumberFormat(navigator.language, {
-        minimumFractionDigits: 0,
-      }).format(value)
+      if (value % 1 == 0) {
+        value = Intl.NumberFormat(navigator.language, {
+          minimumFractionDigits: 0,
+        }).format(value)
+      } else {
+        value = Intl.NumberFormat(navigator.language, {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: decimals,
+        }).format(value)
+      }
     } else if (Math.abs(x.value) > 0.1) {
       value = Intl.NumberFormat(navigator.language, {
         minimumFractionDigits: decimals,
@@ -57,13 +57,13 @@ export const formatValue = (
       }).format(value)
     }
 
-    if (SMOL.includes(name)) {
+    if (SMOL.includes(x.name)) {
       if (value.charAt(0) === "-") {
         value = "-" + value.substring(2)
       } else {
         value = value.substring(1)
 
-        if (name === "p") {
+        if (x.name === "p") {
           if (x.value < 0.001) {
             value = "< .001"
           }

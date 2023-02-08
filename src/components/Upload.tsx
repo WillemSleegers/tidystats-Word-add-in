@@ -34,6 +34,8 @@ const useStyles = makeStyles({
     color: tokens.colorNeutralBackground1,
   },
   errorMessage: {
+    display: "inline-block",
+    marginTop: "0.5rem",
     color: tokens.colorPaletteRedBackground3,
   },
   hiddenFileInput: {
