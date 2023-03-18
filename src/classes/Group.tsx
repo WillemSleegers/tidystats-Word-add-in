@@ -2,13 +2,20 @@ import { Statistic, RangedStatistic } from "./Statistic"
 
 class Group {
   identifier: string
-  name: string
+  name?: string
+  names?: { name: string }[]
   statistics?: Statistic[]
   groups?: Group[]
 
   constructor(identifier: string, data: Group) {
-    this.name = data.name
-    this.identifier = identifier + "$" + this.name
+    if (data.name) {
+      this.name = data.name
+      this.identifier = identifier + "$" + this.name
+    } else {
+      this.names = data.names
+      this.identifier =
+        identifier + "$" + this.names![0].name + "-" + this.names![1].name
+    }
 
     if (data.statistics) {
       const statistics = []

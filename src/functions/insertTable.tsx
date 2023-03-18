@@ -1,4 +1,5 @@
 import { Group } from "../classes/Group"
+import { formatName } from "../functions/formatName"
 import { formatValue } from "../functions/formatValue"
 
 export const insertTable = async (data: Group) => {
@@ -18,7 +19,9 @@ export const insertTable = async (data: Group) => {
     // Set the first cell's content to the group name
     const cellName = table.getCell(0, 0)
     cellName.getBorder("Bottom").type = "Single"
-    cellName.body.getRange().insertText(data.name, Word.InsertLocation.replace)
+    cellName.body
+      .getRange()
+      .insertText(formatName(data), Word.InsertLocation.replace)
 
     // Set the content of the remaining cells in the first row to the names of the statistics
     groups[0].statistics!.forEach((statistic, i) => {
@@ -47,7 +50,7 @@ export const insertTable = async (data: Group) => {
       table
         .getCell(i + 1, 0)
         .body.getRange()
-        .insertText(group.name, Word.InsertLocation.replace)
+        .insertText(formatName(group), Word.InsertLocation.replace)
 
       group.statistics?.forEach((statistic, j) => {
         const value = table

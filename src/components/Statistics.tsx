@@ -107,11 +107,13 @@ export const Statistics = (props: StatisticsProps) => {
         <RowName isHeader isBold>
           Statistics:
         </RowName>
-        <Button
-          icon={<GearIcon />}
-          appearance="transparent"
-          onClick={() => setClickedSettings((prev) => !prev)}
-        />
+        {statistics && statistics.length > 1 && (
+          <Button
+            icon={<GearIcon />}
+            appearance="transparent"
+            onClick={() => setClickedSettings((prev) => !prev)}
+          />
+        )}
         <Button
           icon={<AddIcon />}
           appearance="transparent"

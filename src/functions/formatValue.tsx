@@ -1,15 +1,19 @@
 import { Statistic, RangedStatistic } from "../classes/Statistic"
 
-const SMOL = ["p", "r", "R²", "ges"]
+const SMOL = ["p", "p̂", "r", "R²", "ges"]
 const INTEGERS = [
   "df",
   "df numerator",
   "df denominator",
+  "residual df",
   "n",
   "N",
   "k",
   "n parameters",
+  "number of trials",
+  "truncation lag",
 ]
+const STATISTIC_INTEGERS = ["S", "T", "n", "k"]
 
 export const formatValue = (
   x: Statistic | RangedStatistic,
@@ -45,30 +49,48 @@ export const formatValue = (
           maximumFractionDigits: decimals,
         }).format(value)
       }
-    } else if (Math.abs(x.value) > 0.1) {
-      value = Intl.NumberFormat(navigator.language, {
-        minimumFractionDigits: decimals,
-        maximumFractionDigits: decimals,
-      }).format(value)
     } else {
-      value = Intl.NumberFormat(navigator.language, {
-        minimumSignificantDigits: decimals,
-        maximumSignificantDigits: decimals,
-      }).format(value)
+      if (x.name == "statistic" && STATISTIC_INTEGERS.includes(x.symbol!)) {
+        value = Intl.NumberFormat(navigator.language, {
+          minimumFractionDigits: 0,
+        }).format(value)
+      } else {
+        // Add an extra decimal for each starting 0 in the decimals
+        const extra_decimals =
+          Math.abs(value) < 1
+            ? -Math.floor(Math.log10(Math.abs(value) % 1)) - 1
+            : 0
+
+        value = Intl.NumberFormat(navigator.language, {
+          minimumFractionDigits: decimals,
+          maximumFractionDigits: Math.min(20, decimals + extra_decimals),
+        }).format(value)
+      }
     }
 
-    if (SMOL.includes(x.name)) {
+    const name = x.symbol ? x.symbol : x.name
+
+    if ((x.value > 1000000 || 1 / x.value > 1000000) && x.value != 0) {
+      console.log(x.value)
+      value = x.value.toExponential(decimals)
+    }
+
+    if (SMOL.includes(name) && x.value < 1) {
       if (value.charAt(0) === "-") {
         value = "-" + value.substring(2)
       } else {
         value = value.substring(1)
 
-        if (x.name === "p") {
+        if (name === "p") {
           if (x.value < 0.001) {
             value = "< .001"
           }
         }
       }
+    }
+  } else {
+    if (value == "Inf") {
+      value = "∞"
     }
   }
 

@@ -95,13 +95,16 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
         rightBracket.insertText("]", "End")
       } else {
         // Create the test statistic section
-        if (statistic.name === "statistic") {
-          if (
-            statistic.symbol === "t" &&
-            statistics.find((x: StatisticProps) => x.name === "df")
-          ) {
+        if (
+          (["t", "z", "χ²"].includes(statistic.symbol!) &&
+            statistics.find((x: StatisticProps) => x.name === "df")) ||
+          (statistic.symbol === "F" &&
+            statistics.find((x: StatisticProps) => x.name === "df numerator") &&
+            statistics.find((x: StatisticProps) => x.name === "df denominator"))
+        ) {
+          if (["t", "z", "χ²"].includes(statistic.symbol!)) {
             const name = range.getRange("End")
-            name.insertText(statistic.symbol, "End")
+            name.insertText(statistic.symbol!, "End")
             name.font.italic = true
 
             const parenthesisLeft = range.getRange("End")
@@ -118,11 +121,7 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
 
             const parenthesisRight = range.getRange("End")
             parenthesisRight.insertText(")", "End")
-          } else if (
-            statistic.symbol === "F" &&
-            statistics.find((x: StatisticProps) => x.name === "df numerator") &&
-            statistics.find((x: StatisticProps) => x.name === "df denominator")
-          ) {
+          } else if (statistic.symbol === "F") {
             const name = range.getRange("End")
             name.insertText(statistic.symbol, "End")
             name.font.italic = true

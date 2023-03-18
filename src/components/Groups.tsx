@@ -1,6 +1,7 @@
 import { Collapsible } from "./Collapsible"
 import { Group } from "../classes/Group"
 import { Statistics } from "./Statistics"
+import { formatName } from "../functions/formatName"
 import { insertTable } from "../functions/insertTable"
 
 type GroupsProps = {
@@ -23,7 +24,7 @@ export const Groups = (props: GroupsProps) => {
           <Collapsible
             key={x.identifier}
             open={false}
-            header={x.name}
+            header={formatName(x)}
             onInsertClick={canInsertTable ? () => insertTable(x) : undefined}
           >
             {statistics && <Statistics data={x.statistics!} />}

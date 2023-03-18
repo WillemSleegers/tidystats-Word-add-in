@@ -2,7 +2,7 @@ import { Tidystats } from "../classes/Tidystats"
 import { Collapsible } from "./Collapsible"
 import { Groups } from "./Groups"
 import { Statistics } from "./Statistics"
-import { Row, RowName } from "./Row"
+import { Row, RowName, RowValue } from "./Row"
 
 type AnalysesProps = {
   tidystats: Tidystats
@@ -29,7 +29,7 @@ export const Analyses = (props: AnalysesProps) => {
               <RowName isHeader={false} isBold>
                 Method:
               </RowName>
-              <div>{x.method}</div>
+              <RowValue>{x.method}</RowValue>
             </Row>
             {statistics && <Statistics data={statistics} />}
             {groups && <Groups data={groups} />}
