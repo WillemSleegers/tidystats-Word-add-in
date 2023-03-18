@@ -1,4 +1,4 @@
-export const replaceStatistics = async (x: string) => {
+export const replaceStatistics = async (x: string, highlight: boolean) => {
   Word.run(async (context) => {
     console.log("Replacing statistic")
 
@@ -10,7 +10,8 @@ export const replaceStatistics = async (x: string) => {
 
       for (const item of items) {
         item.insertText(x, Word.InsertLocation.replace)
-        item.font.highlightColor = "yellow"
+
+        if (highlight) item.font.highlightColor = "yellow"
       }
     })
   }).catch(function (error) {

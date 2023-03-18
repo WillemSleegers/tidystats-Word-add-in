@@ -5,6 +5,7 @@ import {
   useId,
   Input,
   Label,
+  Checkbox,
 } from "@fluentui/react-components"
 import { Tidystats } from "../classes/Tidystats"
 import { updateStatistics } from "../functions/updateStatistics"
@@ -13,13 +14,11 @@ import { insertText } from "../functions/insertText"
 import { citation, bibTexCitation } from "../assets/citation"
 
 const useStyles = makeStyles({
-  replacementWrapper: {
+  root: {
     display: "flex",
-    alignItems: "center",
-  },
-  replacementInput: {
-    marginLeft: "0.5rem",
-    width: "5.5rem",
+    flexDirection: "column",
+    rowGap: "5px",
+    maxWidth: "220px",
   },
   citation: {
     paddingLeft: "0.5rem",
@@ -48,13 +47,13 @@ export const Actions = (props: ActionsProps) => {
   const replacementInputId = useId("input")
 
   const replacementInput = useRef<HTMLInputElement>(null)
+  const replacementCheck = useRef<HTMLInputElement>(null)
 
   const handleReplaceStatisticsClick = () => {
-    let value = replacementInput.current?.value
+    const value = replacementInput.current!.value
+    const highlight = replacementCheck.current!.checked
 
-    if (!value) value = "NA"
-
-    replaceStatistics(value)
+    replaceStatistics(value ? value : "NA", highlight)
   }
 
   const handleCopyBibTexClick = (e: MouseEvent<HTMLButtonElement>) => {
@@ -83,14 +82,21 @@ export const Actions = (props: ActionsProps) => {
       </Button>
 
       <h3>Replace statistics</h3>
-      <p>Replace all reported statistics with a fixed value.</p>
-      <div className={styles.replacementWrapper}>
-        <Label htmlFor={replacementInputId}>Value:</Label>
+      <div className={styles.root}>
+        <Label htmlFor={replacementInputId}>
+          Replace reported statistics with:
+        </Label>
         <Input
+          placeholder="NA"
           id={replacementInputId}
           ref={replacementInput}
-          className={styles.replacementInput}
-          placeholder="NA"
+        />
+      </div>
+      <div>
+        <Checkbox
+          ref={replacementCheck}
+          label="Highlight replacements"
+          defaultChecked={true}
         />
       </div>
       <p>
