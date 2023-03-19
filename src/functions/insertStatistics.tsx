@@ -28,25 +28,50 @@ type StatisticProps = {
 
 export const insertStatistics = async (statistics: StatisticProps[]) => {
   Word.run(async (context) => {
-    let selectedStatistics
-
     // Filter out the unchecked statistics
-    selectedStatistics = statistics.filter(
+    statistics = statistics.filter(
       (statistic: StatisticProps) => statistic.checked
     )
 
+    console.log(statistics)
+
+    let filteredStatistics = statistics
     // Filter out the degrees of freedom if there's a test statistic
     // (e.g., t, F) because we will report those together with the test
     // statistic itself
     if (
-      selectedStatistics.some(
-        (statistic: StatisticProps) => statistic.name === "statistic"
+      statistics.some(
+        (statistic: StatisticProps) => statistic.name == "statistic"
       )
     ) {
-      selectedStatistics = selectedStatistics.filter(
-        (statistic: StatisticProps) =>
-          !["df", "df numerator", "df denominator"].includes(statistic.name)
-      )
+      if (
+        statistics.some(
+          (statistic: StatisticProps) =>
+            ["t", "z", "χ²"].includes(statistic.symbol!) &&
+            statistics.some(
+              (statistic: StatisticProps) => statistic.name == "df"
+            )
+        )
+      ) {
+        filteredStatistics = filteredStatistics.filter(
+          (statistic: StatisticProps) => statistic.name != "df"
+        )
+      } else if (
+        statistics.some(
+          (statistic: StatisticProps) => statistic.symbol == "F"
+        ) &&
+        statistics.some(
+          (statistic: StatisticProps) => statistic.name == "df numerator"
+        ) &&
+        statistics.some(
+          (statistic: StatisticProps) => statistic.name == "df denominator"
+        )
+      ) {
+        filteredStatistics = filteredStatistics.filter(
+          (statistic: StatisticProps) =>
+            !["df numerator", "df denominator"].includes(statistic.name)
+        )
+      }
     }
 
     // If both the lower and upper bound of an interval are present, remove one,
@@ -55,15 +80,14 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
     const upper = statistics.find((x: StatisticProps) => x.name === "UL")
 
     if (lower && upper) {
-      selectedStatistics = selectedStatistics.filter(
+      filteredStatistics = filteredStatistics.filter(
         (statistic: StatisticProps) => statistic.name !== "UL"
       )
     }
 
-    // Loop over the statistics and insert them
     const range = context.document.getSelection()
 
-    selectedStatistics.forEach((statistic: StatisticProps, i: number) => {
+    filteredStatistics.forEach((statistic: StatisticProps, i: number) => {
       // Add a comma starting after the first element
       if (i !== 0) {
         const comma = range.getRange()

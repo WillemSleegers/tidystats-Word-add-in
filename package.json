@@ -14,7 +14,7 @@
   },
   "scripts": {
     "dev": "parcel src/index.html --https --port 3000",
-    "build": "parcel build",
+    "build": "parcel build src/index.html",
     "start": "office-addin-debugging start manifest.xml"
   },
   "repository": {
