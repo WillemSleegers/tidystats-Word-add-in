@@ -33,8 +33,6 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
       (statistic: StatisticProps) => statistic.checked
     )
 
-    console.log(statistics)
-
     let filteredStatistics = statistics
     // Filter out the degrees of freedom if there's a test statistic
     // (e.g., t, F) because we will report those together with the test
@@ -78,6 +76,8 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
     // because we'll report it together with the other one
     const lower = statistics.find((x: StatisticProps) => x.name === "LL")
     const upper = statistics.find((x: StatisticProps) => x.name === "UL")
+
+    console.log(lower, upper)
 
     if (lower && upper) {
       filteredStatistics = filteredStatistics.filter(
@@ -197,9 +197,15 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
 
         // Insert an equal sign and set the style back to normal
         const equal = range.getRange()
-        equal.insertText(" = ", "End")
-        equal.font.italic = false
-        equal.font.subscript = false
+        if (statistic.name != "p") {
+          equal.insertText(" = ", "End")
+          equal.font.italic = false
+          equal.font.subscript = false
+        } else {
+          equal.insertText(" ", "End")
+          equal.font.italic = false
+          equal.font.subscript = false
+        }
 
         // Insert the value as a content control
         const value = range.getRange()
