@@ -5,12 +5,17 @@ import { formatValue } from "../functions/formatValue"
 export const insertTable = async (data: Group) => {
   const groups = data.groups!
 
-  const rows = groups.length + 1
-  const columns = groups[0].statistics!.length + 1
+  const rows = groups.length
+  const columns = Math.max(...groups.map((group) => group.statistics!.length))
+  const index = groups.findIndex((group) => group.statistics!.length == columns)
 
   Word.run(async (context) => {
     const range = context.document.getSelection()
-    const table = range.insertTable(rows, columns, Word.InsertLocation.after)
+    const table = range.insertTable(
+      rows + 1,
+      columns + 1,
+      Word.InsertLocation.after
+    )
 
     table.getBorder("All").type = "None"
     table.getBorder("Top").type = "Single"
@@ -23,8 +28,9 @@ export const insertTable = async (data: Group) => {
       .getRange()
       .insertText(formatName(data), Word.InsertLocation.replace)
 
-    // Set the content of the remaining cells in the first row to the names of the statistics
-    groups[0].statistics!.forEach((statistic, i) => {
+    // Set the content of the remaining cells in the first row to the names of
+    // the statistics
+    groups[index].statistics!.forEach((statistic, i) => {
       const cell = table.getCell(0, i + 1)
 
       cell.getBorder("Bottom").type = "Single"

@@ -8,7 +8,7 @@ class Group {
   groups?: Group[]
 
   constructor(identifier: string, data: Group) {
-    if (data.name) {
+    if ("name" in data) {
       this.name = data.name
       this.identifier = identifier + "$" + this.name
     } else {

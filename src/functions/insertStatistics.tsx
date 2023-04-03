@@ -77,8 +77,6 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
     const lower = statistics.find((x: StatisticProps) => x.name === "LL")
     const upper = statistics.find((x: StatisticProps) => x.name === "UL")
 
-    console.log(lower, upper)
-
     if (lower && upper) {
       filteredStatistics = filteredStatistics.filter(
         (statistic: StatisticProps) => statistic.name !== "UL"
@@ -181,30 +179,34 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
             parenthesisRight.insertText(")", "End")
           }
         } else {
-          const name = range.getRange()
-          name.insertText(
-            statistic.symbol ? statistic.symbol : statistic.name,
-            "End"
-          )
-          name.font.italic = true
+          if (statistic.symbol != "%") {
+            const name = range.getRange()
+            name.insertText(
+              statistic.symbol ? statistic.symbol : statistic.name,
+              "End"
+            )
+            name.font.italic = true
 
-          if (statistic.subscript) {
-            const subscript = range.getRange()
-            subscript.insertText(statistic.subscript, "End")
-            subscript.font.subscript = true
+            if (statistic.subscript) {
+              const subscript = range.getRange()
+              subscript.insertText(statistic.subscript, "End")
+              subscript.font.subscript = true
+            }
           }
         }
 
-        // Insert an equal sign and set the style back to normal
-        const equal = range.getRange()
-        if (statistic.name != "p") {
-          equal.insertText(" = ", "End")
-          equal.font.italic = false
-          equal.font.subscript = false
-        } else {
-          equal.insertText(" ", "End")
-          equal.font.italic = false
-          equal.font.subscript = false
+        if (statistic.symbol != "%") {
+          // Insert an equal sign and set the style back to normal
+          const equal = range.getRange()
+          if (statistic.name != "p") {
+            equal.insertText(" = ", "End")
+            equal.font.italic = false
+            equal.font.subscript = false
+          } else {
+            equal.insertText(" ", "End")
+            equal.font.italic = false
+            equal.font.subscript = false
+          }
         }
 
         // Insert the value as a content control
@@ -212,6 +214,13 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
         const valueCC = value.insertContentControl()
         valueCC.insertText(statistic.value, Word.InsertLocation.end)
         valueCC.tag = statistic.identifier
+
+        if (statistic.symbol == "%") {
+          const percentage = range.getRange()
+          percentage.insertText("%", "End")
+          percentage.font.italic = false
+          percentage.font.subscript = false
+        }
       }
     })
 

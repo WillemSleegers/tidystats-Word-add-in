@@ -70,12 +70,10 @@ export const formatValue = (
 
     const name = x.symbol ? x.symbol : x.name
 
-    console.log(x.value)
     if (
       (Math.abs(x.value) > 1000000 || 1 / Math.abs(x.value) > 1000000) &&
       x.value != 0
     ) {
-      console.log(x.value)
       value = x.value.toExponential(decimals)
     }
 

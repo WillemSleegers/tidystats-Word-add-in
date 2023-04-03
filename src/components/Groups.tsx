@@ -18,7 +18,11 @@ export const Groups = (props: GroupsProps) => {
         const groups = x.groups
 
         let canInsertTable = false
-        if (groups) canInsertTable = "statistics" in groups[0]
+        if (groups) {
+          canInsertTable =
+            groups.filter((group) => "statistics" in group).length ==
+            groups.length
+        }
 
         return (
           <Collapsible
