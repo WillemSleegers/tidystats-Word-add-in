@@ -43,10 +43,20 @@ export const App = (props: AppProps) => {
     <>
       <Header />
 
-      <TabList selectedValue={selectedTab} onTabSelect={onTabSelect}>
-        <Tab value="statistics">Statistics</Tab>
-        <Tab value="actions">Actions</Tab>
-        <Tab value="support">Support</Tab>
+      <TabList
+        selectedValue={selectedTab}
+        onTabSelect={onTabSelect}
+        aria-label="Tabs"
+      >
+        <Tab value="statistics" aria-label="Statistics">
+          Statistics
+        </Tab>
+        <Tab value="actions" aria-label="Actions">
+          Actions
+        </Tab>
+        <Tab value="support" aria-label="Support">
+          Support
+        </Tab>
       </TabList>
 
       {selectedTab === "statistics" && <Upload setTidystats={setTidystats} />}

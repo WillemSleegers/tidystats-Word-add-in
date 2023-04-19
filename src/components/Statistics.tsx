@@ -8,7 +8,7 @@ import {
   bundleIcon,
 } from "@fluentui/react-icons"
 import { Row, RowName, RowValue } from "./Row"
-import { Statistic, RangedStatistic } from "../classes/Statistic"
+import { Statistic } from "../classes/Statistic"
 import { formatValue } from "../functions/formatValue"
 import {
   insertStatistic,
@@ -62,22 +62,16 @@ export const Statistics = (props: StatisticsProps) => {
       initialStatistics.push(item)
 
       if ("level" in x) {
-        const rangedStatistic = x as RangedStatistic
-
         const item_lower = {
           identifier: x.identifier + "$lower",
           name: "LL",
-          interval: rangedStatistic.interval,
-          level: rangedStatistic.level,
-          value: formatValue(rangedStatistic, 2, "lower"),
+          value: formatValue(x, 2, "lower"),
           checked: true,
         }
         const item_upper = {
           identifier: x.identifier + "$upper",
           name: "UL",
-          interval: rangedStatistic.interval,
-          level: rangedStatistic.level,
-          value: formatValue(rangedStatistic, 2, "upper"),
+          value: formatValue(x, 2, "upper"),
           checked: true,
         }
 

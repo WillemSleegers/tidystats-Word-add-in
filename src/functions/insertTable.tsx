@@ -1,3 +1,4 @@
+import { RangedStatistic, Statistic } from "../classes/Statistic"
 import { Group } from "../classes/Group"
 import { formatName } from "../functions/formatName"
 import { formatValue } from "../functions/formatValue"
@@ -6,7 +7,10 @@ export const insertTable = async (data: Group) => {
   const groups = data.groups!
 
   const rows = groups.length
-  const columns = Math.max(...groups.map((group) => group.statistics!.length))
+  const columns = Math.max(
+    ...groups.map((group) => getStatisticsLength(group.statistics!))
+  )
+  console.log(columns)
   const index = groups.findIndex((group) => group.statistics!.length == columns)
 
   Word.run(async (context) => {
@@ -26,7 +30,7 @@ export const insertTable = async (data: Group) => {
     cellName.getBorder("Bottom").type = "Single"
     cellName.body
       .getRange()
-      .insertText(formatName(data), Word.InsertLocation.replace)
+      .insertText(formatName(data)!, Word.InsertLocation.replace)
 
     // Set the content of the remaining cells in the first row to the names of
     // the statistics
@@ -56,7 +60,7 @@ export const insertTable = async (data: Group) => {
       table
         .getCell(i + 1, 0)
         .body.getRange()
-        .insertText(formatName(group), Word.InsertLocation.replace)
+        .insertText(formatName(group)!, Word.InsertLocation.replace)
 
       group.statistics?.forEach((statistic, j) => {
         const value = table
@@ -75,4 +79,12 @@ export const insertTable = async (data: Group) => {
       console.log("Debug info: " + JSON.stringify(error.debugInfo))
     }
   })
+}
+
+const getStatisticsLength = (data: Statistic[] | RangedStatistic[]) => {
+  return data.map((x) => ("level" in x ? 3 : 1)).reduce((a, b) => a + b, 0)
+}
+
+const getStatisticsNames = (data: Statistic[] | RangedStatistic[]) => {
+  return data.map((x) => ("level" in x ? 3 : 1)).reduce((a, b) => a + b, 0)
 }

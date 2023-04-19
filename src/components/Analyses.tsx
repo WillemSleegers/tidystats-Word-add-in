@@ -23,6 +23,7 @@ export const Analyses = (props: AnalysesProps) => {
             key={x.identifier}
             open={false}
             header={x.identifier}
+            indentation={0}
             isPrimary
           >
             <Row indented hasBorder>
@@ -32,7 +33,7 @@ export const Analyses = (props: AnalysesProps) => {
               <RowValue>{x.method}</RowValue>
             </Row>
             {statistics && <Statistics data={statistics} />}
-            {groups && <Groups data={groups} />}
+            {groups && <Groups data={groups} depth={0} />}
           </Collapsible>
         )
       })}

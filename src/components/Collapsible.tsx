@@ -26,6 +26,7 @@ interface CollapsibleProps {
   isPrimary?: boolean
   onInsertClick?: Function
   open?: boolean
+  indentation: number
   children: ReactNode
 }
 
@@ -34,7 +35,8 @@ const ChevronRightIcon = bundleIcon(ChevronRight28Regular, ChevronRight28Filled)
 const TableIcon = bundleIcon(Table28Regular, Table28Filled)
 
 export const Collapsible = (props: CollapsibleProps) => {
-  const { header, isPrimary, onInsertClick, open, children } = props
+  const { header, isPrimary, onInsertClick, open, indentation, children } =
+    props
 
   const styles = useStyles()
 
@@ -47,6 +49,7 @@ export const Collapsible = (props: CollapsibleProps) => {
           isPrimary && styles.background,
           isOpen && styles.open
         )}
+        style={{ marginLeft: `${indentation}rem` }}
       >
         <Row>
           <Button

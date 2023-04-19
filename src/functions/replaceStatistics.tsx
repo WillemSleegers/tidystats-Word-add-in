@@ -11,7 +11,11 @@ export const replaceStatistics = async (x: string, highlight: boolean) => {
       for (const item of items) {
         item.insertText(x, Word.InsertLocation.replace)
 
-        if (highlight) item.font.highlightColor = "yellow"
+        if (highlight) {
+          item.font.highlightColor = "yellow"
+        } else {
+          item.font.highlightColor = ""
+        }
       }
     })
   }).catch(function (error) {

@@ -6,10 +6,13 @@ import { insertTable } from "../functions/insertTable"
 
 type GroupsProps = {
   data: Group[]
+  depth: number
 }
 
 export const Groups = (props: GroupsProps) => {
-  const { data } = props
+  const { data, depth } = props
+
+  console.log(depth)
 
   return (
     <>
@@ -29,10 +32,11 @@ export const Groups = (props: GroupsProps) => {
             key={x.identifier}
             open={false}
             header={formatName(x)}
+            indentation={depth}
             onInsertClick={canInsertTable ? () => insertTable(x) : undefined}
           >
             {statistics && <Statistics data={x.statistics!} />}
-            {groups && <Groups data={groups} />}
+            {groups && <Groups data={groups} depth={depth + 1} />}
           </Collapsible>
         )
       })}

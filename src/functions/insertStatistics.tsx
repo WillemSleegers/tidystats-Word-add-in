@@ -198,7 +198,7 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
         if (statistic.symbol != "%") {
           // Insert an equal sign and set the style back to normal
           const equal = range.getRange()
-          if (statistic.name != "p") {
+          if (statistic.value != "< .001") {
             equal.insertText(" = ", "End")
             equal.font.italic = false
             equal.font.subscript = false

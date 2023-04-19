@@ -57,7 +57,7 @@ const Upload = (props: UploadProps) => {
   const positioningRef = useRef<PositioningImperativeRef>(null)
 
   const [fileName, setFileName] = useState<string | null>()
-  const [showHelpMessage, setShowHelpMessage] = useState(true)
+  const [showHelpMessage, setShowHelpMessage] = useState(false)
   const [showErrorMessage, setShowErrorMessage] = useState(false)
 
   useEffect(() => {
@@ -174,7 +174,7 @@ const Upload = (props: UploadProps) => {
         }}
         appearance="brand"
       >
-        <PopoverSurface>
+        <PopoverSurface aria-label="Upload statistics">
           <p>
             Upload your statistics created with the tidystats R package here.
           </p>
@@ -182,6 +182,7 @@ const Upload = (props: UploadProps) => {
             as="a"
             href="https://www.tidystats.io/r-package/"
             target="_blank"
+            aria-label="Learn more"
           >
             Learn more
           </Button>
@@ -189,6 +190,7 @@ const Upload = (props: UploadProps) => {
             className={styles.dismissMessageButton}
             onClick={handleMessageClick}
             appearance="outline"
+            aria-label="Got it!"
           >
             Got it!
           </Button>
