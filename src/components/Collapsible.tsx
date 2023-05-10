@@ -42,8 +42,12 @@ export const Collapsible = (props: CollapsibleProps) => {
 
   const [isOpen, setIsOpen] = useState(open)
 
+  const toggleOpen = () => {
+    setIsOpen((prev) => !prev)
+  }
+
   return (
-    <>
+    <div>
       <div
         className={mergeClasses(
           isPrimary && styles.background,
@@ -51,11 +55,11 @@ export const Collapsible = (props: CollapsibleProps) => {
         )}
         style={{ marginLeft: `${indentation}rem` }}
       >
-        <Row>
+        <Row hasBorder={isPrimary ? false : true}>
           <Button
             icon={!isOpen ? <ChevronRightIcon /> : <ChevronDownIcon />}
             appearance="transparent"
-            onClick={() => setIsOpen((prev) => !prev)}
+            onClick={toggleOpen}
           />
 
           <RowName isHeader>{header}</RowName>
@@ -70,6 +74,6 @@ export const Collapsible = (props: CollapsibleProps) => {
         </Row>
       </div>
       {isOpen && <div>{children}</div>}
-    </>
+    </div>
   )
 }

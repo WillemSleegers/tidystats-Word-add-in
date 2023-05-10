@@ -1,7 +1,7 @@
 import { StrictMode } from "react"
 import { FluentProvider, webLightTheme } from "@fluentui/react-components"
 import { createRoot } from "react-dom/client"
-import { App } from "./components/App"
+import { App } from "./App"
 
 const element = document.getElementById("app") as HTMLElement
 const root = createRoot(element)

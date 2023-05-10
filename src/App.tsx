@@ -6,13 +6,13 @@ import {
   SelectTabEvent,
   SelectTabData,
 } from "@fluentui/react-components"
-import { Analyses } from "./Analyses"
-import { Header } from "./Header"
-import { Upload } from "./Upload"
-import { Actions } from "./Actions"
-import { Support } from "./Support"
-import { Tidystats } from "../classes/Tidystats"
-import { getSettingsData } from "../functions/settings"
+import { Analyses } from "./components/Analyses"
+import { Header } from "./components/Header"
+import { Upload } from "./components/Upload"
+import { Actions } from "./components/Actions"
+import { Support } from "./components/Support"
+import { Tidystats } from "./classes/Tidystats"
+import { getSettingsData } from "./functions/settings"
 
 type AppProps = {
   host: Office.HostType
@@ -24,7 +24,7 @@ export const App = (props: AppProps) => {
   const [tidystats, setTidystats] = useState<Tidystats>()
   const [selectedTab, setSelectedTab] = useState<TabValue>("statistics")
 
-  const onTabSelect = (event: SelectTabEvent, data: SelectTabData) => {
+  const onTabSelect = (_event: SelectTabEvent, data: SelectTabData) => {
     setSelectedTab(data.value)
   }
 
@@ -59,9 +59,11 @@ export const App = (props: AppProps) => {
         </Tab>
       </TabList>
 
-      {selectedTab === "statistics" && <Upload setTidystats={setTidystats} />}
-      {selectedTab === "statistics" && tidystats && (
-        <Analyses tidystats={tidystats} />
+      {selectedTab === "statistics" && (
+        <>
+          <Upload setTidystats={setTidystats} />
+          {tidystats && <Analyses tidystats={tidystats} />}
+        </>
       )}
       {selectedTab === "actions" && <Actions tidystats={tidystats} />}
       {selectedTab === "support" && <Support />}

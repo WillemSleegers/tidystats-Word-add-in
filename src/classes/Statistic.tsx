@@ -1,4 +1,4 @@
-class Statistic {
+export class Statistic {
   name: string
   identifier: string
   symbol?: string
@@ -14,7 +14,7 @@ class Statistic {
   }
 }
 
-class RangedStatistic extends Statistic {
+export class RangedStatistic extends Statistic {
   interval: string
   level: number
   lower: number | string
@@ -29,5 +29,3 @@ class RangedStatistic extends Statistic {
     this.upper = data.upper
   }
 }
-
-export { Statistic, RangedStatistic }

@@ -1,6 +1,6 @@
 import { Analysis } from "./Analysis"
 
-class Tidystats {
+export class Tidystats {
   analyses: Analysis[]
 
   constructor(data: { [key: string]: any }) {
@@ -55,5 +55,3 @@ class Tidystats {
     return statistic
   }
 }
-
-export { Tidystats }

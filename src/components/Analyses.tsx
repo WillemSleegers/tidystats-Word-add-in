@@ -26,7 +26,7 @@ export const Analyses = (props: AnalysesProps) => {
             indentation={0}
             isPrimary
           >
-            <Row indented hasBorder>
+            <Row indented>
               <RowName isHeader={false} isBold>
                 Method:
               </RowName>

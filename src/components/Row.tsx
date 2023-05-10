@@ -10,9 +10,9 @@ const useStyles = makeStyles({
     marginLeft: "1rem",
   },
   border: {
-    borderBottomWidth: "1px",
-    borderBottomColor: tokens.colorNeutralBackground4,
-    borderBottomStyle: "solid",
+    borderTopWidth: "1px",
+    borderTopColor: tokens.colorNeutralBackground4,
+    borderTopStyle: "solid",
   },
   height: {
     marginTop: "0.4rem",

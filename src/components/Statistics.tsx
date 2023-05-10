@@ -116,13 +116,12 @@ export const Statistics = (props: StatisticsProps) => {
       </Row>
       <div className={styles.statisticsWrapper}>
         {statistics &&
-          statistics.map((x, index: number) => {
-            const lastRow = index === statistics.length - 1
+          statistics.map((x) => {
             return (
               <Row
                 key={x.identifier}
+                hasBorder
                 indented={x.name === "UL" || x.name === "LL"}
-                hasBorder={!lastRow}
               >
                 <RowName isHeader={false}>
                   {x.symbol ? x.symbol : x.name}

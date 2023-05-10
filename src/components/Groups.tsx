@@ -12,8 +12,6 @@ type GroupsProps = {
 export const Groups = (props: GroupsProps) => {
   const { data, depth } = props
 
-  console.log(depth)
-
   return (
     <>
       {data.map((x: Group) => {
