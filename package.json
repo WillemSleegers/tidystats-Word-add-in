@@ -5,7 +5,8 @@
   "devDependencies": {
     "@types/office-js": "^1.0.300",
     "@types/react": "^18.0.25",
-    "office-addin-debugging": "^4.6.4",
+    "@types/react-dom": "^17.0.20",
+    "office-addin-debugging": "^5.0.5",
     "parcel": "^2.8.0",
     "parcel-reporter-static-files-copy": "^1.4.0",
     "process": "^0.11.10",
