@@ -3,9 +3,6 @@ import src from "../assets/tidystats-icon.svg"
 
 const useStyles = makeStyles({
   header: {
-    marginTop: "-0.5rem",
-    marginRight: "-0.5rem",
-    marginLeft: "-0.5rem",
     display: "flex",
     columnGap: "0.5rem",
     alignItems: "center",

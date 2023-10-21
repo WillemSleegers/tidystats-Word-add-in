@@ -19,8 +19,8 @@ const useStyles = makeStyles({
   app: {},
   main: {},
   content: {
-    marginLeft: "0.5rem",
-    marginRight: "0.5rem",
+    marginLeft: "1rem",
+    marginRight: "1rem",
     marginBottom: "1rem",
   },
 })

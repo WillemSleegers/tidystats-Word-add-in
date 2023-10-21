@@ -30,7 +30,8 @@ import {
 const useStyles = makeStyles({
   uploadButton: { marginTop: "1rem" },
   popover: {
-    maxWidth: "85%",
+    paddingTop: "0",
+    maxWidth: "80%",
   },
   dismissMessageButton: {
     marginLeft: "1rem",
