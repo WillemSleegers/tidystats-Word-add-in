@@ -6,8 +6,8 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="tidystats local"/>
   <Description DefaultValue="A Word add-in to reproducibly report statistics."/>
-  <IconUrl DefaultValue="https://localhost:3000/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/icon-64.png"/>
+  <IconUrl DefaultValue="https://localhost:3000/tidystats-icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/tidystats-icon-64.png"/>
   <SupportUrl DefaultValue="https://www.tidystats.io/support"/>
   <AppDomains>
     <AppDomain>https://www.tidystats.io</AppDomain>

@@ -1,44 +1,34 @@
 {
   "name": "tidystats-word-add-in",
-  "version": "2.0.0",
-  "description": "A tidystats add-in for Microsoft Word",
-  "devDependencies": {
-    "@types/office-js": "^1.0.300",
-    "@types/react": "^18.0.25",
-    "@types/react-dom": "^17.0.20",
-    "office-addin-debugging": "^5.0.5",
-    "parcel": "^2.8.0",
-    "parcel-reporter-static-files-copy": "^1.4.0",
-    "process": "^0.11.10",
+  "private": true,
+  "version": "1.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "start": "office-addin-debugging start manifest.xml"
+  },
+  "dependencies": {
+    "@fluentui/react": "^8.112.3",
+    "@fluentui/react-components": "^9.35.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
-  "scripts": {
-    "dev": "parcel src/index.html --https --port 3000",
-    "build": "parcel build src/index.html",
-    "start": "office-addin-debugging start manifest.xml"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/WillemSleegers/tidystats-Word-add-in.git"
-  },
-  "keywords": [
-    "tidystats",
-    "statistics",
-    "reporting"
-  ],
-  "author": "Willem Sleegers",
-  "bugs": {
-    "url": "https://github.com/WillemSleegers/tidystats-Word-add-in/issues"
-  },
-  "homepage": "https://github.com/WillemSleegers/tidystats-Word-add-in#readme",
-  "staticFiles": {
-    "staticPath": "static",
-    "staticOutPath": "assets"
-  },
-  "dependencies": {
-    "@fluentui/react": "^8.103.2",
-    "@fluentui/react-components": "^9.7.4",
-    "@fluentui/react-icons": "^2.0.190"
+  "devDependencies": {
+    "@types/office-js": "^1.0.353",
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.3",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "office-addin-debugging": "^5.0.12",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.5",
+    "vite-plugin-mkcert": "^1.16.0"
   }
 }

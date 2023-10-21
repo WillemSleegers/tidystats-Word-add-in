@@ -1,5 +1,5 @@
 import { makeStyles, tokens } from "@fluentui/react-components"
-const src = require("../assets/tidystats-icon.svg") as string
+import src from "../assets/tidystats-icon.svg"
 
 const useStyles = makeStyles({
   header: {

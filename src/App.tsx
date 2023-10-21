@@ -5,6 +5,7 @@ import {
   TabValue,
   SelectTabEvent,
   SelectTabData,
+  makeStyles,
 } from "@fluentui/react-components"
 import { Analyses } from "./components/Analyses"
 import { Header } from "./components/Header"
@@ -14,12 +15,23 @@ import { Support } from "./components/Support"
 import { Tidystats } from "./classes/Tidystats"
 import { getSettingsData } from "./functions/settings"
 
+const useStyles = makeStyles({
+  app: {},
+  main: {},
+  content: {
+    marginLeft: "0.5rem",
+    marginRight: "0.5rem",
+    marginBottom: "1rem",
+  },
+})
+
 type AppProps = {
   host: Office.HostType
 }
 
 export const App = (props: AppProps) => {
   const { host } = props
+  const styles = useStyles()
 
   const [tidystats, setTidystats] = useState<Tidystats>()
   const [selectedTab, setSelectedTab] = useState<TabValue>("statistics")
@@ -40,33 +52,36 @@ export const App = (props: AppProps) => {
   }, [])
 
   return (
-    <>
+    <div className={styles.app}>
       <Header />
+      <div className={styles.main}>
+        <TabList
+          selectedValue={selectedTab}
+          onTabSelect={onTabSelect}
+          aria-label="Tabs"
+        >
+          <Tab value="statistics" aria-label="Statistics">
+            Statistics
+          </Tab>
+          <Tab value="actions" aria-label="Actions">
+            Actions
+          </Tab>
+          <Tab value="support" aria-label="Support">
+            Support
+          </Tab>
+        </TabList>
 
-      <TabList
-        selectedValue={selectedTab}
-        onTabSelect={onTabSelect}
-        aria-label="Tabs"
-      >
-        <Tab value="statistics" aria-label="Statistics">
-          Statistics
-        </Tab>
-        <Tab value="actions" aria-label="Actions">
-          Actions
-        </Tab>
-        <Tab value="support" aria-label="Support">
-          Support
-        </Tab>
-      </TabList>
-
-      {selectedTab === "statistics" && (
-        <>
-          <Upload setTidystats={setTidystats} />
-          {tidystats && <Analyses tidystats={tidystats} />}
-        </>
-      )}
-      {selectedTab === "actions" && <Actions tidystats={tidystats} />}
-      {selectedTab === "support" && <Support />}
-    </>
+        <div className={styles.content}>
+          {selectedTab === "statistics" && (
+            <>
+              <Upload setTidystats={setTidystats} />
+              {tidystats && <Analyses tidystats={tidystats} />}
+            </>
+          )}
+          {selectedTab === "actions" && <Actions tidystats={tidystats} />}
+          {selectedTab === "support" && <Support />}
+        </div>
+      </div>
+    </div>
   )
 }

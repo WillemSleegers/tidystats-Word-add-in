@@ -29,6 +29,9 @@ import {
 
 const useStyles = makeStyles({
   uploadButton: { marginTop: "1rem" },
+  popover: {
+    maxWidth: "85%",
+  },
   dismissMessageButton: {
     marginLeft: "1rem",
     color: tokens.colorNeutralBackground1,
@@ -174,7 +177,10 @@ const Upload = (props: UploadProps) => {
         }}
         appearance="brand"
       >
-        <PopoverSurface aria-label="Upload statistics">
+        <PopoverSurface
+          className={styles.popover}
+          aria-label="Upload statistics"
+        >
           <p>
             Upload your statistics created with the tidystats R package here.
           </p>

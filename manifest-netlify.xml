@@ -6,8 +6,8 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="tidystats"/>
   <Description DefaultValue="A Word add-in to reproducibly report statistics."/>
-  <IconUrl DefaultValue="https://dreamy-bhabha-789589.netlify.app/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://dreamy-bhabha-789589.netlify.app/assets/icon-64.png"/>
+  <IconUrl DefaultValue="https://dreamy-bhabha-789589.netlify.app/tidystats-icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://dreamy-bhabha-789589.netlify.app/tidystats-icon-64.png"/>
   <SupportUrl DefaultValue="https://www.tidystats.io/support"/>
   <AppDomains>
     <AppDomain>https://www.tidystats.io</AppDomain>
