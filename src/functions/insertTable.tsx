@@ -85,6 +85,6 @@ const getStatisticsLength = (data: Statistic[] | RangedStatistic[]) => {
   return data.map((x) => ("level" in x ? 3 : 1)).reduce((a, b) => a + b, 0)
 }
 
-const getStatisticsNames = (data: Statistic[] | RangedStatistic[]) => {
-  return data.map((x) => ("level" in x ? 3 : 1)).reduce((a, b) => a + b, 0)
-}
+// const getStatisticsNames = (data: Statistic[] | RangedStatistic[]) => {
+//   return data.map((x) => ("level" in x ? 3 : 1)).reduce((a, b) => a + b, 0)
+// }
