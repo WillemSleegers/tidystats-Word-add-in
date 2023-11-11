@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.6e1f7966.css",
+    "main.js": "/static/js/main.5d7e2f99.js",
+    "static/media/tidystats-icon.svg": "/static/media/tidystats-icon.e536034d2da7eb16bdd8a737b98ac251.svg",
+    "index.html": "/index.html",
+    "main.6e1f7966.css.map": "/static/css/main.6e1f7966.css.map",
+    "main.5d7e2f99.js.map": "/static/js/main.5d7e2f99.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6e1f7966.css",
+    "static/js/main.5d7e2f99.js"
+  ]
+}
