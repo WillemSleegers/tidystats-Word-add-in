@@ -34,6 +34,7 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
     )
 
     let filteredStatistics = statistics
+
     // Filter out the degrees of freedom if there's a test statistic
     // (e.g., t, F) because we will report those together with the test
     // statistic itself
@@ -85,32 +86,37 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
 
     const range = context.document.getSelection()
 
-    filteredStatistics.forEach((statistic: StatisticProps, i: number) => {
+    filteredStatistics.forEach((statistic, i) => {
       // Add a comma starting after the first element
       if (i !== 0) {
-        const comma = range.getRange()
-        comma.insertText(", ", "End")
+        range.getRange().insertText(", ", Word.InsertLocation.end)
       }
 
       // Create the confidence interval section
       if (statistic.name === "LL" && lower && upper) {
-        const interval = range.getRange()
-
-        const text = statistic.level! * 100 + "% " + statistic.interval!
-        interval.insertText(text, Word.InsertLocation.end)
-        interval.insertText(" [", "End")
+        const levelRange = range.getRange()
+        const levelCC = levelRange.insertContentControl()
+        levelCC.insertText(
+          (statistic.level! * 100).toString(),
+          Word.InsertLocation.replace
+        )
+        levelCC.tag = lower.identifier
+        levelRange.insertText(
+          "% " + statistic.interval! + " [",
+          Word.InsertLocation.end
+        )
 
         const lowerRange = range.getRange()
         const lowerCC = lowerRange.insertContentControl()
-        lowerCC.insertText(lower.value, Word.InsertLocation.start)
+        lowerCC.insertText(lower.value, Word.InsertLocation.replace)
         lowerCC.tag = lower.identifier
 
         const intervalComma = range.getRange()
-        intervalComma.insertText(", ", "End")
+        intervalComma.insertText(", ", Word.InsertLocation.end)
 
         const upperRange = range.getRange()
         const upperCC = upperRange.insertContentControl()
-        upperCC.insertText(upper.value, Word.InsertLocation.start)
+        upperCC.insertText(upper.value, Word.InsertLocation.replace)
         upperCC.tag = upper.identifier
 
         const rightBracket = range.getRange("End")

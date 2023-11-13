@@ -14,6 +14,7 @@ import {
   PositioningImperativeRef,
   Label,
   tokens,
+  PopoverTrigger,
 } from "@fluentui/react-components"
 import {
   bundleIcon,
@@ -70,11 +71,9 @@ const Upload = (props: UploadProps) => {
 
     const messageDismissed = getSettingsData("dismissedUploadHelpMessage")
     setShowHelpMessage(!messageDismissed)
-  }, [])
 
-  useEffect(() => {
     positioningRef.current?.setTarget(fileInput.current!)
-  }, [fileInput, positioningRef])
+  }, [])
 
   const handleInputClick = () => {
     if (null !== hiddenFileInput.current) {
@@ -130,43 +129,6 @@ const Upload = (props: UploadProps) => {
 
   return (
     <>
-      <Menu positioning="below-end">
-        <MenuTrigger disableButtonEnhancement>
-          {(triggerProps: MenuButtonProps) => (
-            <SplitButton
-              ref={fileInput}
-              className={styles.uploadButton}
-              appearance="primary"
-              primaryActionButton={{ onClick: handleInputClick }}
-              menuButton={triggerProps}
-            >
-              {fileName ? fileName : "Upload statistics"}
-            </SplitButton>
-          )}
-        </MenuTrigger>
-
-        <MenuPopover>
-          <MenuList>
-            <MenuItem
-              icon={<DismissIcon />}
-              disabled={!fileName}
-              onClick={handleRemoveFileClick}
-            >
-              Remove file
-            </MenuItem>
-          </MenuList>
-        </MenuPopover>
-      </Menu>
-
-      <input
-        ref={hiddenFileInput}
-        className={styles.hiddenFileInput}
-        type="file"
-        accept="application/json"
-        onChange={handleInputChange}
-        onClick={handleInputClick}
-      />
-
       <Popover
         withArrow
         open={showHelpMessage}
@@ -178,6 +140,46 @@ const Upload = (props: UploadProps) => {
         }}
         appearance="brand"
       >
+        <PopoverTrigger>
+          <div>
+            <Menu positioning="below-end">
+              <MenuTrigger disableButtonEnhancement>
+                {(triggerProps: MenuButtonProps) => (
+                  <SplitButton
+                    ref={fileInput}
+                    className={styles.uploadButton}
+                    appearance="primary"
+                    primaryActionButton={{ onClick: handleInputClick }}
+                    menuButton={triggerProps}
+                  >
+                    {fileName ? fileName : "Upload statistics"}
+                  </SplitButton>
+                )}
+              </MenuTrigger>
+
+              <MenuPopover>
+                <MenuList>
+                  <MenuItem
+                    icon={<DismissIcon />}
+                    disabled={!fileName}
+                    onClick={handleRemoveFileClick}
+                  >
+                    Remove file
+                  </MenuItem>
+                </MenuList>
+              </MenuPopover>
+            </Menu>
+
+            <input
+              ref={hiddenFileInput}
+              className={styles.hiddenFileInput}
+              type="file"
+              accept="application/json"
+              onChange={handleInputChange}
+              onClick={handleInputClick}
+            />
+          </div>
+        </PopoverTrigger>
         <PopoverSurface
           className={styles.popover}
           aria-label="Upload statistics"
@@ -197,9 +199,9 @@ const Upload = (props: UploadProps) => {
             className={styles.dismissMessageButton}
             onClick={handleMessageClick}
             appearance="outline"
-            aria-label="Got it!"
+            aria-label="Got it"
           >
-            Got it!
+            Got it
           </Button>
         </PopoverSurface>
       </Popover>

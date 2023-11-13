@@ -19,22 +19,24 @@ export const Groups = (props: GroupsProps) => {
         const groups = x.groups
 
         let canInsertTable = false
+        let open = data.length == 1
+
         if (groups) {
           canInsertTable =
             groups.filter((group) => "statistics" in group).length ==
-            groups.length
+              groups.length && groups.length > 1
         }
 
         return (
           <Collapsible
             key={x.identifier}
-            open={false}
+            open={open}
             header={formatName(x)}
             indentation={depth}
             onInsertClick={canInsertTable ? () => insertTable(x) : undefined}
           >
-            {statistics && <Statistics data={x.statistics!} />}
             {groups && <Groups data={groups} depth={depth + 1} />}
+            {statistics && <Statistics data={x.statistics!} />}
           </Collapsible>
         )
       })}

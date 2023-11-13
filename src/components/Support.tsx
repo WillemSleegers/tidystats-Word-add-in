@@ -18,7 +18,7 @@ export const Support = () => {
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
     removeSettingsData("dismissedUploadHelpMessage")
-    removeSettingsData("dismissedAutomaticUpdatingMessage")
+    removeSettingsData("dismissedUpdateHelpMessage")
 
     const target = e.target as HTMLLabelElement
     target.innerHTML = "Reset!"

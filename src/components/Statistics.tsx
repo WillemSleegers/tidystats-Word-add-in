@@ -8,7 +8,7 @@ import {
   bundleIcon,
 } from "@fluentui/react-icons"
 import { Row, RowName, RowValue } from "./Row"
-import { Statistic } from "../classes/Statistic"
+import { RangedStatistic, Statistic } from "../classes/Statistic"
 import { formatValue } from "../functions/formatValue"
 import {
   insertStatistic,
@@ -25,10 +25,10 @@ const AddIcon = bundleIcon(Add24Filled, Add24Regular)
 const GearIcon = bundleIcon(Settings24Filled, Settings24Regular)
 
 type StatisticsProps = {
-  data: Statistic[]
+  data: Statistic[] | RangedStatistic[]
 }
 
-type statistic = {
+type SelectedStatistic = {
   identifier: string
   name: string
   symbol?: string
@@ -44,14 +44,14 @@ export const Statistics = (props: StatisticsProps) => {
 
   const styles = useStyles()
 
-  const [statistics, setStatistics] = useState<statistic[]>()
+  const [statistics, setStatistics] = useState<SelectedStatistic[]>()
   const [clickedSettings, setClickedSettings] = useState(false)
 
   useEffect(() => {
-    const initialStatistics: statistic[] = []
+    const initialStatistics: SelectedStatistic[] = []
 
-    data.forEach((x) => {
-      const item = {
+    data.forEach((x: Statistic | RangedStatistic) => {
+      const selectedStatistic: SelectedStatistic = {
         identifier: x.identifier,
         name: x.name,
         symbol: x.symbol,
@@ -59,24 +59,27 @@ export const Statistics = (props: StatisticsProps) => {
         value: formatValue(x, 2),
         checked: true,
       }
-      initialStatistics.push(item)
+
+      initialStatistics.push(selectedStatistic)
 
       if ("level" in x) {
-        const item_lower = {
+        const selectedStatisticLower = {
           identifier: x.identifier + "$lower",
           name: "LL",
           value: formatValue(x, 2, "lower"),
+          level: x.level,
+          interval: x.interval,
           checked: true,
         }
-        const item_upper = {
+        const selectedStatisticUpper = {
           identifier: x.identifier + "$upper",
           name: "UL",
           value: formatValue(x, 2, "upper"),
           checked: true,
         }
 
-        initialStatistics.push(item_lower)
-        initialStatistics.push(item_upper)
+        initialStatistics.push(selectedStatisticLower)
+        initialStatistics.push(selectedStatisticUpper)
       }
     })
 
