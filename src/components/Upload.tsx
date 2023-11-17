@@ -37,6 +37,14 @@ const useStyles = makeStyles({
   dismissMessageButton: {
     marginLeft: "1rem",
     color: tokens.colorNeutralBackground1,
+    ":hover": {
+      color: tokens.colorNeutralBackground1,
+      backgroundColor: tokens.colorBrandBackgroundHover,
+    },
+    ":hover:active": {
+      color: tokens.colorNeutralBackground1,
+      backgroundColor: tokens.colorBrandBackgroundHover,
+    },
   },
   errorMessage: {
     display: "inline-block",

@@ -4,6 +4,7 @@ import { makeStyles, mergeClasses, tokens } from "@fluentui/react-components"
 const useStyles = makeStyles({
   row: {
     display: "flex",
+    alignItems: "center",
     minHeight: "2rem",
   },
   indented: {
@@ -14,12 +15,9 @@ const useStyles = makeStyles({
     borderTopColor: tokens.colorNeutralBackground4,
     borderTopStyle: "solid",
   },
-  height: {
-    marginTop: "0.4rem",
-    marginBottom: "0.4rem",
-  },
   width: {
-    width: "5rem",
+    minWidth: "4rem",
+    marginRight: "0.5rem",
   },
   header: {
     width: "100%",
@@ -31,6 +29,8 @@ const useStyles = makeStyles({
     flexGrow: 1,
     marginLeft: "0.25rem",
     marginRight: "0.25rem",
+    marginTop: "0.2rem",
+    marginBottom: "0.2rem",
   },
 })
 
@@ -72,7 +72,6 @@ export const RowName = (props: RowNameProps) => {
   return (
     <span
       className={mergeClasses(
-        styles.height,
         styles.width,
         isHeader && styles.header,
         isBold && styles.bold
@@ -92,9 +91,5 @@ export const RowValue = (props: RowValueProps) => {
 
   const styles = useStyles()
 
-  return (
-    <span className={mergeClasses(styles.height, styles.flexGrow)}>
-      {children}
-    </span>
-  )
+  return <span className={mergeClasses(styles.flexGrow)}>{children}</span>
 }

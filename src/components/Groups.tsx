@@ -23,7 +23,7 @@ export const Groups = (props: GroupsProps) => {
 
         if (groups) {
           canInsertTable =
-            groups.filter((group) => "statistics" in group).length ==
+            groups.filter((group) => group.statistics).length ==
               groups.length && groups.length > 1
         }
 

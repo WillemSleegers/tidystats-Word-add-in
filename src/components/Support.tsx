@@ -21,7 +21,7 @@ export const Support = () => {
     removeSettingsData("dismissedUpdateHelpMessage")
 
     const target = e.target as HTMLLabelElement
-    target.innerHTML = "Reset!"
+    target.innerHTML = "Done"
     setTimeout(() => {
       target.innerHTML = "Reset help messages"
     }, 2000)
@@ -55,7 +55,7 @@ export const Support = () => {
       <p className={styles.p}>
         Please consider{" "}
         <Link href="https://www.tidystats.io/citation/">citing</Link> tidystats
-        if you've found it useful. Thanks!
+        if you've found it useful.
       </p>
     </>
   )
