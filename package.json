@@ -9,7 +9,8 @@
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "start": "office-addin-debugging start manifest.xml",
-    "start-tiu-test": "office-addin-debugging start manifest-tiu-test.xml"
+    "start-tiu-test": "office-addin-debugging start manifest-tiu-test.xml",
+    "start-tiu-new": "office-addin-debugging start manifest-tiu-new.xml"
   },
   "dependencies": {
     "@fluentui/react": "^8.112.3",

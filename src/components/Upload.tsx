@@ -192,9 +192,7 @@ const Upload = (props: UploadProps) => {
           className={styles.popover}
           aria-label="Upload statistics"
         >
-          <p>
-            Upload your statistics created with the tidystats R package here.
-          </p>
+          <p>Upload statistics created with the tidystats R package here.</p>
           <Button
             as="a"
             href="https://www.tidystats.io/r-package/"
