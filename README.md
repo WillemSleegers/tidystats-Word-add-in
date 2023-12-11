@@ -32,7 +32,7 @@ Next, click on 'Upload statistics' and select the file you created with `tidysta
 
 This should reveal a list of your analyses, each with a name that identifies your analysis. You can use the Search text box to search for your analyses. Click on one of the analyses to reveal its statistics. You can then click on the name of a statistic or set of statistics to insert them into your document.
 
-![add-in screenshot insert statistics](images/screen-2.png)
+![add-in screenshot insert statistics](src/assets/screen-2.png)
 
 By default, clicking on 'Statistics:' will insert all the statistics. If you only want to insert a subset of the analyses, click on the gear icon next to 'Statistics:' and select the statistics you would like to insert.
 
@@ -42,54 +42,19 @@ Finally, if you found the add-in useful, please cite the software. You can use t
 
 ## Supported statistical tests
 
-The following statistical tests, in R, are supported:
+tidystats has built-in support for statistical tests from R packages such as stats, lme4, BayesFactor, brms, afex, and many others. For a complete overview of supported functions, see the [Supported functions](https://willemsleegers.github.io/tidystats/articles/supported-functions.html) vignette.
 
-**Package:** stats
-
-- `t.test()`
-- `cor.test()`
-- `chisq.test()`
-- `wilcox.test()`
-- `fisher.test()`
-- `oneway.test()`
-- `aov()`
-- `lm()`
-- `anova()`
-
-**Package:** lme4
-
-- `lmer()`
-
-**Package:** lmerTest
-
-- `lmer()`
-
-**Package:** BayesFactor
-
-- `generalTestBF()`
-- `lmBF()`
-- `regressionBF()`
-- `ttestBF()`
-- `anovaBF()`
-- `correlationBF()`
-- `contingencyTableBF()`
-- `proportionBF()`
-- `meta.ttestBF()`
-
-**Package:** tidystats
-
-- `describe_data()`
-- `count_data()`
+It is also possible to use tidystats to report statistics from unsupported functions using the `custom_stat()` and `custom_stats()` functions from the R package. For a tutorial on how to use these functions, see the [Custom statistics](https://willemsleegers.github.io/tidystats/articles/custom-statistics.html#example-2-using-custom_stats) vignette.
 
 ## More resources
 
 For more information on tidystats, see its website at [https://tidystats.io](https://tidystats.io).
 
-If you have any questions about how to use `tidystats`, or suggestions for improvements, you can contact me on [Twitter](https://twitter.com/willemsleegers) or via [e-mail](mailto:tidystats@gmail.com).
+If you have any questions about how to use `tidystats`, or suggestions for improvements, you can contact me on [X](https://twitter.com/tidystats) or via [e-mail](mailto:tidystats@gmail.com).
 
 ## Testing
 
-The current release version of the add-in is 1.0. This means that the add-in is sort of feature complete, but there is still a lot of room for improvements and new features. If you want to help test newer versions, you can install the development version of the add-in. For instructions on how to do this, see below.
+The current release version of the add-in is 1.1. This means that the add-in is sort of feature complete, but there is still a lot of room for improvements and new features. If you want to help test newer versions, you can install the development version of the add-in. For instructions on how to do this, see below.
 
 ### Installing the development version of tidystats for Word
 
@@ -119,6 +84,6 @@ For more information, see [this](https://docs.microsoft.com/en-us/office/dev/add
 
 ### Bugs and feature requests
 
-Found a bug or got an idea about how to improve the add-in? Please create a [Github issue](https://github.com/WillemSleegers/tidystats-Word-add-in/issues). If you need some help figuring out how this works, see this support [page](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on [Twitter](https://twitter.com/willemsleegers) or send me an [e-mail](mailto:tidystats@gmail.com).
+Found a bug or got an idea about how to improve the add-in? Please create a [Github issue](https://github.com/WillemSleegers/tidystats-Word-add-in/issues). If you need some help figuring out how this works, see this support [page](https://help.github.com/en/articles/creating-an-issue) by Github or simply contact me on [X](https://twitter.com/tidystats) or send me an [e-mail](mailto:tidystats@gmail.com).
 
 [![DOI](https://zenodo.org/badge/208565217.svg)](https://zenodo.org/badge/latestdoi/208565217)
