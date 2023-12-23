@@ -10,7 +10,7 @@
     "preview": "vite preview",
     "start": "office-addin-debugging start manifest.xml",
     "start-tiu-test": "office-addin-debugging start manifest-tiu-test.xml",
-    "start-tiu-new": "office-addin-debugging start manifest-tiu-new.xml"
+    "start-tiu": "office-addin-debugging start manifest-tiu.xml"
   },
   "dependencies": {
     "@fluentui/react": "^8.112.3",

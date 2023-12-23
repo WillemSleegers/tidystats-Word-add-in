@@ -54,8 +54,10 @@ export const Support = () => {
       <h3 className={styles.h3}>Cite tidystats</h3>
       <p className={styles.p}>
         Please consider{" "}
-        <Link href="https://www.tidystats.io/citation/">citing</Link> tidystats
-        if you've found it useful.
+        <Link target="_blank" href="https://www.tidystats.io/citation/">
+          citing
+        </Link>{" "}
+        tidystats if you've found it useful.
       </p>
     </>
   )
