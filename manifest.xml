@@ -6,8 +6,8 @@
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="tidystats"/>
   <Description DefaultValue="A Word add-in to reproducibly report statistics."/>
-  <IconUrl DefaultValue="https://localhost:3000/tidystats-icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/tidystats-icon-64.png"/>
+  <IconUrl DefaultValue="https://localhost:3000/images/tidystats-icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/images/tidystats-icon-64.png"/>
   <SupportUrl DefaultValue="https://www.tidystats.io/support"/>
   <AppDomains>
     <AppDomain>https://www.tidystats.io</AppDomain>
@@ -65,11 +65,11 @@
       </Hosts>
       <Resources>
         <bt:Images>
-          <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/statistics-icon-16.png"/>
-          <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/statistics-icon-32.png"/>
-          <bt:Image id="Icon.64x64" DefaultValue="https://localhost:3000/statistics-icon-64.png"/>
-          <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/statistics-icon-80.png"/>
-          <bt:Image id="Icon.128x128" DefaultValue="https://localhost:3000/statistics-icon-128.png"/>
+          <bt:Image id="Icon.16x16" DefaultValue="https://localhost:3000/images/statistics-icon-16.png"/>
+          <bt:Image id="Icon.32x32" DefaultValue="https://localhost:3000/images/statistics-icon-32.png"/>
+          <bt:Image id="Icon.64x64" DefaultValue="https://localhost:3000/images/statistics-icon-64.png"/>
+          <bt:Image id="Icon.80x80" DefaultValue="https://localhost:3000/images/statistics-icon-80.png"/>
+          <bt:Image id="Icon.128x128" DefaultValue="https://localhost:3000/images/statistics-icon-128.png"/>
         </bt:Images>
       <bt:Urls>
         <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://www.tidystats.io"/>
