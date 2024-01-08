@@ -8,6 +8,7 @@ window.Office.onReady((info) => {
   console.log(`Office.js is now ready in ${info.host} on ${info.platform}`)
 
   if (info.host) {
+    // Fluent UI React v. 9 uses modern JavaScript syntax that is not supported in Trident (Internet Explorer) or EdgeHTML (Edge Legacy), so this add-in won't work in Office versions that use these webviews. The script below makes the following div display when an unsupported webview is in use.
     if (
       navigator.userAgent.indexOf("Trident") !== -1 ||
       navigator.userAgent.indexOf("Edge") !== -1
