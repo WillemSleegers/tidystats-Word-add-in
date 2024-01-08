@@ -1,5 +1,11 @@
 # News
 
+## 1.1.1
+
+### Changes
+
+* Added message recommending to update to a newer version of Word when an unsupported platform is detected.
+
 ## 1.1.0
 
 ### New features
