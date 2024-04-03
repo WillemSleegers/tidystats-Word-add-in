@@ -30,7 +30,7 @@
     "eslint-plugin-react-refresh": "^0.4.3",
     "office-addin-debugging": "^5.0.12",
     "typescript": "^5.0.2",
-    "vite": "^5.0.12",
+    "vite": "^5.0.13",
     "vite-plugin-mkcert": "^1.16.0"
   }
 }
