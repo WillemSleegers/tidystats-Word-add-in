@@ -15,22 +15,22 @@
   "dependencies": {
     "@fluentui/react": "^8.112.3",
     "@fluentui/react-components": "^9.35.1",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0"
   },
   "devDependencies": {
     "@types/office-js": "^1.0.353",
-    "@types/react": "^18.2.15",
-    "@types/react-dom": "^18.2.7",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
+    "@types/react": "^18.1",
+    "@types/react-dom": "^18.1",
+    "@typescript-eslint/eslint-plugin": "^8.32",
+    "@typescript-eslint/parser": "^8.32",
     "@vitejs/plugin-react": "^4.0.3",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3",
-    "office-addin-debugging": "^5.0.12",
+    "eslint": "^9.26",
+    "eslint-plugin-react-hooks": "^5.2",
+    "eslint-plugin-react-refresh": "^0.4",
+    "office-addin-debugging": "^6.0",
     "typescript": "^5.0.2",
-    "vite": "^5.0.12",
+    "vite": "^6.3",
     "vite-plugin-mkcert": "^1.16.0"
   }
 }
