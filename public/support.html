@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>tidystats Word Add-in – Support</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+      color: #1a1a1a;
+      line-height: 1.6;
+    }
+    h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
+    h2 { font-size: 1.2rem; margin-top: 2rem; margin-bottom: 0.25rem; }
+    p { margin-top: 0.25rem; }
+    a { color: #0969da; }
+    hr { border: none; border-top: 1px solid #e0e0e0; margin: 2rem 0; }
+    .subtitle { color: #555; margin-bottom: 2rem; }
+  </style>
+</head>
+<body>
+  <h1>tidystats Word Add-in</h1>
+  <p class="subtitle">Support &amp; Frequently Asked Questions</p>
+
+  <h2>What is tidystats?</h2>
+  <p>
+    tidystats is an R package that lets you save the output of statistical tests into a single file.
+    The tidystats Word add-in lets you insert and update those statistics directly in your Word document.
+  </p>
+
+  <h2>What do I need to use the add-in?</h2>
+  <p>You need an internet connection and a compatible version of Microsoft Word:</p>
+  <ul>
+    <li>Word on the web</li>
+    <li>Word on iPad</li>
+    <li>Word on Mac (Microsoft 365, 2016, or 2019 and later)</li>
+    <li>Word on Windows (Microsoft 365, 2016, or 2019 and later)</li>
+  </ul>
+
+  <h2>How do I install the add-in?</h2>
+  <p>
+    The add-in is available in the Office Add-in Store. Open a Word document, go to the
+    <strong>Insert</strong> tab, click <strong>Add-ins</strong>, and search for "tidystats".
+  </p>
+
+  <h2>How do I create a tidystats file?</h2>
+  <p>
+    You need the tidystats R package. After running your statistical analyses in R, use
+    <code>write_stats()</code> to save the results to a <code>.json</code> file.
+    See the <a href="https://willemsleegers.github.io/tidystats/articles/introduction-to-tidystats.html" target="_blank">introduction vignette</a>
+    for a step-by-step guide.
+  </p>
+  <p>
+    If you want to try the add-in without running R first, you can download
+    <a href="https://github.com/WillemSleegers/tidystats-Word-add-in/blob/master/src/assets/results.json" target="_blank">this example file</a>.
+  </p>
+
+  <h2>How do I insert statistics into my document?</h2>
+  <ol>
+    <li>Open the add-in from the <strong>Insert</strong> tab.</li>
+    <li>Click <strong>Upload statistics</strong> and select your tidystats <code>.json</code> file.</li>
+    <li>Browse or search the list of analyses.</li>
+    <li>Click an analysis to expand it, then click the <strong>+</strong> icon to insert a statistic.</li>
+  </ol>
+
+  <h2>How do I update statistics after re-running my analyses?</h2>
+  <p>
+    Upload a new tidystats file (with the same analysis identifiers as before), then click
+    <strong>Update statistics</strong> in the Actions section. All previously inserted statistics
+    will be updated automatically.
+  </p>
+
+  <h2>Which R packages and statistical tests are supported?</h2>
+  <p>
+    tidystats has built-in support for many R packages including <code>stats</code>, <code>lme4</code>,
+    <code>BayesFactor</code>, <code>brms</code>, <code>afex</code>, and more. See the
+    <a href="https://willemsleegers.github.io/tidystats/articles/supported-functions.html" target="_blank">supported functions vignette</a>
+    for a full list. You can also report statistics from unsupported functions using
+    <code>custom_stats()</code>.
+  </p>
+
+  <h2>I found a bug or have a feature request. What should I do?</h2>
+  <p>
+    Please open an issue on
+    <a href="https://github.com/WillemSleegers/tidystats-Word-add-in/issues" target="_blank">GitHub</a>.
+  </p>
+
+  <h2>How do I contact you?</h2>
+  <p>
+    You can reach me on <a href="https://twitter.com/tidystats" target="_blank">X (@tidystats)</a>
+    or via <a href="mailto:tidystats@gmail.com">tidystats@gmail.com</a>.
+  </p>
+
+  <hr />
+  <p style="color: #555; font-size: 0.9rem;">
+    <a href="https://github.com/WillemSleegers/tidystats-Word-add-in" target="_blank">GitHub repository</a>
+  </p>
+</body>
+</html>

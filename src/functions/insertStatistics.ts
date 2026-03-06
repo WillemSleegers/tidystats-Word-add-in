@@ -6,7 +6,7 @@ export const insertStatistic = async (statistic: string, id: string) => {
     contentControl.tag = id
     contentControl.insertText(statistic, "End")
 
-    return context.sync
+    return context.sync()
   }).catch(function (error) {
     console.log("Error: " + error)
     if (error instanceof OfficeExtension.Error) {
@@ -230,7 +230,7 @@ export const insertStatistics = async (statistics: StatisticProps[]) => {
       }
     })
 
-    return context.sync
+    return context.sync()
   }).catch(function (error) {
     console.log("Error: " + error)
     if (error instanceof OfficeExtension.Error) {

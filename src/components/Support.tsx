@@ -33,7 +33,7 @@ export const Support = () => {
       <p className={styles.p}>
         For more information on how to use tidystats, including examples and
         FAQs, see the tidystats{" "}
-        <Link href="https://www.tidystats.io" target="_blank">
+        <Link href="https://tidystats-word-add-in.vercel.app/support.html" target="_blank">
           website
         </Link>
         .
@@ -54,7 +54,7 @@ export const Support = () => {
       <h3 className={styles.h3}>Cite tidystats</h3>
       <p className={styles.p}>
         Please consider{" "}
-        <Link target="_blank" href="https://www.tidystats.io/citation/">
+        <Link target="_blank" href="https://github.com/WillemSleegers/tidystats-Word-add-in">
           citing
         </Link>{" "}
         tidystats if you've found it useful.

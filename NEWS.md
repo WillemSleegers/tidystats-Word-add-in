@@ -1,5 +1,14 @@
 # News
 
+## 1.1.1
+
+### Changes
+
+* Updated all packages to their latest versions, including React 19 and Vite 7.
+* Replaced references to tidystats.io with a support page hosted on Vercel.
+* Fixed a bug where `context.sync` was not being called correctly in the insert statistics functions.
+* Fixed a redundant lookup in the `findStatistic` method.
+
 ## 1.1.0
 
 ### New features

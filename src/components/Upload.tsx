@@ -195,7 +195,7 @@ const Upload = (props: UploadProps) => {
           <p>Upload statistics created with the tidystats R package here.</p>
           <Button
             as="a"
-            href="https://www.tidystats.io/r-package/"
+            href="https://tidystats-word-add-in.vercel.app/support.html"
             target="_blank"
             aria-label="Learn more"
           >

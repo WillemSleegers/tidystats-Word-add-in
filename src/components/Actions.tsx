@@ -108,7 +108,7 @@ export const Actions = (props: ActionsProps) => {
           </p>
           <Button
             as="a"
-            href="https://www.tidystats.io/word-add-in/"
+            href="https://tidystats-word-add-in.vercel.app/support.html"
             target="_blank"
             aria-label="Learn more"
           >

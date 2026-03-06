@@ -38,11 +38,7 @@ export class Tidystats {
 
       for (let i = 0; i < groupNames.length; i++) {
         group = groups?.find((x) => x.name === groupNames[i])
-
-        if (i < groupNames.length) {
-          group = groups?.find((x) => x.name === groupNames[i])
-          groups = group?.groups
-        }
+        groups = group?.groups
       }
 
       statistics = group?.statistics
