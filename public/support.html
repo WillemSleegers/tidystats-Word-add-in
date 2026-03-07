@@ -3,100 +3,223 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>tidystats Word Add-in – Support</title>
+  <title>tidystats – Support</title>
   <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 2rem 1.5rem;
+      margin: 0;
       color: #1a1a1a;
       line-height: 1.6;
+      background: #f7f9fb;
     }
-    h1 { font-size: 1.8rem; margin-bottom: 0.25rem; }
-    h2 { font-size: 1.2rem; margin-top: 2rem; margin-bottom: 0.25rem; }
-    p { margin-top: 0.25rem; }
-    a { color: #0969da; }
-    hr { border: none; border-top: 1px solid #e0e0e0; margin: 2rem 0; }
-    .subtitle { color: #555; margin-bottom: 2rem; }
+
+    header {
+      background: #26587b;
+      color: white;
+      padding: 2rem 1.5rem;
+      text-align: center;
+    }
+
+    header img {
+      width: 72px;
+      height: 72px;
+      margin-bottom: 0.75rem;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      margin: 0.25rem 0 0;
+      color: #a8cfe0;
+      font-size: 1rem;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 2.5rem auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    h2 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #26587b;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin: 2.5rem 0 1rem;
+      border-bottom: 2px solid #e59215;
+      padding-bottom: 0.4rem;
+    }
+
+    details {
+      background: white;
+      border: 1px solid #dde8ef;
+      border-radius: 8px;
+      margin-bottom: 0.5rem;
+    }
+
+    summary {
+      padding: 1rem 1.25rem;
+      font-weight: 600;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #1a415a;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #e59215;
+      flex-shrink: 0;
+      margin-left: 1rem;
+    }
+
+    details[open] summary::after { content: "−"; }
+    details[open] summary { border-bottom: 1px solid #dde8ef; }
+
+    .answer {
+      padding: 1rem 1.25rem;
+      color: #333;
+    }
+
+    .answer p { margin: 0 0 0.75rem; }
+    .answer p:last-child { margin-bottom: 0; }
+    .answer ol, .answer ul { margin: 0 0 0.75rem; padding-left: 1.5rem; }
+    .answer li:last-child { margin-bottom: 0; }
+
+    .answer code {
+      background: #f0f4f7;
+      border-radius: 4px;
+      padding: 0.1em 0.4em;
+      font-size: 0.9em;
+    }
+
+    a { color: #26587b; }
+    a:hover { color: #e59215; }
+
+    .contact {
+      background: white;
+      border: 1px solid #dde8ef;
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+
+    .contact p { margin: 0; color: #333; }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: #888;
+      font-size: 0.875rem;
+      border-top: 1px solid #dde8ef;
+    }
+
+    footer a { color: #26587b; text-decoration: none; }
+    footer a:hover { color: #e59215; }
   </style>
 </head>
 <body>
-  <h1>tidystats Word Add-in</h1>
-  <p class="subtitle">Support &amp; Frequently Asked Questions</p>
 
-  <h2>What is tidystats?</h2>
-  <p>
-    tidystats is an R package that lets you save the output of statistical tests into a single file.
-    The tidystats Word add-in lets you insert and update those statistics directly in your Word document.
-  </p>
+<header>
+  <img src="/images/tidystats.svg" alt="tidystats logo" />
+  <h1>tidystats</h1>
+  <p>Support &amp; Frequently Asked Questions</p>
+</header>
 
-  <h2>What do I need to use the add-in?</h2>
-  <p>You need an internet connection and a compatible version of Microsoft Word:</p>
-  <ul>
-    <li>Word on the web</li>
-    <li>Word on iPad</li>
-    <li>Word on Mac (Microsoft 365, 2016, or 2019 and later)</li>
-    <li>Word on Windows (Microsoft 365, 2016, or 2019 and later)</li>
-  </ul>
+<main>
 
-  <h2>How do I install the add-in?</h2>
-  <p>
-    The add-in is available in the Office Add-in Store. Open a Word document, go to the
-    <strong>Insert</strong> tab, click <strong>Add-ins</strong>, and search for "tidystats".
-  </p>
+  <h2>General</h2>
 
-  <h2>How do I create a tidystats file?</h2>
-  <p>
-    You need the tidystats R package. After running your statistical analyses in R, use
-    <code>write_stats()</code> to save the results to a <code>.json</code> file.
-    See the <a href="https://willemsleegers.github.io/tidystats/articles/introduction-to-tidystats.html" target="_blank">introduction vignette</a>
-    for a step-by-step guide.
-  </p>
-  <p>
-    If you want to try the add-in without running R first, you can download
-    <a href="https://github.com/WillemSleegers/tidystats-Word-add-in/blob/master/src/assets/results.json" target="_blank">this example file</a>.
-  </p>
+  <details>
+    <summary>What is tidystats?</summary>
+    <div class="answer">
+      <p>tidystats is an R package that lets you save the output of statistical tests into a single file. The tidystats Word add-in lets you insert and update those statistics directly in your Word document, making it easy to report statistics reproducibly.</p>
+    </div>
+  </details>
 
-  <h2>How do I insert statistics into my document?</h2>
-  <ol>
-    <li>Open the add-in from the <strong>Insert</strong> tab.</li>
-    <li>Click <strong>Upload statistics</strong> and select your tidystats <code>.json</code> file.</li>
-    <li>Browse or search the list of analyses.</li>
-    <li>Click an analysis to expand it, then click the <strong>+</strong> icon to insert a statistic.</li>
-  </ol>
+  <details>
+    <summary>What do I need to use the Word add-in?</summary>
+    <div class="answer">
+      <p>You need an internet connection and a compatible version of Microsoft Word:</p>
+      <ul>
+        <li>Word on the web</li>
+        <li>Word on iPad</li>
+        <li>Word on Mac (Microsoft 365, 2016, or 2019 and later)</li>
+        <li>Word on Windows (Microsoft 365, 2016, or 2019 and later)</li>
+      </ul>
+    </div>
+  </details>
 
-  <h2>How do I update statistics after re-running my analyses?</h2>
-  <p>
-    Upload a new tidystats file (with the same analysis identifiers as before), then click
-    <strong>Update statistics</strong> in the Actions section. All previously inserted statistics
-    will be updated automatically.
-  </p>
+  <h2>Getting started</h2>
 
-  <h2>Which R packages and statistical tests are supported?</h2>
-  <p>
-    tidystats has built-in support for many R packages including <code>stats</code>, <code>lme4</code>,
-    <code>BayesFactor</code>, <code>brms</code>, <code>afex</code>, and more. See the
-    <a href="https://willemsleegers.github.io/tidystats/articles/supported-functions.html" target="_blank">supported functions vignette</a>
-    for a full list. You can also report statistics from unsupported functions using
-    <code>custom_stats()</code>.
-  </p>
+  <details>
+    <summary>How do I install the add-in?</summary>
+    <div class="answer">
+      <p>The add-in is available in the Office Add-in Store. Open a Word document, go to the <strong>Insert</strong> tab, click <strong>Add-ins</strong>, and search for "tidystats".</p>
+    </div>
+  </details>
 
-  <h2>I found a bug or have a feature request. What should I do?</h2>
-  <p>
-    Please open an issue on
-    <a href="https://github.com/WillemSleegers/tidystats-Word-add-in/issues" target="_blank">GitHub</a>.
-  </p>
+  <details>
+    <summary>How do I create a tidystats file?</summary>
+    <div class="answer">
+      <p>You need the tidystats R package. After running your statistical analyses in R, use <code>write_stats()</code> to save the results to a <code>.json</code> file. See the <a href="https://willemsleegers.github.io/tidystats/articles/introduction-to-tidystats.html" target="_blank">introduction vignette</a> for a step-by-step guide.</p>
+      <p>If you want to try the add-in without running R first, you can download <a href="https://github.com/WillemSleegers/tidystats-Word-add-in/blob/master/src/assets/results.json" target="_blank">this example file</a>.</p>
+    </div>
+  </details>
 
-  <h2>How do I contact you?</h2>
-  <p>
-    You can reach me on <a href="https://twitter.com/tidystats" target="_blank">X (@tidystats)</a>
-    or via <a href="mailto:tidystats@gmail.com">tidystats@gmail.com</a>.
-  </p>
+  <details>
+    <summary>Which R packages and statistical tests are supported?</summary>
+    <div class="answer">
+      <p>tidystats has built-in support for many R packages including <code>stats</code>, <code>lme4</code>, <code>BayesFactor</code>, <code>brms</code>, <code>afex</code>, and more. See the <a href="https://willemsleegers.github.io/tidystats/articles/supported-functions.html" target="_blank">supported functions vignette</a> for a full list.</p>
+      <p>You can also report statistics from unsupported functions using <code>custom_stats()</code>.</p>
+    </div>
+  </details>
 
-  <hr />
-  <p style="color: #555; font-size: 0.9rem;">
-    <a href="https://github.com/WillemSleegers/tidystats-Word-add-in" target="_blank">GitHub repository</a>
-  </p>
+  <h2>Using the add-in</h2>
+
+  <details>
+    <summary>How do I insert statistics into my document?</summary>
+    <div class="answer">
+      <ol>
+        <li>Open the add-in from the <strong>Insert</strong> tab.</li>
+        <li>Click <strong>Upload statistics</strong> and select your tidystats <code>.json</code> file.</li>
+        <li>Browse or search the list of analyses.</li>
+        <li>Click an analysis to expand it, then click the <strong>+</strong> icon to insert a statistic.</li>
+      </ol>
+    </div>
+  </details>
+
+  <details>
+    <summary>How do I update statistics after re-running my analyses?</summary>
+    <div class="answer">
+      <p>Upload a new tidystats file (with the same analysis identifiers as before), then click <strong>Update statistics</strong> in the Actions tab. All previously inserted statistics will be updated automatically.</p>
+    </div>
+  </details>
+
+  <h2>Contact</h2>
+
+  <div class="contact">
+    <p>Found a bug or have a feature request? Open an issue on <a href="https://github.com/WillemSleegers/tidystats-Word-add-in/issues" target="_blank">GitHub</a>. You can also reach me on <a href="https://twitter.com/tidystats" target="_blank">X (@tidystats)</a> or via <a href="mailto:tidystats@gmail.com">tidystats@gmail.com</a>.</p>
+  </div>
+
+</main>
+
+<footer>
+  <a href="https://github.com/WillemSleegers/tidystats-Word-add-in" target="_blank">GitHub</a>
+</footer>
+
 </body>
 </html>
