@@ -8,7 +8,7 @@
   <Description DefaultValue="A Word add-in to reproducibly report statistics."/>
   <IconUrl DefaultValue="https://tidystats-word-add-in.vercel.app/images/tidystats-icon-32.png"/>
   <HighResolutionIconUrl DefaultValue="https://tidystats-word-add-in.vercel.app/images/tidystats-icon-64.png"/>
-  <SupportUrl DefaultValue="https://tidystats-word-add-in.vercel.app/support.html"/>
+  <SupportUrl DefaultValue="https://willemsleegers.github.io/tidystats/articles/word-add-in.html"/>
   <AppDomains>
     <AppDomain>https://tidystats-word-add-in.vercel.app</AppDomain>
   </AppDomains>
@@ -72,7 +72,7 @@
           <bt:Image id="Icon.128x128" DefaultValue="https://tidystats-word-add-in.vercel.app/images/statistics-icon-128.png"/>
         </bt:Images>
       <bt:Urls>
-        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://tidystats-word-add-in.vercel.app/support.html"/>
+        <bt:Url id="GetStarted.LearnMoreUrl" DefaultValue="https://willemsleegers.github.io/tidystats/articles/word-add-in.html"/>
         <bt:Url id="Taskpane.Url" DefaultValue="https://tidystats-word-add-in.vercel.app/index.html"/>
       </bt:Urls>
       <bt:ShortStrings>
