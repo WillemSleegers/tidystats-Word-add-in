@@ -1,4 +1,4 @@
-import { Group } from "../classes/Group"
+import { Group } from "../types"
 
 export const formatName = (x: Group) => {
   if ("name" in x) {

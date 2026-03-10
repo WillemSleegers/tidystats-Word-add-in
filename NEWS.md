@@ -8,6 +8,9 @@
 * Replaced references to tidystats.io with a support page hosted on Vercel.
 * Fixed a bug where `context.sync` was not being called correctly in the insert statistics functions.
 * Fixed a redundant lookup in the `findStatistic` method.
+* Fixed a bug where the confidence interval level (e.g., "95") would be overwritten with the lower bound value when updating statistics.
+* Renamed the "Analyses" heading to "Statistics" in the Statistics tab.
+* Refactored the codebase to improve code organization and maintainability.
 
 ## 1.1.0
 

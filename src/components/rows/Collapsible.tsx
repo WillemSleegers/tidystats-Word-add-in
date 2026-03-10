@@ -24,7 +24,7 @@ const useStyles = makeStyles({
 interface CollapsibleProps {
   header: string
   isPrimary?: boolean
-  onInsertClick?: Function
+  onInsertClick?: () => void
   open?: boolean
   indentation: number
   children: ReactNode

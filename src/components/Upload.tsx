@@ -21,12 +21,13 @@ import {
   Dismiss16Regular,
   Dismiss16Filled,
 } from "@fluentui/react-icons"
-import { Tidystats } from "../classes/Tidystats"
+import { Analysis } from "../types"
+import { parseAnalyses } from "../utils/parseAnalyses"
 import {
   setSettingsData,
   getSettingsData,
   removeSettingsData,
-} from "../functions/settings"
+} from "../word/settings"
 
 const useStyles = makeStyles({
   uploadButton: { marginTop: "1rem" },
@@ -57,29 +58,29 @@ const useStyles = makeStyles({
 })
 
 type UploadProps = {
-  setTidystats: Function
+  setAnalyses: (analyses: Analysis[] | undefined) => void
 }
 
-const Upload = (props: UploadProps) => {
-  const { setTidystats } = props
+const DismissIcon = bundleIcon(Dismiss16Filled, Dismiss16Regular)
+
+export const Upload = (props: UploadProps) => {
+  const { setAnalyses } = props
 
   const styles = useStyles()
 
-  const fileInput = useRef(null)
+  const fileInput = useRef<HTMLButtonElement>(null)
   const hiddenFileInput = useRef<HTMLInputElement>(null)
   const positioningRef = useRef<PositioningImperativeRef>(null)
 
-  const [fileName, setFileName] = useState<string | null>()
-  const [showHelpMessage, setShowHelpMessage] = useState(false)
+  const [fileName, setFileName] = useState<string | null>(() =>
+    getSettingsData("fileName")
+  )
+  const [showHelpMessage, setShowHelpMessage] = useState(
+    () => !getSettingsData("dismissedUploadHelpMessage")
+  )
   const [showErrorMessage, setShowErrorMessage] = useState(false)
 
   useEffect(() => {
-    const savedFileName = getSettingsData("fileName")
-    setFileName(savedFileName)
-
-    const messageDismissed = getSettingsData("dismissedUploadHelpMessage")
-    setShowHelpMessage(!messageDismissed)
-
     positioningRef.current?.setTarget(fileInput.current!)
   }, [])
 
@@ -97,14 +98,13 @@ const Upload = (props: UploadProps) => {
       const file = event.target.files[0]
 
       setFileName(file.name)
-      setTidystats(null) // reset the statistics
+      setAnalyses(undefined) // reset the statistics
 
       if (file.type === "application/json") {
         const reader = new FileReader()
         reader.onload = () => {
           const text = reader.result as string
-          const tidystats = new Tidystats(JSON.parse(text))
-          setTidystats(tidystats)
+          setAnalyses(parseAnalyses(JSON.parse(text)))
 
           setSettingsData("fileName", file.name)
           setSettingsData("statistics", text)
@@ -125,15 +125,13 @@ const Upload = (props: UploadProps) => {
 
   const handleRemoveFileClick = () => {
     setFileName(null)
-    setTidystats(null)
+    setAnalyses(undefined)
 
     if (showErrorMessage) setShowErrorMessage(false)
 
     removeSettingsData("fileName")
     removeSettingsData("statistics")
   }
-
-  const DismissIcon = bundleIcon(Dismiss16Filled, Dismiss16Regular)
 
   return (
     <>
@@ -192,10 +190,10 @@ const Upload = (props: UploadProps) => {
           className={styles.popover}
           aria-label="Upload statistics"
         >
-          <p>Upload statistics created with the tidystats R package here.</p>
+          <p>Upload statistics created with the analyses R package here.</p>
           <Button
             as="a"
-            href="https://willemsleegers.github.io/tidystats/articles/word-add-in.html"
+            href="https://willemsleegers.github.io/analyses/articles/word-add-in.html"
             target="_blank"
             aria-label="Learn more"
           >
@@ -215,7 +213,7 @@ const Upload = (props: UploadProps) => {
       {showErrorMessage && (
         <div>
           <Label className={styles.errorMessage} weight="semibold">
-            File must be a tidystats JSON file.
+            File must be a analyses JSON file.
           </Label>
         </div>
       )}
@@ -223,4 +221,3 @@ const Upload = (props: UploadProps) => {
   )
 }
 
-export { Upload }

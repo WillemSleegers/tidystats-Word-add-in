@@ -1,15 +1,15 @@
 import { Collapsible } from "./Collapsible"
-import { Group } from "../classes/Group"
-import { Statistics } from "./Statistics"
-import { formatName } from "../functions/formatName"
-import { insertTable } from "../functions/insertTable"
+import { Group } from "../../types"
+import { StatisticRows } from "./StatisticRows"
+import { formatName } from "../../utils/formatName"
+import { insertTable } from "../../word/insertTable"
 
-type GroupsProps = {
+type GroupRowsProps = {
   data: Group[]
   depth: number
 }
 
-export const Groups = (props: GroupsProps) => {
+export const GroupRows = (props: GroupRowsProps) => {
   const { data, depth } = props
 
   return (
@@ -19,7 +19,7 @@ export const Groups = (props: GroupsProps) => {
         const groups = x.groups
 
         let canInsertTable = false
-        let open = data.length == 1
+        const open = data.length == 1
 
         if (groups) {
           canInsertTable =
@@ -35,8 +35,8 @@ export const Groups = (props: GroupsProps) => {
             indentation={depth}
             onInsertClick={canInsertTable ? () => insertTable(x) : undefined}
           >
-            {groups && <Groups data={groups} depth={depth + 1} />}
-            {statistics && <Statistics data={x.statistics!} />}
+            {groups && <GroupRows data={groups} depth={depth + 1} />}
+            {statistics && <StatisticRows data={x.statistics!} />}
           </Collapsible>
         )
       })}

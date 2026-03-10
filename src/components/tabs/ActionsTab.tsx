@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import {
   Button,
   makeStyles,
@@ -12,10 +12,10 @@ import {
   PopoverTrigger,
   shorthands,
 } from "@fluentui/react-components"
-import { Tidystats } from "../classes/Tidystats"
-import { updateStatistics } from "../functions/updateStatistics"
-import { replaceStatistics } from "../functions/replaceStatistics"
-import { getSettingsData, setSettingsData } from "../functions/settings"
+import { Analysis } from "../../types"
+import { updateStatistics } from "../../word/updateStatistics"
+import { replaceStatistics } from "../../word/replaceStatistics"
+import { getSettingsData, setSettingsData } from "../../word/settings"
 
 const useStyles = makeStyles({
   root: {
@@ -45,12 +45,12 @@ const useStyles = makeStyles({
   },
 })
 
-type ActionsProps = {
-  tidystats?: Tidystats
+type ActionsTabProps = {
+  analyses?: Analysis[]
 }
 
-export const Actions = (props: ActionsProps) => {
-  const { tidystats } = props
+export const ActionsTab = (props: ActionsTabProps) => {
+  const { analyses } = props
 
   const styles = useStyles()
 
@@ -58,12 +58,9 @@ export const Actions = (props: ActionsProps) => {
   const replacementInput = useRef<HTMLInputElement>(null)
   const replacementCheck = useRef<HTMLInputElement>(null)
 
-  const [showHelpMessage, setShowHelpMessage] = useState(false)
-
-  useEffect(() => {
-    const messageDismissed = getSettingsData("dismissedUpdateHelpMessage")
-    setShowHelpMessage(!messageDismissed)
-  }, [])
+  const [showHelpMessage, setShowHelpMessage] = useState(
+    () => !getSettingsData("dismissedUpdateHelpMessage")
+  )
 
   const handleReplaceStatisticsClick = () => {
     const value = replacementInput.current!.value
@@ -93,8 +90,8 @@ export const Actions = (props: ActionsProps) => {
         <PopoverTrigger disableButtonEnhancement>
           <Button
             appearance="primary"
-            disabled={tidystats ? false : true}
-            onClick={() => updateStatistics(tidystats!)}
+            disabled={analyses ? false : true}
+            onClick={() => updateStatistics(analyses!)}
           >
             Update
           </Button>
@@ -108,7 +105,7 @@ export const Actions = (props: ActionsProps) => {
           </p>
           <Button
             as="a"
-            href="https://willemsleegers.github.io/tidystats/articles/word-add-in.html"
+            href="https://willemsleegers.github.io/analyses/articles/word-add-in.html"
             target="_blank"
             aria-label="Learn more"
           >

@@ -1,8 +1,8 @@
-import { Tidystats } from "../classes/Tidystats"
-import { Collapsible } from "./Collapsible"
-import { Groups } from "./Groups"
-import { Statistics } from "./Statistics"
-import { Row, RowName, RowValue } from "./Row"
+import { Analysis } from "../../types"
+import { Collapsible } from "../rows/Collapsible"
+import { GroupRows } from "../rows/GroupRows"
+import { StatisticRows } from "../rows/StatisticRows"
+import { Row, RowName, RowValue } from "../rows/Row"
 import { Input, makeStyles } from "@fluentui/react-components"
 import { useState } from "react"
 
@@ -13,12 +13,12 @@ const useStyles = makeStyles({
   },
 })
 
-type AnalysesProps = {
-  tidystats: Tidystats
+type StatisticsTabProps = {
+  analyses: Analysis[]
 }
 
-export const Analyses = (props: AnalysesProps) => {
-  const { tidystats } = props
+export const StatisticsTab = (props: StatisticsTabProps) => {
+  const { analyses } = props
 
   const [search, setSearch] = useState("")
 
@@ -26,14 +26,14 @@ export const Analyses = (props: AnalysesProps) => {
 
   return (
     <>
-      <h2>Analyses</h2>
+      <h2>Statistics</h2>
       <Input
         className={styles.search}
         placeholder="Search..."
         spellCheck={false}
         onChange={(e) => setSearch(e.target.value)}
       ></Input>
-      {tidystats.analyses
+      {analyses
         .filter((x) => x.identifier.includes(search))
         .map((x) => {
           const statistics = x.statistics
@@ -53,8 +53,8 @@ export const Analyses = (props: AnalysesProps) => {
                 </RowName>
                 <RowValue>{x.method}</RowValue>
               </Row>
-              {statistics && <Statistics data={statistics} />}
-              {groups && <Groups data={groups} depth={0} />}
+              {statistics && <StatisticRows data={statistics} />}
+              {groups && <GroupRows data={groups} depth={0} />}
             </Collapsible>
           )
         })}

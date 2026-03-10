@@ -1,4 +1,4 @@
-import { Statistic, RangedStatistic } from "../classes/Statistic"
+import { Statistic, RangedStatistic } from "../types"
 
 const SMOL = ["p", "p̂", "r", "R²", "ges"]
 const INTEGERS = [

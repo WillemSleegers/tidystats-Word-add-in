@@ -1,5 +1,5 @@
 import { makeStyles, tokens } from "@fluentui/react-components"
-import src from "../assets/tidystats-icon.svg"
+import src from "../assets/analyses-icon.svg"
 
 const useStyles = makeStyles({
   header: {
@@ -18,8 +18,8 @@ export const Header = () => {
 
   return (
     <div className={styles.header}>
-      <img width={48} height={48} src={src} alt="tidystats" title="tidystats" />
-      <h1>tidystats</h1>
+      <img width={48} height={48} src={src} alt="analyses" title="analyses" />
+      <h1>analyses</h1>
     </div>
   )
 }

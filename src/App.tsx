@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import {
   Tab,
   TabList,
@@ -7,13 +7,14 @@ import {
   SelectTabData,
   makeStyles,
 } from "@fluentui/react-components"
-import { Analyses } from "./components/Analyses"
+import { StatisticsTab } from "./components/tabs/StatisticsTab"
 import { Header } from "./components/Header"
 import { Upload } from "./components/Upload"
-import { Actions } from "./components/Actions"
-import { Support } from "./components/Support"
-import { Tidystats } from "./classes/Tidystats"
-import { getSettingsData } from "./functions/settings"
+import { ActionsTab } from "./components/tabs/ActionsTab"
+import { SupportTab } from "./components/tabs/SupportTab"
+import { Analysis } from "./types"
+import { parseAnalyses } from "./utils/parseAnalyses"
+import { getSettingsData } from "./word/settings"
 
 const useStyles = makeStyles({
   app: {},
@@ -33,23 +34,20 @@ export const App = (props: AppProps) => {
   const { host } = props
   const styles = useStyles()
 
-  const [tidystats, setTidystats] = useState<Tidystats>()
+  const [analyses, setAnalyses] = useState<Analysis[] | undefined>(() => {
+    if (host === Office.HostType.Word) {
+      const savedStatistics = getSettingsData("statistics")
+      if (savedStatistics) {
+        return parseAnalyses(JSON.parse(savedStatistics))
+      }
+    }
+    return undefined
+  })
   const [selectedTab, setSelectedTab] = useState<TabValue>("statistics")
 
   const onTabSelect = (_event: SelectTabEvent, data: SelectTabData) => {
     setSelectedTab(data.value)
   }
-
-  useEffect(() => {
-    if (host === Office.HostType.Word) {
-      const savedStatistics = getSettingsData("statistics")
-
-      if (savedStatistics) {
-        const savedTidystats = new Tidystats(JSON.parse(savedStatistics))
-        setTidystats(savedTidystats)
-      }
-    }
-  }, [])
 
   return (
     <div className={styles.app}>
@@ -74,12 +72,12 @@ export const App = (props: AppProps) => {
         <div className={styles.content}>
           {selectedTab === "statistics" && (
             <>
-              <Upload setTidystats={setTidystats} />
-              {tidystats && <Analyses tidystats={tidystats} />}
+              <Upload setAnalyses={setAnalyses} />
+              {analyses && <StatisticsTab analyses={analyses} />}
             </>
           )}
-          {selectedTab === "actions" && <Actions tidystats={tidystats} />}
-          {selectedTab === "support" && <Support />}
+          {selectedTab === "actions" && <ActionsTab analyses={analyses} />}
+          {selectedTab === "support" && <SupportTab />}
         </div>
       </div>
     </div>

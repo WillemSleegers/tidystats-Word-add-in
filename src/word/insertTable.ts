@@ -1,7 +1,7 @@
-import { RangedStatistic, Statistic } from "../classes/Statistic"
-import { Group } from "../classes/Group"
-import { formatName } from "../functions/formatName"
-import { formatValue } from "../functions/formatValue"
+import { RangedStatistic, Statistic } from "../types"
+import { Group } from "../types"
+import { formatName } from "../utils/formatName"
+import { formatValue } from "../utils/formatValue"
 
 export const insertTable = async (data: Group) => {
   const groups = data.groups!
