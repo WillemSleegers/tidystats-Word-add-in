@@ -58,8 +58,41 @@ export const insertStatistics = async (
       }
 
       if ("level" in x) {
+        // Insert the estimate value
+        if (x.symbol != "%") {
+          const name = range.getRange("End")
+          name.insertText(x.symbol ? x.symbol : x.name, "End")
+          name.font.italic = true
+
+          if (x.subscript) {
+            const subscript = range.getRange("End")
+            subscript.insertText(x.subscript, "End")
+            subscript.font.subscript = true
+          }
+        }
+
+        const estimateValue = formatValue(x, 2)
+        const equal = range.getRange("End")
+        if (x.symbol != "%") {
+          equal.insertText(" = ", "End")
+        }
+        equal.font.italic = false
+        equal.font.subscript = false
+
+        const estimateCC = range.getRange("End").insertContentControl()
+        estimateCC.insertText(estimateValue, Word.InsertLocation.end)
+        estimateCC.tag = x.identifier
+
+        if (x.symbol == "%") {
+          const pct = range.getRange("End")
+          pct.insertText("%", "End")
+          pct.font.italic = false
+        }
+
+        range.getRange("End").insertText(", ", "End")
+
         // Create the confidence interval section
-        const levelRange = range.getRange()
+        const levelRange = range.getRange("End")
         const levelCC = levelRange.insertContentControl()
         levelCC.insertText(
           (x.level * 100).toString(),
@@ -68,7 +101,7 @@ export const insertStatistics = async (
         levelCC.tag = x.identifier + "$level"
         levelRange.insertText("% " + x.interval + " [", Word.InsertLocation.end)
 
-        const lowerRange = range.getRange()
+        const lowerRange = range.getRange("End")
         const lowerCC = lowerRange.insertContentControl()
         lowerCC.insertText(
           formatValue(x, 2, "lower"),
@@ -76,9 +109,9 @@ export const insertStatistics = async (
         )
         lowerCC.tag = x.identifier + "$lower"
 
-        range.getRange().insertText(", ", Word.InsertLocation.end)
+        range.getRange("End").insertText(", ", Word.InsertLocation.end)
 
-        const upperRange = range.getRange()
+        const upperRange = range.getRange("End")
         const upperCC = upperRange.insertContentControl()
         upperCC.insertText(
           formatValue(x, 2, "upper"),
