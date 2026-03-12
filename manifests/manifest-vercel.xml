@@ -81,7 +81,7 @@
         <bt:String id="TaskpaneButton.Label" DefaultValue="Insert Statistics"/>
       </bt:ShortStrings>
       <bt:LongStrings>
-        <bt:String id="GetStarted.Description" DefaultValue="tidystats loaded succesfully. Go to the Insert tab and click the 'Insert Statistics' button to get started."/>
+        <bt:String id="GetStarted.Description" DefaultValue="tidystats loaded successfully. Go to the Insert tab and click the 'Insert Statistics' button to get started."/>
         <bt:String id="TaskpaneButton.Tooltip" DefaultValue="Click to open tidystats"/>
       </bt:LongStrings>
     </Resources>
