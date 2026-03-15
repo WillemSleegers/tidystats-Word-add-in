@@ -19,7 +19,7 @@ export const Header = () => {
   return (
     <div className={styles.header}>
       <img width={48} height={48} src={src} alt="analyses" title="analyses" />
-      <h1>analyses</h1>
+      <h1>tidystats</h1>
     </div>
   )
 }
