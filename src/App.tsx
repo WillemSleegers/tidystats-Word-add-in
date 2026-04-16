@@ -9,7 +9,6 @@ import {
 } from "@fluentui/react-components"
 import { StatisticsTab } from "./components/tabs/StatisticsTab"
 import { Header } from "./components/Header"
-import { Upload } from "./components/Upload"
 import { ActionsTab } from "./components/tabs/ActionsTab"
 import { SupportTab } from "./components/tabs/SupportTab"
 import { Analysis } from "./types"
@@ -71,10 +70,7 @@ export const App = (props: AppProps) => {
 
         <div className={styles.content}>
           {selectedTab === "statistics" && (
-            <>
-              <Upload setAnalyses={setAnalyses} />
-              {analyses && <StatisticsTab analyses={analyses} />}
-            </>
+            <StatisticsTab analyses={analyses} setAnalyses={setAnalyses} />
           )}
           {selectedTab === "actions" && <ActionsTab analyses={analyses} />}
           {selectedTab === "support" && <SupportTab />}

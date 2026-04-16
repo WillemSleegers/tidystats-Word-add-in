@@ -41,16 +41,16 @@ export const SupportTab = () => {
 
   return (
     <>
-      <h3 className={styles.h3}>Help</h3>
+      <h3 className={styles.h3}>Website</h3>
       <p className={styles.p}>
-        See the analyses{" "}
+        See the tidystats{" "}
         <Link
-          href="https://willemsleegers.github.io/analyses/articles/word-add-in.html"
+          href="https://willemsleegers.github.io/tidystats/articles/word-add-in.html"
           target="_blank"
         >
           website
         </Link>{" "}
-        for more information on how to use analyses.
+        for more information on how to use tidystats.
       </p>
 
       <h3 className={styles.h3}>Help tips</h3>
@@ -65,14 +65,14 @@ export const SupportTab = () => {
         Re-enable help tips
       </Button>
 
-      <h3 className={styles.h3}>Cite analyses</h3>
+      <h3 className={styles.h3}>Cite tidystats</h3>
       <p className={styles.p}>
-        Please consider citing analyses if you've found it useful.
+        Please consider citing tidystats if you've found it useful.
       </p>
       <blockquote className={styles.blockquote}>
         <p style={{ margin: 0 }}>
           Sleegers, W. W. A. (2026).{" "}
-          <em>analyses: Save output of statistical tests</em>.{" "}
+          <em>tidystats: Save output of statistical tests</em>.{" "}
           <Link target="_blank" href="https://doi.org/10.5281/zenodo.4041858">
             https://doi.org/10.5281/zenodo.4041858
           </Link>
