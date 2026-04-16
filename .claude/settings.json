@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm outdated:*)",
+      "Bash(npm update:*)",
+      "Bash(npm run:*)"
+    ]
+  }
+}
