@@ -1,5 +1,11 @@
 # News
 
+## 1.1.2
+
+### Changes
+
+* Updated all packages to their latest versions, including ESLint 10, TypeScript 6, and Vite 8.
+
 ## 1.1.1
 
 ### Changes
