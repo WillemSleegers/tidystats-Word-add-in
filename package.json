@@ -11,26 +11,30 @@
     "start": "office-addin-debugging start manifests/manifest-local.xml"
   },
   "dependencies": {
-    "@fluentui/react": "^8.112.3",
-    "@fluentui/react-components": "^9.35.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "@fluentui/react": "^8.125.7",
+    "@fluentui/react-components": "^9.74.4",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/office-js": "^1.0.353",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@typescript-eslint/eslint-plugin": "^8.32",
-    "@typescript-eslint/parser": "^8.32",
-    "@vitejs/plugin-react": "^6.0.1",
-    "eslint": "^10.3.0",
-    "eslint-plugin-react-hooks": "^7.0.1",
-    "eslint-plugin-react-refresh": "^0.5.2",
-    "office-addin-debugging": "^6.0",
+    "@types/office-js": "^1.0.604",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.4",
+    "@typescript-eslint/eslint-plugin": "^8.66",
+    "@typescript-eslint/parser": "^8.66",
+    "@vitejs/plugin-react": "^6.0.5",
+    "eslint": "^10.8.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.3",
+    "office-addin-debugging": "^6.1",
     "typescript": "^6.0.2",
-    "typescript-eslint": "^8.56.1",
-    "vite": "^8.0.8",
-    "vite-plugin-mkcert": "^2.0.0"
+    "typescript-eslint": "^8.66.0",
+    "vite": "^8.2.0",
+    "vite-plugin-mkcert": "^2.1.0"
+  },
+  "overrides": {
+    "adm-zip": "^0.6.0",
+    "uuid": "^11.1.1"
   }
 }
