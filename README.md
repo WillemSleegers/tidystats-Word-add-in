@@ -27,17 +27,11 @@ The add-in is available in the Office add-in store. This means the add-in can be
 
 Before you can use the tidystats Word add-in, you must create a file containing your statistics using the tidystats R package. For details on how to do this, please see the [introduction to tidystats](https://willemsleegers.github.io/tidystats/articles/introduction-to-tidystats.html) vignette on the R package [website](https://willemsleegers.github.io/tidystats/) of tidystats.
 
-If you simply want to try out the add-in, you can also use [this](src/assets/results.json) example file.
-
 Once you have a file created with tidystats and you want to insert the statistics into your document, go to the Insert pane of your Word document and click on 'Insert Statistics'.
 
 Next, click on 'Upload statistics' and select the file you created with tidystats.
 
-![add-in screenshot upload statistics](src/assets/screen-1.png)
-
 This should reveal a list of your analyses, each with a name that identifies your analysis. You can use the Search text box to search for your analyses. Click on one of the analyses to reveal its statistics and click on one of the plus icons to insert a statistic or group of statistics into your document.
-
-![add-in screenshot insert statistics](src/assets/screen-2.png)
 
 By default, clicking on the plus icon next to 'Statistics:' will insert all the statistics. If you only want to insert a subset of the statistics, click on the gear icon next to 'Statistics:' and select the statistics you would like to insert. After making your selection, click on the plus icon to insert the statistics.
 
@@ -61,11 +55,11 @@ The current release version of the add-in is 1.1. This means that the add-in is 
 
 ### Installing the development version of tidystats for Word
 
-Download one of the manifest files. This is the file that needs to be installed on your computer somewhere in order to run the add-in. Download the local manifest file if you can host the web-app yourself; download the netlify manifest file for the most recent version of tidystats; and download the web manifest file for the latest official release version of tidystats.
+Download one of the manifest files from the [manifests](manifests/) folder. This is the file that needs to be installed on your computer somewhere in order to run the add-in. Use the local manifest if you want to host the web app yourself; use the other manifest to test the latest hosted development version without building or hosting anything yourself.
 
 #### Mac
 
-To install the add-in in Mac, see the 'Sideload an add-in in Office on Mac' section [here](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/sideload-an-office-add-in-on-ipad-and-mac#sideload-an-add-in-in-office-on-mac). Briefly put, you need to put the manifest file in the following folder:
+To install the add-in in Mac, see [Sideload Office Add-ins on Mac for testing](https://learn.microsoft.com/en-us/office/dev/add-ins/testing/sideload-an-office-add-in-on-mac). Briefly put, you need to put the manifest file in the following folder:
 
 > /Users/\<username\>/Library/Containers/com.microsoft.Word/Data/Documents/wef
 
@@ -79,11 +73,11 @@ Start by creating a new folder somewhere on your computer. Share this folder by 
 
 Open a Word document and go to File -> Options -> Trust Center. Here, click on Trust Center Settings and then Trusted Add-in Catalogs. In the Catalog Url box, enter the full network path to the folder that you shared previously. Click on Add catalog and make sure the Show in Menu checkbox is checked. Click on OK and restart Word.
 
-Next, put the manifest file you downloaded from here in the shared folder.
+Next, put the manifest file you downloaded earlier in the shared folder.
 
 In Word, go to the Insert tab and click on My Add-ins. Choose Shared Folder at the top of the Office Add-ins dialog box. Select the name of the add-in and choose Add to insert the add-in. The add-in should now be installed.
 
-For more information, see [this](https://docs.microsoft.com/en-us/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins) webpage, which also includes a link to a Youtube video explaining how to install the add-in.
+For more information, see [this](https://learn.microsoft.com/en-us/office/dev/add-ins/testing/create-a-network-shared-folder-catalog-for-task-pane-and-content-add-ins) webpage, which also includes a link to a Youtube video explaining how to install the add-in.
 
 ### Bugs and feature requests
 
